@@ -1,0 +1,31 @@
+{
+  "name": "game-changer-api",
+  "version": "1.0.0",
+  "description": "Game changer Api",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parzen/gameChanger.git"
+  },
+  "author": "Adrian Tomasek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parzen/gameChanger/issues"
+  },
+  "homepage": "https://github.com/parzen/gameChanger#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.5",
+    "mongoose-unique-validator": "^2.0.3",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
