@@ -1,0 +1,37 @@
+<mat-grid-list cols="3">
+  <ng-container *ngFor="let game of games">
+    <mat-grid-tile>
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{game.title}}</mat-card-title>
+          <mat-card-subtitle>{{game.gameType}}</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="{{game.thumbnail}}"
+        />
+        <mat-card-content>
+          <div class="content">
+            <mat-icon aria-hidden="false" >people</mat-icon>
+             {{game.minPlayers}} - {{game.maxPlayers}}
+          </div>
+          <div class="content">
+            <mat-icon aria-hidden="false" >timer</mat-icon>
+             {{game.playingTime}} min
+          </div>
+          <div class="content">
+            Age {{game.minAge}}
+          </div>
+          <div class="content" *ngIf="game.note != ''">
+            <mat-icon aria-hidden="false" >info</mat-icon>
+            {{game.note}}
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary">EDIT</button>
+          <button mat-button color="warn">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list>
