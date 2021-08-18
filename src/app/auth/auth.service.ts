@@ -74,7 +74,7 @@ export class AuthService {
             now.getTime() + expiresInDuration * 1000
           );
           this.saveAuthData(token, expirationDate, this.userId);
-          this.router.navigate(['/games']);
+          this.router.navigate(['/games/list']);
         }
       }, error => {
         this.authStatusListener.next(false);

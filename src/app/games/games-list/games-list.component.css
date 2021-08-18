@@ -20,3 +20,9 @@ img {
   display: flex;
   flex: 1 1 auto;
 }
+
+.add-button-container {
+  right: 20px;
+  padding-top: 20px;
+  position: fixed;
+}

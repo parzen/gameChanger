@@ -1,15 +1,29 @@
-import { Game } from './../shared/interfaces/game.interface';
+import { GameAddComponent } from '../game-add/game-add.component';
+import { Game } from '../../shared/interfaces/game.interface';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-games',
-  templateUrl: './games.component.html',
-  styleUrls: ['./games.component.css'],
+  selector: 'app-games-list',
+  templateUrl: './games-list.component.html',
+  styleUrls: ['./games-list.component.css'],
 })
-export class GamesComponent implements OnInit {
+export class GamesListComponent implements OnInit {
   games: Game[] = [];
 
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
+
+  addGame() {
+    const dialogRef = this.dialog.open(GameAddComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  onDelete(id: string) {
+    console.log('Delete ' + id);
+  }
 
   ngOnInit(): void {
     this.games = [

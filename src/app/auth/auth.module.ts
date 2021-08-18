@@ -12,8 +12,8 @@ declarations: [
   SignupComponent
 ],
 imports: [
-  CommonModule,
   AngularMaterialModule,
+  CommonModule,
   FormsModule,
   AuthRoutingModule
 ]
