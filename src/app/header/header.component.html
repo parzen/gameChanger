@@ -1,12 +1,20 @@
 <mat-toolbar color="primary">
   <span><a routerLink="/">Game Changer</a></span>
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="games" routerLinkActive="mat-accent">Games</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="play" routerLinkActive="mat-accent">Lets' Play!</a>
+    </li>
+  </ul>
   <span class="spacer"></span>
   <ul>
     <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/login">Login</a>
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
     </li>
     <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/signup">Signup</a>
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
     </li>
     <li *ngIf="userIsAuthenticated">
       <a mat-button (click)="onLogout()">Logout</a>

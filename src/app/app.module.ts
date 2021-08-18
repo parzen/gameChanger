@@ -8,12 +8,22 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlayComponent } from './play/play.component';
+import { GamesComponent } from './games/games.component';
+import { GamesListComponent } from './games-list/games-list.component';
+import { GameAddComponent } from './game-add/game-add.component';
+import { GameEditComponent } from './game-edit/game-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    DashboardComponent
+    DashboardComponent,
+    PlayComponent,
+    GamesComponent,
+    GamesListComponent,
+    GameAddComponent,
+    GameEditComponent
   ],
   imports: [
     BrowserModule,
