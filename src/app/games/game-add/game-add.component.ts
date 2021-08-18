@@ -42,7 +42,8 @@ export class GameAddComponent implements OnInit {
       playingTime: this.addGameForm.value.playingTime,
       minAge: this.addGameForm.value.minAge,
       note: this.addGameForm.value.note,
-      gameType: this.addGameForm.value.gameType
+      gameType: this.addGameForm.value.gameType,
+      creator: ""
 
     }
     console.log(newGame);

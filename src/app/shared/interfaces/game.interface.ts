@@ -9,4 +9,5 @@ export interface Game {
   minAge: string;
   note: string;
   gameType: string;
+  creator: string;
 }

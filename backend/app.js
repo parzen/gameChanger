@@ -1,5 +1,6 @@
 const express = require("express");
 const userRoutes = require("./routes/user");
+const gameRoutes = require("./routes/game");
 
 const app = express();
 
@@ -44,5 +45,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/game", gameRoutes);
 
 module.exports = app;

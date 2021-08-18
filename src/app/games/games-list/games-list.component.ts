@@ -40,6 +40,7 @@ export class GamesListComponent implements OnInit {
         minAge: '14',
         note: 'Am besten ab vier Spieler',
         gameType: 'Boardgame',
+        creator: ""
       },
       {
         id: '1',
@@ -54,6 +55,7 @@ export class GamesListComponent implements OnInit {
         minAge: '10',
         note: '',
         gameType: 'Boardgame',
+        creator: ""
       },
     ];
   }
