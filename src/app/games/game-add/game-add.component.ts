@@ -12,6 +12,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameAddComponent implements OnInit {
   isLoading = false;
+  useApi = false;
+  toggleFormText = '';
+  games = [];
   customAddGameForm: FormGroup;
   apiAddGameForm: FormGroup;
   authStatusSub: Subscription;
@@ -23,6 +26,7 @@ export class GameAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.toggleFormType();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((authStatus) => {
@@ -45,16 +49,45 @@ export class GameAddComponent implements OnInit {
     });
   }
 
+  toggleFormType() {
+    this.useApi = !this.useApi;
+    if (this.useApi) {
+      this.toggleFormText = 'Use custom form';
+    } else {
+      this.toggleFormText = 'Use Api';
+    }
+  }
+
   async onSearch() {
     if (!this.apiAddGameForm.valid) {
       return;
     }
-    const BGG_URL = 'https://www.boardgamegeek.com/xmlapi2/search?';
-    const query = BGG_URL + 'query=' + this.apiAddGameForm.value.title;
-    console.log(query);
-    const xmlData = await fetch(query);
-    console.log("xmlData: ", xmlData);
+    const clientId = 'XcGu7GjNEz';
 
+    const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=10&name=`;
+    const query = BGA_URL + this.apiAddGameForm.value.title;
+    console.log(query);
+    const response = await fetch(query);
+    const data = await response.json();
+    if (data.count == 0) {
+      console.log('Nothing found!');
+    } else {
+      this.games = data.games.map((game) => {
+        return {
+          title: game.name,
+          thumbnail: game.images.thumb,
+          image: game.image_url,
+          minPlayers: game.min_players,
+          maxPlayers: game.max_players,
+          minPlayTime: game.min_playtime,
+          maxPlayTime: game.max_playtime,
+          minAge: game.min_age,
+          note: game.description_preview,
+          gameType: game.type,
+        };
+      });
+      console.log(this.games);
+    }
   }
 
   onSubmit() {
