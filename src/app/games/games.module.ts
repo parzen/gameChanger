@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { GamesRoutingModule } from './games-routing.module';
 import { GamesListComponent } from './games-list/games-list.component';
 import { GameAddComponent } from './game-add/game-add.component';
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     ReactiveFormsModule,
     GamesRoutingModule,
+    HttpClientModule
   ],
 })
 export class GamesModule {}

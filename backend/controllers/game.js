@@ -1,18 +1,24 @@
 const Game = require("../models/game");
 
 exports.addGame = (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
   const game = new Game({
     title: req.body.title,
-    content: req.body.content,
-    creator: req.userData.userId,
+    thumbnail: req.body.thumbnail,
+    image: req.body.image,
+    minPlayers: req.body.minPlayers,
+    maxPlayers: req.body.maxPlayers,
+    playingTime: req.body.playingTime,
+    minAge: req.body.minAge,
+    note: req.body.note,
+    gameType: req.body.gameType,
+    creator: req.userData.userId
   });
   game
     .save()
     .then((createdGame) => {
       res.status(201).json({
         message: "Game added successfully",
-        post: {
+        game: {
           ...createdGame,
           id: createdGame._id,
         },
@@ -54,23 +60,18 @@ exports.editGame = (req, res, next) => {
 };
 
 exports.getGames = (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = +req.query.page;
   const gameQuery = Game.find();
   let fetchedGames;
-  if (pageSize && currentPage) {
-    gameQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  }
   gameQuery
     .then((documents) => {
       fetchedGames = documents;
+      console.log(fetchedGames)
       return Game.count();
     })
     .then((count) => {
       res.status(200).json({
         message: "Games fetched succesfully!",
-        games: fetchedGames,
-        maxGames: count,
+        games: fetchedGames
       });
     })
     .catch((error) => {

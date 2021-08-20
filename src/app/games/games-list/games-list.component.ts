@@ -1,6 +1,9 @@
+import { Subscription } from 'rxjs';
+import { AuthService } from './../../auth/auth.service';
+import { GamesService } from './../games.service';
 import { GameAddComponent } from '../game-add/game-add.component';
 import { Game } from '../../shared/interfaces/game.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -8,10 +11,19 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './games-list.component.html',
   styleUrls: ['./games-list.component.css'],
 })
-export class GamesListComponent implements OnInit {
+export class GamesListComponent implements OnInit, OnDestroy {
   games: Game[] = [];
+  isLoading = false;
+  userId: string = '';
+  userIsauthenticated = false;
+  private authStatusSub!: Subscription;
+  private gamesSub!: Subscription;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private gameService: GamesService,
+    private authService: AuthService
+  ) {}
 
   addGame() {
     const dialogRef = this.dialog.open(GameAddComponent);
@@ -21,42 +33,36 @@ export class GamesListComponent implements OnInit {
     });
   }
 
-  onDelete(id: string) {
-    console.log('Delete ' + id);
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.gameService.getGames();
+    this.userId = this.authService.getUserId();
+    this.gamesSub = this.gameService
+      .getGameUpdateListener()
+      .subscribe((gameData: { games: Game[] }) => {
+        this.isLoading = false;
+        this.games = gameData.games;
+      });
+    this.userIsauthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.userId = this.authService.getUserId();
+        this.userIsauthenticated = isAuthenticated;
+      });
   }
 
-  ngOnInit(): void {
-    this.games = [
-      {
-        id: '0',
-        title: 'Codenames',
-        thumbnail:
-          'https://cf.geekdo-images.com/F_KDEu0GjdClml8N7c8Imw__thumb/img/yl8iXxSNwguMeg3KkmfFO9SMVVc=/fit-in/200x150/filters:strip_icc()/pic2582929.jpg',
-        image:
-          'https://cf.geekdo-images.com/F_KDEu0GjdClml8N7c8Imw__original/img/gcX_EfjsRpB5fI4Ug4XV73G4jGI=/0x0/filters:format(jpeg)/pic2582929.jpg',
-        minPlayers: '2',
-        maxPlayers: '8',
-        playingTime: '15',
-        minAge: '14',
-        note: 'Am besten ab vier Spieler',
-        gameType: 'Boardgame',
-        creator: ""
-      },
-      {
-        id: '1',
-        title: 'Risk',
-        thumbnail:
-          'https://cf.geekdo-images.com/Oem1TTtSgxOghRFCoyWRPw__thumb/img/5cltSV60oVvjL3Ag_KTJbmTdU6w=/fit-in/200x150/filters:strip_icc()/pic4916782.jpg',
-        image:
-          'https://cf.geekdo-images.com/Oem1TTtSgxOghRFCoyWRPw__original/img/Nu3eXPyOkhtnR3hhpUrtgqRMAfs=/0x0/filters:format(jpeg)/pic4916782.jpg',
-        minPlayers: '2',
-        maxPlayers: '6',
-        playingTime: '120',
-        minAge: '10',
-        note: '',
-        gameType: 'Boardgame',
-        creator: ""
-      },
-    ];
+  ngOnDestroy() {
+    this.gamesSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
+  }
+
+  onDelete(gameId: string) {
+    this.isLoading = true;
+    this.gameService.deleteGame(gameId).subscribe(() => {
+      this.gameService.getGames();
+    }, () => {
+      this.isLoading = false;
+    });
   }
 }

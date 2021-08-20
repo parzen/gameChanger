@@ -17,23 +17,20 @@ const BACKEND_URL = environment.apiUrl + '/games/';
 @Injectable({ providedIn: 'root' })
 export class GamesService {
   private games: Game[] = [];
-  private gamesUpdated = new Subject<{ games: Game[]; gameCount: number }>(); // Subject ist einfache Art eines Observable
+  private gamesUpdated = new Subject<{ games: Game[] }>(); // Subject ist einfache Art eines Observable
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getGames(gamesPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${gamesPerPage}&page=${currentPage}`;
+  getGames() {
     // Für http braucht man nicht unsubscriben, wird von angular behandelt
     this.http
-      .get<{ message: string; games: any; maxGames: number }>(
-        BACKEND_URL + queryParams
-      )
+      .get<{ message: string; games: any }>(BACKEND_URL)
       .pipe(
         map((gameData) => {
           return {
             games: gameData.games.map((game: Game | any) => {
               return {
-                id: game.id,
+                id: game._id,
                 title: game.title,
                 thumbnail: game.thumbnail,
                 image: game.image,
@@ -46,7 +43,6 @@ export class GamesService {
                 creator: game.creator,
               };
             }),
-            maxGames: gameData.maxGames,
           };
         })
       )
@@ -54,7 +50,6 @@ export class GamesService {
         this.games = transformedGameData.games;
         this.gamesUpdated.next({
           games: [...this.games],
-          gameCount: transformedGameData.maxGames,
         });
       });
     //return [...this.games]; // array is copied out from games object
@@ -87,21 +82,20 @@ export class GamesService {
   }
 
   addGame(game: Game) {
-    const gameData = new FormData();
-    gameData.append('title', game.title);
-    gameData.append('thumbnail', game.thumbnail);
-    gameData.append('image', game.image);
-    gameData.append('minPlayers', game.minPlayers);
-    gameData.append('maxPlayers', game.maxPlayers);
-    gameData.append('playingTime', game.playingTime);
-    gameData.append('minAge', game.minAge);
-    gameData.append('note', game.note);
-    gameData.append('gameType', game.gameType);
-
     this.http
-      .post<{ message: string; game: Game }>(BACKEND_URL, gameData)
+      .post<{ message: string; game: Game }>(BACKEND_URL, {
+        title: game.title,
+        thumbnail: game.thumbnail,
+        image: game.image,
+        minPlayers: game.minPlayers,
+        maxPlayers: game.maxPlayers,
+        playingTime: game.playingTime,
+        minAge: game.minAge,
+        note: game.note,
+        gameType: game.gameType
+      })
       .subscribe((responseData) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/games/list']);
       });
   }
 
@@ -118,11 +112,13 @@ export class GamesService {
       minAge: game.minAge,
       note: game.note,
       gameType: game.gameType,
-      creator: '',
+      creator: null,
     };
-    this.http.put(BACKEND_URL + '/' + game.id, gameData).subscribe((response) => {
-      this.router.navigate(['/']);
-    });
+    this.http
+      .put(BACKEND_URL + '/' + game.id, gameData)
+      .subscribe((response) => {
+        this.router.navigate(['/']);
+      });
   }
 
   deleteGame(gameId: string) {

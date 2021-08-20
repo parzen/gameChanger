@@ -1,135 +1,202 @@
 <h2 mat-dialog-title>Add game</h2>
-<mat-dialog-content class="mat-typography">
-  <div class="form-container">
-    <form [formGroup]="addGameForm">
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title" required />
-        <mat-error
-          *ngIf="
-            addGameForm.controls.title.touched &&
-            addGameForm.controls.title.invalid
-          "
-        >
-          <span
-            *ngIf="
-              addGameForm.controls.title.errors &&
-              addGameForm.controls.title.errors.required
-            "
-            >This field is mandatory.</span
-          >
-          <span
-            *ngIf="
-              addGameForm.controls.title.errors &&
-              addGameForm.controls.title.errors.pattern
-            "
-            >This field is invalid.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>Thumbnail</mat-label>
-        <input
-          matInput
-          formControlName="thumbnail"
-          placeholder="Insert link to thumbnail"
-        />
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>Image</mat-label>
-        <input
-          matInput
-          formControlName="image"
-          placeholder="Insert link to image"
-        />
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>minAge</mat-label>
-        <input matInput formControlName="minAge" required type="number" />
-        <mat-error
-          *ngIf="
-            addGameForm.controls.minAge.touched &&
-            addGameForm.controls.minAge.invalid
-          "
-        >
-          <span
-            *ngIf="
-              addGameForm.controls.minAge.errors &&
-              addGameForm.controls.minAge.errors.required
-            "
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>minPlayers</mat-label>
-        <input matInput formControlName="minPlayers" required type="number" />
-        <mat-error
-          *ngIf="
-            addGameForm.controls.minPlayers.touched &&
-            addGameForm.controls.minPlayers.invalid
-          "
-        >
-          <span
-            *ngIf="
-              addGameForm.controls.minPlayers.errors &&
-              addGameForm.controls.minPlayers.errors.required
-            "
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>maxPlayers</mat-label>
-        <input matInput formControlName="maxPlayers" required type="number" />
-        <mat-error
-          *ngIf="
-            addGameForm.controls.maxPlayers.touched &&
-            addGameForm.controls.maxPlayers.invalid
-          "
-        >
-          <span
-            *ngIf="
-              addGameForm.controls.maxPlayers.errors &&
-              addGameForm.controls.maxPlayers.errors.required
-            "
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>playingTime</mat-label>
-        <input matInput formControlName="playingTime" required type="number" />
-        <mat-error
-          *ngIf="
-            addGameForm.controls.playingTime.touched &&
-            addGameForm.controls.playingTime.invalid
-          "
-        >
-          <span
-            *ngIf="
-              addGameForm.controls.playingTime.errors &&
-              addGameForm.controls.playingTime.errors.required
-            "
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>gameType</mat-label>
-        <mat-select required value="boardgame">
-          <mat-option value="boardgame">Boardgame</mat-option>
-          <mat-option value="videogame">Videogame</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>note</mat-label>
-        <textarea matInput formControlName="note"></textarea>
-      </mat-form-field>
-    </form>
-  </div>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-dialog-content class="mat-typography" *ngIf="!isLoading">
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Use Api </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="apiAddGameForm">
+        <mat-form-field class="form-field" appearance="outline">
+          <div class="searchrow">
+            <mat-input.container>
+              <mat-label>Title</mat-label>
+              <input matInput formControlName="title" required />
+              <mat-error
+                *ngIf="
+                  apiAddGameForm.controls.title.touched &&
+                  apiAddGameForm.controls.title.invalid
+                "
+              >
+                <span
+                  *ngIf="
+                    apiAddGameForm.controls.title.errors &&
+                    apiAddGameForm.controls.title.errors.required
+                  "
+                  >This field is mandatory.</span
+                >
+                <span
+                  *ngIf="
+                    apiAddGameForm.controls.title.errors &&
+                    apiAddGameForm.controls.title.errors.pattern
+                  "
+                  >This field is invalid.</span
+                >
+              </mat-error>
+            </mat-input.container>
+            <div>
+              <button mat-button (click)="onSearch()">
+                <md-icon class="material-icons">search</md-icon>
+              </button>
+            </div>
+          </div>
+        </mat-form-field>
+      </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Use custom adding </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="form-container">
+        <form [formGroup]="customAddGameForm">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" required />
+            <mat-error
+              *ngIf="
+                customAddGameForm.controls.title.touched &&
+                customAddGameForm.controls.title.invalid
+              "
+            >
+              <span
+                *ngIf="
+                  customAddGameForm.controls.title.errors &&
+                  customAddGameForm.controls.title.errors.required
+                "
+                >This field is mandatory.</span
+              >
+              <span
+                *ngIf="
+                  customAddGameForm.controls.title.errors &&
+                  customAddGameForm.controls.title.errors.pattern
+                "
+                >This field is invalid.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Thumbnail</mat-label>
+            <input
+              matInput
+              formControlName="thumbnail"
+              placeholder="Insert link to thumbnail"
+            />
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Image</mat-label>
+            <input
+              matInput
+              formControlName="image"
+              placeholder="Insert link to image"
+            />
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>minAge</mat-label>
+            <input matInput formControlName="minAge" required type="number" />
+            <mat-error
+              *ngIf="
+                customAddGameForm.controls.minAge.touched &&
+                customAddGameForm.controls.minAge.invalid
+              "
+            >
+              <span
+                *ngIf="
+                  customAddGameForm.controls.minAge.errors &&
+                  customAddGameForm.controls.minAge.errors.required
+                "
+                >This field is mandatory.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <div class="horizontal">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>minPlayers</mat-label>
+              <input
+                matInput
+                formControlName="minPlayers"
+                required
+                type="number"
+              />
+              <mat-error
+                *ngIf="
+                  customAddGameForm.controls.minPlayers.touched &&
+                  customAddGameForm.controls.minPlayers.invalid
+                "
+              >
+                <span
+                  *ngIf="
+                    customAddGameForm.controls.minPlayers.errors &&
+                    customAddGameForm.controls.minPlayers.errors.required
+                  "
+                  >This field is mandatory.</span
+                >
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>maxPlayers</mat-label>
+              <input
+                matInput
+                formControlName="maxPlayers"
+                required
+                type="number"
+              />
+              <mat-error
+                *ngIf="
+                  customAddGameForm.controls.maxPlayers.touched &&
+                  customAddGameForm.controls.maxPlayers.invalid
+                "
+              >
+                <span
+                  *ngIf="
+                    customAddGameForm.controls.maxPlayers.errors &&
+                    customAddGameForm.controls.maxPlayers.errors.required
+                  "
+                  >This field is mandatory.</span
+                >
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>playingTime</mat-label>
+            <input
+              matInput
+              formControlName="playingTime"
+              required
+              type="number"
+            />
+            <mat-error
+              *ngIf="
+                customAddGameForm.controls.playingTime.touched &&
+                customAddGameForm.controls.playingTime.invalid
+              "
+            >
+              <span
+                *ngIf="
+                  customAddGameForm.controls.playingTime.errors &&
+                  customAddGameForm.controls.playingTime.errors.required
+                "
+                >This field is mandatory.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>gameType</mat-label>
+            <mat-select required value="boardgame">
+              <mat-option value="boardgame">Boardgame</mat-option>
+              <mat-option value="videogame">Videogame</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>note</mat-label>
+            <textarea matInput formControlName="note"></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button cdkFocusInitial (click)="onSubmit()">Save</button> <!--[mat-dialog-close]="true"-->
+  <button mat-button cdkFocusInitial (click)="onSubmit()">Save</button>
+  <!--[mat-dialog-close]="true"-->
 </mat-dialog-actions>

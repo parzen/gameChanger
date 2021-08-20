@@ -1,3 +1,13 @@
 .form-field{
   display: block
 }
+
+.horizontal {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.searchrow {
+  display: flex;
+  justify-content: space-between;
+}

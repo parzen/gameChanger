@@ -13,9 +13,9 @@ const BACKEND_URL = environment.apiUrl + "/user/"
 })
 export class AuthService {
   private isAuthenticated = false;
-  private token: string | null = null;
+  private token: string;
   private tokenTimer: any;
-  private userId: string | null = null;
+  private userId: string;
   private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
