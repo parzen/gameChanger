@@ -4,7 +4,7 @@
   <div *ngIf="useApi">
     <form [formGroup]="apiAddGameForm">
       <mat-form-field class="form-field" appearance="outline">
-        <div class="searchrow">
+        <div class="flex spaceBetween">
           <mat-input.container>
             <mat-label>Title</mat-label>
             <input id="searchApi" matInput formControlName="title" required />
@@ -36,13 +36,40 @@
             </button>
           </div>
         </div>
-        <div *ngIf="games.length > 0">
-          <li *ngFor="let game of games">
-            {{ game.title }}
-          </li>
-        </div>
       </mat-form-field>
     </form>
+    <div *ngIf="games.length > 0" class="gamesList">
+      <div *ngFor="let game of games; let i = index">
+        <div class="card">
+          <div class="imgText">
+            <img src="{{ game.thumbnail }}" />
+            <div class="container">
+              <div class="card__content">
+                <h1>{{ game.title }}</h1>
+                <div class="gameProperties">
+                  <div class="content">
+                    <mat-icon aria-hidden="false">groups_outline</mat-icon>
+                    {{ game.minPlayers }} - {{ game.maxPlayers }}
+                  </div>
+                  <div class="content">
+                    <mat-icon aria-hidden="false">timer</mat-icon>
+                    {{ game.minPlayTime }}-{{ game.maxPlayTime }} min
+                  </div>
+                  <div class="content">
+                    <mat-icon aria-hidden="false">person</mat-icon>
+                    {{ game.minAge }}+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content note b" id="{{ 'game' + i }}" *ngIf="game.note != ''" (click)="toggleNote(i)">
+              <mat-icon aria-hidden="false">info_outline</mat-icon>
+              {{ game.note }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div *ngIf="!useApi">
     <div class="form-container">
@@ -106,7 +133,7 @@
             >
           </mat-error>
         </mat-form-field>
-        <div class="horizontal">
+        <div class="flex horizontal">
           <mat-form-field class="form-field" appearance="outline">
             <mat-label>minPlayers</mat-label>
             <input
@@ -154,29 +181,54 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label>playingTime</mat-label>
-          <input
-            matInput
-            formControlName="playingTime"
-            required
-            type="number"
-          />
-          <mat-error
-            *ngIf="
-              customAddGameForm.controls.playingTime.touched &&
-              customAddGameForm.controls.playingTime.invalid
-            "
-          >
-            <span
+        <div class="flex horizontal">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>minPlaytime</mat-label>
+            <input
+              matInput
+              formControlName="minPlayTime"
+              required
+              type="number"
+            />
+            <mat-error
               *ngIf="
-                customAddGameForm.controls.playingTime.errors &&
-                customAddGameForm.controls.playingTime.errors.required
+                customAddGameForm.controls.minPlayTime.touched &&
+                customAddGameForm.controls.minPlayTime.invalid
               "
-              >This field is mandatory.</span
             >
-          </mat-error>
-        </mat-form-field>
+              <span
+                *ngIf="
+                  customAddGameForm.controls.minPlayTime.errors &&
+                  customAddGameForm.controls.minPlayTime.errors.required
+                "
+                >This field is mandatory.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>maxPlayTime</mat-label>
+            <input
+              matInput
+              formControlName="maxPlayTime"
+              required
+              type="number"
+            />
+            <mat-error
+              *ngIf="
+                customAddGameForm.controls.maxPlayTime.touched &&
+                customAddGameForm.controls.maxPlayTime.invalid
+              "
+            >
+              <span
+                *ngIf="
+                  customAddGameForm.controls.maxPlayTime.errors &&
+                  customAddGameForm.controls.maxPlayTime.errors.required
+                "
+                >This field is mandatory.</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
         <mat-form-field class="form-field" appearance="outline">
           <mat-label>gameType</mat-label>
           <mat-select required value="boardgame">
@@ -191,12 +243,18 @@
       </form>
     </div>
   </div>
-  <div>
-    <a (click)="toggleFormType()">{{ toggleFormText }}</a>
-  </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button cdkFocusInitial (click)="onSubmit()">Save</button>
-  <!--[mat-dialog-close]="true"-->
+<mat-dialog-actions>
+  <div class="flex horizontal spaceBetween">
+    <div class="toggleButton">
+      <button mat-button (click)="toggleFormType()">
+        {{ toggleFormText }}
+      </button>
+    </div>
+    <div class="actionButtons">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button cdkFocusInitial (click)="onSubmit()">Save</button>
+      <!--[mat-dialog-close]="true"-->
+    </div>
+  </div>
 </mat-dialog-actions>

@@ -5,7 +5,8 @@ export interface Game {
   image: string;
   minPlayers: string;
   maxPlayers: string;
-  playingTime: string;
+  minPlayTime: string;
+  maxPlayTime: string;
   minAge: string;
   note: string;
   gameType: string;

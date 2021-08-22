@@ -1,7 +1,7 @@
+import { Game } from './../../shared/interfaces/game.interface';
 import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { GamesService } from './../games.service';
-import { Game } from '../../shared/interfaces/game.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,7 +14,7 @@ export class GameAddComponent implements OnInit {
   isLoading = false;
   useApi = false;
   toggleFormText = '';
-  games = [];
+  games: Game[] = [];
   customAddGameForm: FormGroup;
   apiAddGameForm: FormGroup;
   authStatusSub: Subscription;
@@ -42,7 +42,8 @@ export class GameAddComponent implements OnInit {
       image: [''],
       minPlayers: [2, [Validators.required, Validators.min(1)]],
       maxPlayers: [3, [Validators.required, Validators.min(1)]],
-      playingTime: [15, Validators.required],
+      minPlayTime: [15, Validators.required],
+      maxPlayTime: [30, Validators.required],
       minAge: [0, [Validators.required, Validators.min(0)]],
       note: ['Eine grüne Figur fehlt'],
       gameType: ['boardgame', Validators.required],
@@ -58,24 +59,30 @@ export class GameAddComponent implements OnInit {
     }
   }
 
+  toggleNote(idx) {
+    console.log("Toggle ", idx)
+    const element = document.getElementById("game" + idx);
+    element.classList.toggle("b");
+  }
+
   async onSearch() {
     if (!this.apiAddGameForm.valid) {
       return;
     }
+    this.isLoading = true;
     const clientId = 'XcGu7GjNEz';
-
     const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=10&name=`;
     const query = BGA_URL + this.apiAddGameForm.value.title;
     console.log(query);
     const response = await fetch(query);
     const data = await response.json();
     if (data.count == 0) {
-      console.log('Nothing found!');
+      console.log('N: Game[]othing found!');
     } else {
       this.games = data.games.map((game) => {
         return {
           title: game.name,
-          thumbnail: game.images.thumb,
+          thumbnail: game.images.medium,
           image: game.image_url,
           minPlayers: game.min_players,
           maxPlayers: game.max_players,
@@ -88,6 +95,7 @@ export class GameAddComponent implements OnInit {
       });
       console.log(this.games);
     }
+    this.isLoading = false;
   }
 
   onSubmit() {
@@ -101,7 +109,8 @@ export class GameAddComponent implements OnInit {
       image: this.customAddGameForm.value.image,
       minPlayers: this.customAddGameForm.value.minPlayers,
       maxPlayers: this.customAddGameForm.value.maxPlayers,
-      playingTime: this.customAddGameForm.value.playingTime,
+      minPlayTime: this.customAddGameForm.value.minPlayTime,
+      maxPlayTime: this.customAddGameForm.value.maxPlayTime,
       minAge: this.customAddGameForm.value.minAge,
       note: this.customAddGameForm.value.note,
       gameType: this.customAddGameForm.value.gameType,

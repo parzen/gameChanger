@@ -36,7 +36,8 @@ export class GamesService {
                 image: game.image,
                 minPlayers: game.minPlayers,
                 maxPlayers: game.maxPlayers,
-                playingTime: game.playingTime,
+                minPlayTime: game.minPlayTime,
+                maxPlayTime: game.maxPlayTime,
                 minAge: game.minAge,
                 note: game.note,
                 gameType: game.gameType,
@@ -73,7 +74,8 @@ export class GamesService {
       image: string;
       minPlayers: string;
       maxPlayers: string;
-      playingTime: string;
+      minPlayTime: string;
+      maxPlayTime: string;
       minAge: string;
       note: string;
       gameType: string;
@@ -89,7 +91,8 @@ export class GamesService {
         image: game.image,
         minPlayers: game.minPlayers,
         maxPlayers: game.maxPlayers,
-        playingTime: game.playingTime,
+        minPlayTime: game.minPlayTime,
+        maxPlayTime: game.maxPlayTime,
         minAge: game.minAge,
         note: game.note,
         gameType: game.gameType
@@ -108,7 +111,8 @@ export class GamesService {
       image: game.image,
       minPlayers: game.minPlayers,
       maxPlayers: game.maxPlayers,
-      playingTime: game.playingTime,
+      minPlayTime: game.minPlayTime,
+      maxPlayTime: game.maxPlayTime,
       minAge: game.minAge,
       note: game.note,
       gameType: game.gameType,
