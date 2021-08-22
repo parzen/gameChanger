@@ -14,8 +14,41 @@
   justify-content: space-between;
 }
 
-mat-dialog-content {
-  width: 400px;
+
+.apiError {
+  color: red;
+}
+
+/* Game view */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  grid-auto-columns: 100px;
+}
+
+@media screen and (max-width: 1400px) {
+  .grid-container  {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .grid-container  {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .grid-container  {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid-container  {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .card {
@@ -24,24 +57,32 @@ mat-dialog-content {
   border-radius: 5px; /* 5px rounded corners */
 }
 
-/* Add rounded corners to the top left and the top right corner of the image */
-img {
-  border-radius: 5px 5px 0 0;
-  width: 100%;
-}
-
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 14px 7px rgba(241, 63, 124, 0.3);
+}
+
+.card:active {
+  box-shadow: 0px 0px 14px 7px rgba(241, 63, 124, 1);
+}
+
+.active {
+  box-shadow: 0px 0px 14px 7px rgba(241, 63, 124, 1);
 }
 
 /*
-.card__content {
+.card-content {
   position: top;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
   color: white;
 }
 */
+
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+}
 
 .gameProperties {
   display: flex;
@@ -57,13 +98,14 @@ h1 {
   margin-bottom: 5px;
 }
 
-.b {
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .note {
   cursor: pointer;
+}
+
+.material-icons {
+  vertical-align: -6px;
+}
+
+.showMore{
+  color: gray
 }

@@ -3,7 +3,13 @@ import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { GamesService } from './../games.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 
 @Component({
   selector: 'app-game-add',
@@ -13,7 +19,10 @@ import { Component, OnInit } from '@angular/core';
 export class GameAddComponent implements OnInit {
   isLoading = false;
   useApi = false;
+  apiError = null;
+  activeCard = null;
   toggleFormText = '';
+  maxNoteLength = 50;
   games: Game[] = [];
   customAddGameForm: FormGroup;
   apiAddGameForm: FormGroup;
@@ -26,7 +35,6 @@ export class GameAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.toggleFormType();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((authStatus) => {
@@ -37,7 +45,7 @@ export class GameAddComponent implements OnInit {
     });
     this.customAddGameForm = this.fb.group({
       id: [null],
-      title: ['Kiki Ricky', Validators.required],
+      title: ['', Validators.required],
       thumbnail: [''],
       image: [''],
       minPlayers: [2, [Validators.required, Validators.min(1)]],
@@ -48,10 +56,15 @@ export class GameAddComponent implements OnInit {
       note: ['Eine grüne Figur fehlt'],
       gameType: ['boardgame', Validators.required],
     });
+    this.toggleFormType();
   }
 
   toggleFormType() {
+    this.apiError = null;
     this.useApi = !this.useApi;
+    this.customAddGameForm
+      .get('title')
+      .setValue(this.apiAddGameForm.get('title').value);
     if (this.useApi) {
       this.toggleFormText = 'Use custom form';
     } else {
@@ -60,16 +73,35 @@ export class GameAddComponent implements OnInit {
   }
 
   toggleNote(idx) {
-    console.log("Toggle ", idx)
-    const element = document.getElementById("game" + idx);
-    element.classList.toggle("b");
+    console.log('Toggle ', idx);
+    const element = document.getElementById('game' + idx);
+    const text = element.textContent;
+    let newText = text;
+    if (element.getAttribute('truncated') === '0') {
+      newText = text.slice(0, this.maxNoteLength) + '...';
+      element.setAttribute('truncated', '1');
+    }
+    console.log('newText: ' + newText);
+  }
+
+  setActive(idx) {
+    const element = document.getElementById('card' + idx);
+    console.log('Try to add active to: ', idx);
+    const current = document.getElementsByClassName('active');
+    if (current[0]) {
+      current[0].className = current[0].className.replace(' active', '');
+    }
+    element.className += ' active';
+    this.activeCard = idx;
   }
 
   async onSearch() {
+    this.apiError = null;
     if (!this.apiAddGameForm.valid) {
       return;
     }
     this.isLoading = true;
+    this.games = [];
     const clientId = 'XcGu7GjNEz';
     const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=10&name=`;
     const query = BGA_URL + this.apiAddGameForm.value.title;
@@ -77,7 +109,7 @@ export class GameAddComponent implements OnInit {
     const response = await fetch(query);
     const data = await response.json();
     if (data.count == 0) {
-      console.log('N: Game[]othing found!');
+      this.apiError = 'Nothing found, try custom form!';
     } else {
       this.games = data.games.map((game) => {
         return {
@@ -98,7 +130,8 @@ export class GameAddComponent implements OnInit {
     this.isLoading = false;
   }
 
-  onSubmit() {
+  onSubmitCustom() {
+    console.log("onSubmitCustom")
     if (!this.customAddGameForm.valid) {
       return;
     }
@@ -119,5 +152,28 @@ export class GameAddComponent implements OnInit {
     console.log(newGame);
     this.gameService.addGame(newGame);
     //this.customAddGameForm.reset();
+  }
+
+  onSubmitApi() {
+    console.log("onSubmitApi with: ", this.games[this.activeCard])
+    if (!this.apiAddGameForm.valid || this.activeCard == null) {
+      return;
+    }
+    const newGame: Game = {
+      id: '',
+      title: this.games[this.activeCard].title,
+      thumbnail: this.games[this.activeCard].thumbnail,
+      image: this.games[this.activeCard].image,
+      minPlayers: this.games[this.activeCard].minPlayers,
+      maxPlayers: this.games[this.activeCard].maxPlayers,
+      minPlayTime: this.games[this.activeCard].minPlayTime,
+      maxPlayTime: this.games[this.activeCard].maxPlayTime,
+      minAge: this.games[this.activeCard].minAge,
+      note: this.games[this.activeCard].note,
+      gameType: this.games[this.activeCard].gameType,
+      creator: '',
+    };
+    console.log(newGame);
+    this.gameService.addGame(newGame);
   }
 }

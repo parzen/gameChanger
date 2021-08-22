@@ -16,6 +16,7 @@ export class GamesListComponent implements OnInit, OnDestroy {
   isLoading = false;
   userId: string = '';
   userIsauthenticated = false;
+  maxNoteLength = 50;
   private authStatusSub!: Subscription;
   private gamesSub!: Subscription;
 
@@ -26,7 +27,9 @@ export class GamesListComponent implements OnInit, OnDestroy {
   ) {}
 
   addGame() {
-    const dialogRef = this.dialog.open(GameAddComponent);
+    const dialogRef = this.dialog.open(GameAddComponent, {
+      width: '100%'
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
