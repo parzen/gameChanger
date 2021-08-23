@@ -46,8 +46,7 @@ export class GameAddComponent implements OnInit {
     this.customAddGameForm = this.fb.group({
       id: [null],
       title: ['', Validators.required],
-      thumbnail: [''],
-      image: [''],
+      imagePath: [''],
       minPlayers: [2, [Validators.required, Validators.min(1)]],
       maxPlayers: [3, [Validators.required, Validators.min(1)]],
       minPlayTime: [15, Validators.required],
@@ -114,8 +113,7 @@ export class GameAddComponent implements OnInit {
       this.games = data.games.map((game) => {
         return {
           title: game.name,
-          thumbnail: game.images.medium,
-          image: game.image_url,
+          imagePath: game.images.medium,
           minPlayers: game.min_players,
           maxPlayers: game.max_players,
           minPlayTime: game.min_playtime,
@@ -138,8 +136,7 @@ export class GameAddComponent implements OnInit {
     const newGame: Game = {
       id: '',
       title: this.customAddGameForm.value.title,
-      thumbnail: this.customAddGameForm.value.thumbnail,
-      image: this.customAddGameForm.value.image,
+      imagePath: this.customAddGameForm.value.imagePath,
       minPlayers: this.customAddGameForm.value.minPlayers,
       maxPlayers: this.customAddGameForm.value.maxPlayers,
       minPlayTime: this.customAddGameForm.value.minPlayTime,
@@ -162,8 +159,7 @@ export class GameAddComponent implements OnInit {
     const newGame: Game = {
       id: '',
       title: this.games[this.activeCard].title,
-      thumbnail: this.games[this.activeCard].thumbnail,
-      image: this.games[this.activeCard].image,
+      imagePath: this.games[this.activeCard].imagePath,
       minPlayers: this.games[this.activeCard].minPlayers,
       maxPlayers: this.games[this.activeCard].maxPlayers,
       minPlayTime: this.games[this.activeCard].minPlayTime,

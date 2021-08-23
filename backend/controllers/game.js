@@ -3,8 +3,7 @@ const Game = require("../models/game");
 exports.addGame = (req, res, next) => {
   const game = new Game({
     title: req.body.title,
-    thumbnail: req.body.thumbnail,
-    image: req.body.image,
+    imagePath: req.body.imagePath,
     minPlayers: req.body.minPlayers,
     maxPlayers: req.body.maxPlayers,
     minPlayTime: req.body.minPlayTime,

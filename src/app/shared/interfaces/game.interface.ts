@@ -1,8 +1,7 @@
 export interface Game {
   id: string;
   title: string;
-  thumbnail: string;
-  image: string;
+  imagePath: string;
   minPlayers: string;
   maxPlayers: string;
   minPlayTime: string;

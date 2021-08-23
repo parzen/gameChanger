@@ -3,8 +3,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const gameSchema = mongoose.Schema({
   title: { type: String, required: true, unique: true },
-  thumbnail: { type: String },
-  image: { type: String },
+  imagePath: { type: String },
   minPlayers: { type: String, required: true },
   maxPlayers: { type: String, required: true },
   minPlayTime: { type: String, required: true },

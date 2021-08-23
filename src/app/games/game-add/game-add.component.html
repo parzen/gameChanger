@@ -46,7 +46,7 @@
         <div *ngFor="let game of games; let i = index">
           <div class="card" (click)="setActive(i)" id="{{ 'card' + i }}">
             <div class="imgText">
-              <img src="{{ game.thumbnail }}" />
+              <img src="{{ game.imagePath }}" />
               <div class="content-container">
                 <div class="card-content">
                   <h1>{{ game.title }}</h1>
@@ -119,19 +119,11 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="form-field" appearance="outline">
-          <mat-label>Thumbnail</mat-label>
-          <input
-            matInput
-            formControlName="thumbnail"
-            placeholder="Insert link to thumbnail"
-          />
-        </mat-form-field>
-        <mat-form-field class="form-field" appearance="outline">
           <mat-label>Image</mat-label>
           <input
             matInput
-            formControlName="image"
-            placeholder="Insert link to image"
+            formControlName="imagePath"
+            placeholder="Insert link to image path"
           />
         </mat-form-field>
         <mat-form-field class="form-field" appearance="outline">

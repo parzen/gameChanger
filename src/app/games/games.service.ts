@@ -32,8 +32,7 @@ export class GamesService {
               return {
                 id: game._id,
                 title: game.title,
-                thumbnail: game.thumbnail,
-                image: game.image,
+                imagePath: game.imagePath,
                 minPlayers: game.minPlayers,
                 maxPlayers: game.maxPlayers,
                 minPlayTime: game.minPlayTime,
@@ -70,8 +69,7 @@ export class GamesService {
     return this.http.get<{
       _id: string;
       title: string;
-      thumbnail: string;
-      image: string;
+      imagePath: string;
       minPlayers: string;
       maxPlayers: string;
       minPlayTime: string;
@@ -87,8 +85,7 @@ export class GamesService {
     this.http
       .post<{ message: string; game: Game }>(BACKEND_URL, {
         title: game.title,
-        thumbnail: game.thumbnail,
-        image: game.image,
+        imagePath: game.imagePath,
         minPlayers: game.minPlayers,
         maxPlayers: game.maxPlayers,
         minPlayTime: game.minPlayTime,
@@ -107,8 +104,7 @@ export class GamesService {
     gameData = {
       id: game.id,
       title: game.title,
-      thumbnail: game.thumbnail,
-      image: game.image,
+      imagePath: game.imagePath,
       minPlayers: game.minPlayers,
       maxPlayers: game.maxPlayers,
       minPlayTime: game.minPlayTime,
