@@ -1,3 +1,7 @@
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogModel,
+} from './../../confirm-dialog/confirm-dialog.component';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { GamesService } from './../games.service';
@@ -28,7 +32,7 @@ export class GamesListComponent implements OnInit, OnDestroy {
 
   addGame() {
     const dialogRef = this.dialog.open(GameAddComponent, {
-      width: '100%'
+      width: '100%',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -61,11 +65,26 @@ export class GamesListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(gameId: string) {
-    this.isLoading = true;
-    this.gameService.deleteGame(gameId).subscribe(() => {
-      this.gameService.getGames();
-    }, () => {
-      this.isLoading = false;
+    const message = null;
+    const dialogData = new ConfirmDialogModel('Are you sure you want to delete?', message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResult) => {
+      if (dialogResult) {
+        this.isLoading = true;
+        this.gameService.deleteGame(gameId).subscribe(
+          () => {
+            this.gameService.getGames();
+          },
+          () => {
+            this.isLoading = false;
+          }
+        );
+      }
     });
   }
 }

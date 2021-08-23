@@ -9,6 +9,22 @@
   <div class="grid-container">
     <div *ngFor="let game of games; let i = index">
       <div class="card" id="{{ 'card' + i }}">
+        <div class="menu">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/edit', game.id]">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="onDelete(game.id)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+
         <div class="imgText">
           <img src="{{ game.thumbnail }}" />
           <div class="content-container">
@@ -38,7 +54,11 @@
             truncated="0"
           >
             <mat-icon aria-hidden="false">info_outline</mat-icon>
-            {{ (game.note.length>maxNoteLength)? (game.note | slice:0:50)+'..':(game.note) }}
+            {{
+              game.note.length > maxNoteLength
+                ? (game.note | slice: 0:50) + ".."
+                : game.note
+            }}
             <!--{{ game.note }}-->
             <div
               *ngIf="game.note.length > maxNoteLength"

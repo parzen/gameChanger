@@ -272,8 +272,8 @@
     </div>
     <div class="actionButtons">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button *ngIf="useApi" mat-button cdkFocusInitial (click)="onSubmitApi()">Save</button>
-      <button *ngIf="!useApi" mat-button cdkFocusInitial (click)="onSubmitCustom()">Save</button>
+      <button *ngIf="useApi" color="primary" mat-raised-button cdkFocusInitial (click)="onSubmitApi()">Save</button>
+      <button *ngIf="!useApi" color="primary" mat-raised-button cdkFocusInitial (click)="onSubmitCustom()">Save</button>
       <!--[mat-dialog-close]="true"-->
     </div>
   </div>

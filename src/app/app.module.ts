@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlayComponent } from './play/play.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PlayComponent } from './play/play.component';
     HeaderComponent,
     DashboardComponent,
     PlayComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
