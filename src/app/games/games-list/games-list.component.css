@@ -8,6 +8,10 @@ mat-spinner {
   position: fixed;
 }
 
+.info-text {
+  text-align: center;
+}
+
 /* Game view */
 .grid-container {
   display: grid;
