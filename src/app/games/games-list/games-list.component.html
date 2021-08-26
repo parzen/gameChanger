@@ -37,7 +37,7 @@
                 </div>
                 <div class="content">
                   <mat-icon aria-hidden="false">timer</mat-icon>
-                  {{ game.minPlayTime }}-{{ game.maxPlayTime }} min
+                  {{ game.minPlayTime }}{{game.minPlayTime === game.maxPlayTime ? '' : '-'+game.maxPlayTime }} min
                 </div>
                 <div class="content">
                   <mat-icon aria-hidden="false">person</mat-icon>

@@ -32,17 +32,23 @@ exports.addGame = (req, res, next) => {
 };
 
 exports.editGame = (req, res, next) => {
-  let imagePath = req.body.imagePath;
+/*   let imagePath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
     imagePath = url + "/images/" + req.file.filename;
-  }
+  } */
   const game = new Game({
     _id: req.body.id,
     title: req.body.title,
-    content: req.body.content,
-    imagePath: imagePath,
-    creator: req.userData.userId,
+    imagePath: req.body.imagePath,
+    minPlayers: req.body.minPlayers,
+    maxPlayers: req.body.maxPlayers,
+    minPlayTime: req.body.minPlayTime,
+    maxPlayTime: req.body.maxPlayTime,
+    minAge: req.body.minAge,
+    note: req.body.note,
+    gameType: req.body.gameType,
+    creator: req.userData.userId
   });
   Game.updateOne({ _id: req.params.id, creator: req.userData.userId }, game)
     .then((result) => {

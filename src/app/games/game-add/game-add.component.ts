@@ -119,7 +119,8 @@ export class GameAddComponent implements OnInit {
           minPlayTime: game.min_playtime,
           maxPlayTime: game.max_playtime,
           minAge: game.min_age,
-          note: game.description_preview,
+          //note: game.description_preview,
+          note: "",
           gameType: game.type,
         };
       });

@@ -18,6 +18,7 @@ mat-spinner {
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   grid-auto-columns: 100px;
+  padding-top: 10px;
 }
 
 @media screen and (max-width: 1400px) {

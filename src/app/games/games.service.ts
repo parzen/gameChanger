@@ -100,7 +100,7 @@ export class GamesService {
   }
 
   updateGame(game: Game) {
-    let gameData: Game | FormData;
+    let gameData: Game;
     gameData = {
       id: game.id,
       title: game.title,
@@ -112,12 +112,13 @@ export class GamesService {
       minAge: game.minAge,
       note: game.note,
       gameType: game.gameType,
-      creator: null,
+      creator: game.creator,
     };
     this.http
       .put(BACKEND_URL + '/' + game.id, gameData)
       .subscribe((response) => {
-        this.router.navigate(['/']);
+        console.log(response)
+        this.router.navigate(['/games/list']);
       });
   }
 

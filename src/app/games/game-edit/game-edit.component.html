@@ -1,1 +1,156 @@
-<p>game-edit works!</p>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="form-container" *ngIf="!isLoading">
+    <form [formGroup]="form" (ngSubmit)="onSaveGame()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" required />
+        <mat-error
+          *ngIf="
+            form.controls.title.touched &&
+            form.controls.title.invalid
+          "
+        >
+          <span
+            *ngIf="
+              form.controls.title.errors &&
+              form.controls.title.errors.required
+            "
+            >This field is mandatory.</span
+          >
+          <span
+            *ngIf="
+              form.controls.title.errors &&
+              form.controls.title.errors.pattern
+            "
+            >This field is invalid.</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Image</mat-label>
+        <input
+          matInput
+          formControlName="imagePath"
+          placeholder="Insert link to image path"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>minAge</mat-label>
+        <input matInput formControlName="minAge" required type="number" />
+        <mat-error
+          *ngIf="
+            form.controls.minAge.touched &&
+            form.controls.minAge.invalid
+          "
+        >
+          <span
+            *ngIf="
+              form.controls.minAge.errors &&
+              form.controls.minAge.errors.required
+            "
+            >This field is mandatory.</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <div class="flex horizontal">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>minPlayers</mat-label>
+          <input matInput formControlName="minPlayers" required type="number" />
+          <mat-error
+            *ngIf="
+              form.controls.minPlayers.touched &&
+              form.controls.minPlayers.invalid
+            "
+          >
+            <span
+              *ngIf="
+                form.controls.minPlayers.errors &&
+                form.controls.minPlayers.errors.required
+              "
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>maxPlayers</mat-label>
+          <input matInput formControlName="maxPlayers" required type="number" />
+          <mat-error
+            *ngIf="
+              form.controls.maxPlayers.touched &&
+              form.controls.maxPlayers.invalid
+            "
+          >
+            <span
+              *ngIf="
+                form.controls.maxPlayers.errors &&
+                form.controls.maxPlayers.errors.required
+              "
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex horizontal">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>minPlaytime</mat-label>
+          <input
+            matInput
+            formControlName="minPlayTime"
+            required
+            type="number"
+          />
+          <mat-error
+            *ngIf="
+              form.controls.minPlayTime.touched &&
+              form.controls.minPlayTime.invalid
+            "
+          >
+            <span
+              *ngIf="
+                form.controls.minPlayTime.errors &&
+                form.controls.minPlayTime.errors.required
+              "
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>maxPlayTime</mat-label>
+          <input
+            matInput
+            formControlName="maxPlayTime"
+            required
+            type="number"
+          />
+          <mat-error
+            *ngIf="
+              form.controls.maxPlayTime.touched &&
+              form.controls.maxPlayTime.invalid
+            "
+          >
+            <span
+              *ngIf="
+                form.controls.maxPlayTime.errors &&
+                form.controls.maxPlayTime.errors.required
+              "
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>gameType</mat-label>
+        <mat-select required value="boardgame">
+          <mat-option value="boardgame">Boardgame</mat-option>
+          <mat-option value="videogame">Videogame</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>note</mat-label>
+        <textarea matInput formControlName="note"></textarea>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="accent">Save Game</button>
+    </form>
+  </div>
+</mat-card>
