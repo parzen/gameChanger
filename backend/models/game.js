@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const gameSchema = mongoose.Schema({
-  title: { type: String, required: true, unique: true },
+  title: { type: String, required: true, unique: true }, // TODO: unique combine with creator
   imagePath: { type: String },
   minPlayers: { type: String, required: true },
   maxPlayers: { type: String, required: true },

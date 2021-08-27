@@ -17,11 +17,11 @@ import {
   styleUrls: ['./game-add.component.css'],
 })
 export class GameAddComponent implements OnInit {
-  isLoading = false;
-  useApi = false;
+  isLoading: boolean = false;
+  useApi: boolean = false;
   apiError = null;
   activeCard = null;
-  toggleFormText = '';
+  toggleFormText: string = '';
   maxNoteLength = 50;
   games: Game[] = [];
   customAddGameForm: FormGroup;
@@ -120,7 +120,7 @@ export class GameAddComponent implements OnInit {
           maxPlayTime: game.max_playtime,
           minAge: game.min_age,
           //note: game.description_preview,
-          note: "",
+          note: '',
           gameType: game.type,
         };
       });
@@ -130,7 +130,7 @@ export class GameAddComponent implements OnInit {
   }
 
   onSubmitCustom() {
-    console.log("onSubmitCustom")
+    console.log('onSubmitCustom');
     if (!this.customAddGameForm.valid) {
       return;
     }
@@ -153,7 +153,7 @@ export class GameAddComponent implements OnInit {
   }
 
   onSubmitApi() {
-    console.log("onSubmitApi with: ", this.games[this.activeCard])
+    console.log('onSubmitApi with: ', this.games[this.activeCard]);
     if (!this.apiAddGameForm.valid || this.activeCard == null) {
       return;
     }

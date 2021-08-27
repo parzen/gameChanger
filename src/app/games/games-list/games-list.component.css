@@ -51,10 +51,22 @@ mat-spinner {
   border-radius: 5px; /* 5px rounded corners */
 }
 
+.image-text-container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  height: 350px;
+}
+
 /* Add rounded corners to the top left and the top right corner of the image */
 img {
   border-radius: 5px 5px 0 0;
-  width: 100%;
+  height: 200px;
+}
+
+.image-container {
+  text-align: center;
 }
 
 .gameProperties {
