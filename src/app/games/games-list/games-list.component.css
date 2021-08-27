@@ -55,7 +55,7 @@ mat-spinner {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   height: 350px;
 }
 
@@ -76,6 +76,7 @@ img {
   padding-right: 10px;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 h1 {
