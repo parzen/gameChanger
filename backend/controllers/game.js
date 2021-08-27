@@ -67,13 +67,8 @@ exports.editGame = (req, res, next) => {
 
 exports.getGames = (req, res, next) => {
   const gameQuery = Game.find();
-  let fetchedGames;
   gameQuery
-    .then((documents) => {
-      fetchedGames = documents;
-      return Game.count();
-    })
-    .then((count) => {
+    .then((fetchedGames) => {
       res.status(200).json({
         message: "Games fetched succesfully!",
         games: fetchedGames,
