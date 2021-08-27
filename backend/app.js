@@ -42,5 +42,6 @@ app.use((req, res, next) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/games", gameRoutes);
+app.use(express.static('public'));
 
 module.exports = app;

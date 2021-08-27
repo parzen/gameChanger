@@ -1,7 +1,18 @@
 .info-card {
   padding-top: 30px;
+  margin: auto;
   text-align: center;
   animation: slideInFromBottom 0.5s ease-in;
+  max-width: 1024px;
+}
+
+.dashboard-image {
+  background: url("http://localhost:3000/images/dashboard.jpg") no-repeat center;
+  background-size: cover;
+  padding-top: 36px;
+  height: 380px;
+  width: 100%;
+  position: relative;
 }
 
 @keyframes slideInFromBottom {
@@ -13,4 +24,28 @@
       transform: translateY(0);
       opacity: 1;
   }
+}
+
+.login {
+  padding-top: 5px;
+}
+
+/* unvisited link */
+a:link {
+  color: #3F51AE;
+}
+
+/* visited link */
+a:visited {
+  color: #3F51AE;
+}
+
+/* mouse over link */
+a:hover {
+  color: #f13f81;
+}
+
+/* selected link */
+a:active {
+  color: #3F51AE;
 }
