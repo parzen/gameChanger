@@ -1,3 +1,11 @@
 .games-container {
   padding-top: 20px;
 }
+
+.apiError {
+  color: red;
+}
+
+.material-icons {
+  vertical-align: -6px;
+}

@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class PlayComponent implements OnInit {
   isLoading = false;
   games: Game[] = [];
+  apiError = null;
 
   constructor(private gamesService: GamesService) { }
 
@@ -22,8 +23,13 @@ export class PlayComponent implements OnInit {
       return;
     }
     this.isLoading = true;
+    this.apiError = null;
     this.gamesService.play(form.value.players).subscribe((transformedGameData) => {
       this.games = transformedGameData.games;
+      console.log(transformedGameData)
+      if (this.games.length == 0) {
+        this.apiError = 'No games found, try a different number of players!';
+      }
       this.isLoading = false;
     });
   }
