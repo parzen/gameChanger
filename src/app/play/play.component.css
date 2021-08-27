@@ -9,3 +9,45 @@
 .material-icons {
   vertical-align: -6px;
 }
+
+.image-text-container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+  border-radius: 5px 5px 0 0;
+  max-width: 400px;
+}
+
+.image-container {
+  text-align: center;
+}
+
+.gameProperties {
+  display: flex;
+  flex: 1 1 auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.game {
+  animation: appear 2s ease-in;
+}
+
+@keyframes appear {
+  0% {
+      transform: translateY(10%);
+      opacity: 0;
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}

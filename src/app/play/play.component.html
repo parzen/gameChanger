@@ -27,10 +27,63 @@
 
 <div class="games-container">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <mat-card *ngIf="!isLoading && games.length > 0">
-    <h3>The selection:</h3>
-    <div *ngFor="let game of games; let i = index">
-      {{game.title}}
+  <mat-card *ngIf="!isLoading && game">
+    <h3>Your selection:</h3>
+    <div class="game">
+      <div class="image-text-container">
+        <div class="image-container">
+          <img src="{{ game.imagePath }}" />
+        </div>
+        <div class="title-container">
+          <h1>{{ game.title }}</h1>
+        </div>
+        <div class="content-container">
+          <div class="card-content">
+            <div class="gameProperties">
+              <div class="content">
+                <mat-icon aria-hidden="false">groups_outline</mat-icon>
+                {{ game.minPlayers }} - {{ game.maxPlayers }}
+              </div>
+              <div class="content">
+                <mat-icon aria-hidden="false">timer</mat-icon>
+                {{ game.minPlayTime
+                }}{{
+                  game.minPlayTime === game.maxPlayTime
+                    ? ""
+                    : "-" + game.maxPlayTime
+                }}
+                min
+              </div>
+              <div class="content">
+                <mat-icon aria-hidden="false">person</mat-icon>
+                {{ game.minAge }}+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content note"
+          id="{{ 'game' + i }}"
+          *ngIf="game.note != ''"
+          (click)="toggleNote(i)"
+          truncated="0"
+        >
+          <mat-icon aria-hidden="false">info_outline</mat-icon>
+          {{
+            game.note.length > maxNoteLength
+              ? (game.note | slice: 0:50) + ".."
+              : game.note
+          }}
+          <!--{{ game.note }}-->
+          <div
+            *ngIf="game.note.length > maxNoteLength"
+            class="showMore"
+            id="{{ 'showMore' + i }}"
+          >
+            show more
+          </div>
+        </div>
+      </div>
     </div>
   </mat-card>
 </div>

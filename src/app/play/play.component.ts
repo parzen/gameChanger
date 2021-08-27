@@ -6,17 +6,16 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-play',
   templateUrl: './play.component.html',
-  styleUrls: ['./play.component.css']
+  styleUrls: ['./play.component.css'],
 })
 export class PlayComponent implements OnInit {
   isLoading = false;
-  games: Game[] = [];
+  game: Game = null;
   apiError = null;
 
-  constructor(private gamesService: GamesService) { }
+  constructor(private gamesService: GamesService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onPlay(form: NgForm) {
     if (form.invalid) {
@@ -24,13 +23,17 @@ export class PlayComponent implements OnInit {
     }
     this.isLoading = true;
     this.apiError = null;
-    this.gamesService.play(form.value.players).subscribe((transformedGameData) => {
-      this.games = transformedGameData.games;
-      console.log(transformedGameData)
-      if (this.games.length == 0) {
-        this.apiError = 'No games found, try a different number of players!';
-      }
-      this.isLoading = false;
-    });
+    this.game = null;
+    this.gamesService
+      .play(form.value.players)
+      .subscribe((transformedGameData) => {
+        if (transformedGameData.games.length == 0) {
+          this.apiError = 'No games found, try a different number of players!';
+        } else {
+          const random = Math.floor(Math.random() * transformedGameData.games.length);
+          this.game = transformedGameData.games[random];
+        }
+        this.isLoading = false;
+      });
   }
 }
