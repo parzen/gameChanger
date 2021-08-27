@@ -92,7 +92,7 @@ export class GamesService {
         maxPlayTime: game.maxPlayTime,
         minAge: game.minAge,
         note: game.note,
-        gameType: game.gameType
+        gameType: game.gameType,
       })
       .subscribe((responseData) => {
         this.router.navigate(['/games/list']);
@@ -117,12 +117,37 @@ export class GamesService {
     this.http
       .put(BACKEND_URL + '/' + game.id, gameData)
       .subscribe((response) => {
-        console.log(response)
         this.router.navigate(['/games/list']);
       });
   }
 
   deleteGame(gameId: string) {
     return this.http.delete(BACKEND_URL + '/' + gameId);
+  }
+
+  play(players: string) {
+    return this.http
+      .get<{ message: string; games: any }>(BACKEND_URL + '/play/' + players)
+      .pipe(
+        map((gameData) => {
+          return {
+            games: gameData.games.map((game: Game | any) => {
+              return {
+                id: game._id,
+                title: game.title,
+                imagePath: game.imagePath,
+                minPlayers: game.minPlayers,
+                maxPlayers: game.maxPlayers,
+                minPlayTime: game.minPlayTime,
+                maxPlayTime: game.maxPlayTime,
+                minAge: game.minAge,
+                note: game.note,
+                gameType: game.gameType,
+                creator: game.creator,
+              };
+            }),
+          };
+        })
+      );
   }
 }

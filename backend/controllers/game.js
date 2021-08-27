@@ -11,7 +11,7 @@ exports.addGame = (req, res, next) => {
     minAge: req.body.minAge,
     note: req.body.note,
     gameType: req.body.gameType,
-    creator: req.userData.userId
+    creator: req.userData.userId,
   });
   game
     .save()
@@ -32,7 +32,7 @@ exports.addGame = (req, res, next) => {
 };
 
 exports.editGame = (req, res, next) => {
-/*   let imagePath = req.body.imagePath;
+  /*   let imagePath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
     imagePath = url + "/images/" + req.file.filename;
@@ -48,7 +48,7 @@ exports.editGame = (req, res, next) => {
     minAge: req.body.minAge,
     note: req.body.note,
     gameType: req.body.gameType,
-    creator: req.userData.userId
+    creator: req.userData.userId,
   });
   Game.updateOne({ _id: req.params.id, creator: req.userData.userId }, game)
     .then((result) => {
@@ -71,13 +71,12 @@ exports.getGames = (req, res, next) => {
   gameQuery
     .then((documents) => {
       fetchedGames = documents;
-      console.log(fetchedGames)
       return Game.count();
     })
     .then((count) => {
       res.status(200).json({
         message: "Games fetched succesfully!",
-        games: fetchedGames
+        games: fetchedGames,
       });
     })
     .catch((error) => {
@@ -115,6 +114,22 @@ exports.deleteGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Fetching games failed!",
+      });
+    });
+};
+
+exports.getGamesToPlay = (req, res, next) => {
+  const players = parseInt(req.params.players);
+  Game.find({
+    creator: req.userData.userId,
+    maxPlayers: { $gte: players },
+    minPlayers: { $lte: players },
+  })
+    .limit(10)
+    .then((fetchedGames) => {
+      res.status(200).json({
+        message: "Games fetched successfully!",
+        games: fetchedGames,
       });
     });
 };

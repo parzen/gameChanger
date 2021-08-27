@@ -17,4 +17,6 @@ router.put("/:id", checkAuth, GameController.editGame);
 
 router.delete("/:id", checkAuth, GameController.deleteGame);
 
+router.get("/play/:players", checkAuth, GameController.getGamesToPlay);
+
 module.exports = router;

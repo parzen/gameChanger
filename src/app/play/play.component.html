@@ -1,0 +1,33 @@
+<div class="form-container">
+  <mat-card>
+    <form (submit)="onPlay(playForm)" #playForm="ngForm" *ngIf="!isLoading">
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          people
+          placeholder="Number of players"
+          name="players"
+          ngModel
+          #peopleInput="ngModel"
+          required
+          people
+        />
+        <mat-error *ngIf="peopleInput.invalid"
+          >Please enter a valid number of people.</mat-error
+        >
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="accent">Play</button>
+    </form>
+  </mat-card>
+</div>
+
+<div class="games-container">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-card *ngIf="!isLoading && games.length > 0">
+    <h3>The selection:</h3>
+    <div *ngFor="let game of games; let i = index">
+      {{game.title}}
+    </div>
+  </mat-card>
+</div>
