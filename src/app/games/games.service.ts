@@ -1,5 +1,5 @@
 import { Game } from './../shared/interfaces/game.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -78,7 +78,7 @@ export class GamesService {
       note: string;
       gameType: string;
       creator: string;
-    }>(BACKEND_URL + '/' + id);
+    }>(BACKEND_URL + '/game/' + id);
   }
 
   addGame(game: Game) {
@@ -125,9 +125,13 @@ export class GamesService {
     return this.http.delete(BACKEND_URL + '/' + gameId);
   }
 
-  play(players: string) {
+  play(players: string, maxPlayTime: string, minAge: string) {
+    let params = new HttpParams();
+    params = params.append('players', players);
+    params = params.append('maxPlayTime', maxPlayTime);
+    params = params.append('minAge', minAge);
     return this.http
-      .get<{ message: string; games: any }>(BACKEND_URL + '/play/' + players)
+      .get<{ message: string; games: any }>(BACKEND_URL + 'play', {params: params})
       .pipe(
         map((gameData) => {
           return {

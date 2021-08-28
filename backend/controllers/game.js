@@ -114,11 +114,16 @@ exports.deleteGame = (req, res, next) => {
 };
 
 exports.getGamesToPlay = (req, res, next) => {
-  const players = parseInt(req.params.players);
+  const players = parseInt(req.query.players);
+  const maxPlayTime = parseInt(req.query.maxPlayTime);
+  const minAge = parseInt(req.query.minAge);
+
   Game.find({
     creator: req.userData.userId,
     maxPlayers: { $gte: players },
     minPlayers: { $lte: players },
+    minPlayTime: { $lte: maxPlayTime },
+    minAge: {$lte: minAge}
   })
     .limit(10)
     .then((fetchedGames) => {

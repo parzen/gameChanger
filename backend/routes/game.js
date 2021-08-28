@@ -9,7 +9,7 @@ const router = express.Router();
 // dieser durchläuft die middleware
 router.get("", GameController.getGames);
 
-router.get("/:id", GameController.getGame);
+router.get("/game/:id", GameController.getGame);
 
 router.post("", checkAuth, GameController.addGame);
 
@@ -17,6 +17,6 @@ router.put("/:id", checkAuth, GameController.editGame);
 
 router.delete("/:id", checkAuth, GameController.deleteGame);
 
-router.get("/play/:players", checkAuth, GameController.getGamesToPlay);
+router.get("/play", checkAuth, GameController.getGamesToPlay);
 
 module.exports = router;

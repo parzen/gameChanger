@@ -19,15 +19,15 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="form-field" appearance="outline">
-          <mat-label> Minimal play time </mat-label>
-          <input matInput formControlName="minPlayTime" type="number" />
+          <mat-label> Maximal play time </mat-label>
+          <input matInput formControlName="maxPlayTime" type="number" />
           <mat-error
             *ngIf="
-              form.controls.minPlayTime.touched &&
-              form.controls.minPlayTime.invalid
+              form.controls.maxPlayTime.touched &&
+              form.controls.maxPlayTime.invalid
             "
           >
-            <span *ngIf="form.controls.minPlayTime.errors.required"
+            <span *ngIf="form.controls.maxPlayTime.errors.required"
               >This field is mandatory.</span
             >
           </mat-error>

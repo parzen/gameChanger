@@ -19,7 +19,7 @@ export class PlayComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       players: [2, [Validators.required, Validators.min(1)]],
-      minPlayTime: [1, [Validators.required, Validators.min(1)]],
+      maxPlayTime: [240, [Validators.required, Validators.min(1)]],
       minAge: [6, [Validators.required, Validators.min(0)]],
     });
   }
@@ -32,10 +32,10 @@ export class PlayComponent implements OnInit {
     this.apiError = null;
     this.game = null;
     this.gamesService
-      .play(this.form.value.players)
+      .play(this.form.value.players, this.form.value.maxPlayTime, this.form.value.minAge)
       .subscribe((transformedGameData) => {
         if (transformedGameData.games.length == 0) {
-          this.apiError = 'No games found, try a different number of players!';
+          this.apiError = 'No games found, try different values!';
         } else {
           const random = Math.floor(
             Math.random() * transformedGameData.games.length
