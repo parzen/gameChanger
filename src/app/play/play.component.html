@@ -20,7 +20,7 @@
         </mat-form-field>
         <mat-form-field class="form-field" appearance="outline">
           <mat-label> Maximal play time </mat-label>
-          <input matInput formControlName="maxPlayTime" type="number" />
+          <input matInput formControlName="maxPlayTime" type="number" required/>
           <mat-error
             *ngIf="
               form.controls.maxPlayTime.touched &&
@@ -32,6 +32,7 @@
             >
           </mat-error>
         </mat-form-field>
+        <!--
         <mat-form-field class="form-field" appearance="outline">
           <mat-label> Minimal age </mat-label>
           <input matInput formControlName="minAge" type="number" />
@@ -43,6 +44,16 @@
             >
           </mat-error>
         </mat-form-field>
+      -->
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Select age group</mat-label>
+        <mat-select formControlName="ageControl" required>
+          <mat-option value="all">All ages</mat-option>
+          <mat-option value="kids">Kids (<6)</mat-option>
+          <mat-option value="family">Family (6-12)</mat-option>
+          <mat-option value="adult">Adult (>12)</mat-option>
+        </mat-select>
+      </mat-form-field>
       </div>
       <div class="button-container">
         <button mat-raised-button color="accent" type="submit">Play!</button>

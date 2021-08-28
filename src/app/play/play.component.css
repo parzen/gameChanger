@@ -59,12 +59,12 @@ img {
 }
 
 .game {
-  animation: appear 2s ease-in;
+  animation: appear 1s ease-in;
 }
 
 @keyframes appear {
   0% {
-      transform: translateY(10%);
+      transform: translateY(-5%);
       opacity: 0;
   }
   100% {

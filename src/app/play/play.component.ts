@@ -20,7 +20,8 @@ export class PlayComponent implements OnInit {
     this.form = this.fb.group({
       players: [2, [Validators.required, Validators.min(1)]],
       maxPlayTime: [240, [Validators.required, Validators.min(1)]],
-      minAge: [6, [Validators.required, Validators.min(0)]],
+      //minAge: [6, [Validators.required, Validators.min(0)]],
+      ageControl: ['all', Validators.required]
     });
   }
 
@@ -31,11 +32,12 @@ export class PlayComponent implements OnInit {
     this.isLoading = true;
     this.apiError = null;
     this.game = null;
+
     this.gamesService
-      .play(this.form.value.players, this.form.value.maxPlayTime, this.form.value.minAge)
+      .play(this.form.value.players, this.form.value.maxPlayTime, this.form.value.ageControl)
       .subscribe((transformedGameData) => {
         if (transformedGameData.games.length == 0) {
-          this.apiError = 'No games found, try different values!';
+          this.apiError = 'No games found, try different parameters!';
         } else {
           const random = Math.floor(
             Math.random() * transformedGameData.games.length
