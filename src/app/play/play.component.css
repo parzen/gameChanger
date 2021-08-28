@@ -2,6 +2,20 @@
   padding-top: 20px;
 }
 
+.button-container {
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
+}
+
+.play-button {
+  text-align: center;
+}
+
 .apiError {
   color: red;
 }

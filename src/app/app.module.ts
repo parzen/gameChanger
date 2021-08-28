@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { GamesModule } from './games/games.module';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { AngularMaterialModule } from './angular-material.module';
@@ -28,7 +28,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AngularMaterialModule,
     HttpClientModule,
     GamesModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

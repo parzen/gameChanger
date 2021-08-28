@@ -1,29 +1,59 @@
-<div class="form-container">
-  <mat-card>
-    <form (submit)="onPlay(playForm)" #playForm="ngForm" *ngIf="!isLoading">
-      <mat-form-field>
-        <input
-          matInput
-          type="number"
-          people
-          placeholder="Number of players"
-          name="players"
-          ngModel
-          #peopleInput="ngModel"
-          required
-          people
-        />
-        <mat-error *ngIf="peopleInput.invalid"
-          >Please enter a valid number of people.</mat-error
-        >
-      </mat-form-field>
-      <button mat-raised-button type="submit" color="accent">Play</button>
+<mat-card>
+  <div class="example-container">
+    <form [formGroup]="form" (submit)="onPlay()">
+      <div class="form-container">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Players </mat-label>
+          <input matInput formControlName="players" type="number" required />
+          <mat-error
+            *ngIf="
+              form.controls.players.touched && form.controls.players.invalid
+            "
+          >
+            <span *ngIf="form.controls.players.errors.required"
+              >This field is mandatory.</span
+            >
+            <span *ngIf="form.controls.players.errors.pattern"
+              >This field is invalid.</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Minimal play time </mat-label>
+          <input matInput formControlName="minPlayTime" type="number" />
+          <mat-error
+            *ngIf="
+              form.controls.minPlayTime.touched &&
+              form.controls.minPlayTime.invalid
+            "
+          >
+            <span *ngIf="form.controls.minPlayTime.errors.required"
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Minimal age </mat-label>
+          <input matInput formControlName="minAge" type="number" />
+          <mat-error
+            *ngIf="form.controls.minAge.touched && form.controls.minAge.invalid"
+          >
+            <span *ngIf="form.controls.minAge.errors.required"
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="button-container">
+        <button mat-raised-button color="accent" type="submit">Play!</button>
+      </div>
     </form>
-    <div class="apiError" *ngIf="apiError">
-      <md-icon class="material-icons">error</md-icon> {{ apiError }}
-    </div>
-  </mat-card>
-</div>
+  </div>
+
+  <div class="apiError" *ngIf="apiError">
+    <md-icon class="material-icons">error</md-icon> {{ apiError }}
+  </div>
+</mat-card>
 
 <div class="games-container">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
