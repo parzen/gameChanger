@@ -14,6 +14,32 @@
   justify-content: space-between;
 }
 
+.buttons-container {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.actionButtons {
+  justify-content: flex-end;
+}
+
+.search-button-container {
+  margin: .25em 0;
+  height: 50px;
+}
+
+#search-button {
+  height: 100%;
+}
+
+.save-button-container {
+  margin-left: 10px;
+}
 
 .apiError {
   color: red;

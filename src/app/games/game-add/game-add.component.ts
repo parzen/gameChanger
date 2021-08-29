@@ -2,14 +2,8 @@ import { Game } from './../../shared/interfaces/game.interface';
 import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { GamesService } from './../games.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-game-add',
@@ -24,8 +18,7 @@ export class GameAddComponent implements OnInit {
   toggleFormText: string = '';
   maxNoteLength = 50;
   games: Game[] = [];
-  customAddGameForm: FormGroup;
-  apiAddGameForm: FormGroup;
+  form: FormGroup;
   authStatusSub: Subscription;
 
   constructor(
@@ -40,19 +33,16 @@ export class GameAddComponent implements OnInit {
       .subscribe((authStatus) => {
         this.isLoading = false;
       });
-    this.apiAddGameForm = this.fb.group({
-      title: [null, Validators.required],
-    });
-    this.customAddGameForm = this.fb.group({
+    this.form = this.fb.group({
       id: [null],
-      title: ['', Validators.required],
-      imagePath: [''],
-      minPlayers: [2, [Validators.required, Validators.min(1)]],
-      maxPlayers: [3, [Validators.required, Validators.min(1)]],
-      minPlayTime: [15, Validators.required],
-      maxPlayTime: [30, Validators.required],
-      minAge: [0, [Validators.required, Validators.min(0)]],
-      note: ['Eine grüne Figur fehlt'],
+      title: [null, Validators.required],
+      imagePath: [null],
+      minPlayers: [null, [Validators.required, Validators.min(1)]],
+      maxPlayers: [null, [Validators.required, Validators.min(1)]],
+      minPlayTime: [null, Validators.required],
+      maxPlayTime: [null, Validators.required],
+      minAge: [null, [Validators.required, Validators.min(0)]],
+      note: [''],
       gameType: ['boardgame', Validators.required],
     });
     this.toggleFormType();
@@ -61,9 +51,6 @@ export class GameAddComponent implements OnInit {
   toggleFormType() {
     this.apiError = null;
     this.useApi = !this.useApi;
-    this.customAddGameForm
-      .get('title')
-      .setValue(this.apiAddGameForm.get('title').value);
     if (this.useApi) {
       this.toggleFormText = 'Use custom form';
     } else {
@@ -96,14 +83,14 @@ export class GameAddComponent implements OnInit {
 
   async onSearch() {
     this.apiError = null;
-    if (!this.apiAddGameForm.valid) {
+    if (!this.form.value.title) {
       return;
     }
     this.isLoading = true;
     this.games = [];
     const clientId = 'XcGu7GjNEz';
     const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=10&name=`;
-    const query = BGA_URL + this.apiAddGameForm.value.title;
+    const query = BGA_URL + this.form.value.title;
     console.log(query);
     const response = await fetch(query);
     const data = await response.json();
@@ -129,48 +116,54 @@ export class GameAddComponent implements OnInit {
     this.isLoading = false;
   }
 
-  onSubmitCustom() {
-    console.log('onSubmitCustom');
-    if (!this.customAddGameForm.valid) {
+  onSubmit() {
+    if (!this.form.valid || (this.useApi && this.activeCard == null)) {
+      this.validateAllFormFields(this.form); //{7}
       return;
     }
-    const newGame: Game = {
-      id: '',
-      title: this.customAddGameForm.value.title,
-      imagePath: this.customAddGameForm.value.imagePath,
-      minPlayers: this.customAddGameForm.value.minPlayers,
-      maxPlayers: this.customAddGameForm.value.maxPlayers,
-      minPlayTime: this.customAddGameForm.value.minPlayTime,
-      maxPlayTime: this.customAddGameForm.value.maxPlayTime,
-      minAge: this.customAddGameForm.value.minAge,
-      note: this.customAddGameForm.value.note,
-      gameType: this.customAddGameForm.value.gameType,
-      creator: '',
-    };
+
+    let newGame: Game;
+    if (this.useApi) {
+      newGame = {
+        id: '',
+        title: this.games[this.activeCard].title,
+        imagePath: this.games[this.activeCard].imagePath,
+        minPlayers: this.games[this.activeCard].minPlayers,
+        maxPlayers: this.games[this.activeCard].maxPlayers,
+        minPlayTime: this.games[this.activeCard].minPlayTime,
+        maxPlayTime: this.games[this.activeCard].maxPlayTime,
+        minAge: this.games[this.activeCard].minAge,
+        note: this.games[this.activeCard].note,
+        gameType: this.games[this.activeCard].gameType,
+        creator: '',
+      };
+    } else {
+      newGame = {
+        id: '',
+        title: this.form.value.title,
+        imagePath: this.form.value.imagePath,
+        minPlayers: this.form.value.minPlayers,
+        maxPlayers: this.form.value.maxPlayers,
+        minPlayTime: this.form.value.minPlayTime,
+        maxPlayTime: this.form.value.maxPlayTime,
+        minAge: this.form.value.minAge,
+        note: this.form.value.note,
+        gameType: this.form.value.gameType,
+        creator: '',
+      };
+    }
     console.log(newGame);
     this.gameService.addGame(newGame);
-    //this.customAddGameForm.reset();
   }
 
-  onSubmitApi() {
-    console.log('onSubmitApi with: ', this.games[this.activeCard]);
-    if (!this.apiAddGameForm.valid || this.activeCard == null) {
-      return;
-    }
-    const newGame: Game = {
-      id: '',
-      title: this.games[this.activeCard].title,
-      imagePath: this.games[this.activeCard].imagePath,
-      minPlayers: this.games[this.activeCard].minPlayers,
-      maxPlayers: this.games[this.activeCard].maxPlayers,
-      minPlayTime: this.games[this.activeCard].minPlayTime,
-      maxPlayTime: this.games[this.activeCard].maxPlayTime,
-      minAge: this.games[this.activeCard].minAge,
-      note: this.games[this.activeCard].note,
-      gameType: this.games[this.activeCard].gameType,
-      creator: '',
-    };
-    console.log(newGame);
-    this.gameService.addGame(newGame);
+  validateAllFormFields(formGroup: FormGroup) {         //{1}
+    Object.keys(formGroup.controls).forEach(field => {  //{2}
+      const control = formGroup.get(field);             //{3}
+      if (control instanceof FormControl) {             //{4}
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {        //{5}
+        this.validateAllFormFields(control);            //{6}
+      }
+    });
   }
 }

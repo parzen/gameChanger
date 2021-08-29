@@ -1,123 +1,98 @@
 <h2 mat-dialog-title>Add game</h2>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-dialog-content class="mat-typography" *ngIf="!isLoading">
-  <div *ngIf="useApi">
-    <form [formGroup]="apiAddGameForm" (ngSubmit)="onSubmitApi()">
-      <mat-form-field class="form-field" appearance="outline">
-        <div class="flex spaceBetween">
-          <mat-input.container>
-            <mat-label>Title</mat-label>
-            <input id="searchApi" matInput formControlName="title" required />
-            <mat-error
+  <div class="form-container">
+    <form [formGroup]="form" (submit)="onSubmit()">
+      <div class="flex horizontal">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" required />
+          <mat-error
+            *ngIf="form.controls.title.touched && form.controls.title.invalid"
+          >
+            <span
               *ngIf="
-                apiAddGameForm.controls.title.touched &&
-                apiAddGameForm.controls.title.invalid
+                form.controls.title.errors &&
+                form.controls.title.errors.required
               "
+              >This field is mandatory.</span
             >
-              <span
-                *ngIf="
-                  apiAddGameForm.controls.title.errors &&
-                  apiAddGameForm.controls.title.errors.required
-                "
-                >This field is mandatory.</span
-              >
-              <span
-                *ngIf="
-                  apiAddGameForm.controls.title.errors &&
-                  apiAddGameForm.controls.title.errors.pattern
-                "
-                >This field is invalid.</span
-              >
-            </mat-error>
-          </mat-input.container>
-          <div>
-            <button mat-button (click)="onSearch()">
-              <md-icon class="material-icons">search</md-icon>
-            </button>
-          </div>
+            <span
+              *ngIf="
+                form.controls.title.errors && form.controls.title.errors.pattern
+              "
+              >This field is invalid.</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <div class="search-button-container">
+          <button
+            *ngIf="useApi"
+            mat-raised-button
+            color="primary"
+            (click)="onSearch()"
+            id="search-button"
+          >
+            <mat-icon>search</mat-icon> search
+          </button>
         </div>
-      </mat-form-field>
-    </form>
-    <div class="apiError" *ngIf="apiError">
-      <md-icon class="material-icons">error</md-icon> {{ apiError }}
-    </div>
-    <div *ngIf="games.length > 0" class="gamesList">
-      <div class="grid-container">
-        <div *ngFor="let game of games; let i = index">
-          <div class="card" (click)="setActive(i)" id="{{ 'card' + i }}">
-            <div class="imgText">
-              <img src="{{ game.imagePath }}" />
-              <div class="content-container">
-                <div class="card-content">
-                  <h1>{{ game.title }}</h1>
-                  <div class="gameProperties">
-                    <div class="content">
-                      <mat-icon aria-hidden="false">groups_outline</mat-icon>
-                      {{ game.minPlayers }} - {{ game.maxPlayers }}
-                    </div>
-                    <div class="content">
-                      <mat-icon aria-hidden="false">timer</mat-icon>
-                      {{ game.minPlayTime }}-{{ game.maxPlayTime }} min
-                    </div>
-                    <div class="content">
-                      <mat-icon aria-hidden="false">person</mat-icon>
-                      {{ game.minAge }}+
+      </div>
+      <div *ngIf="useApi">
+        <div class="apiError" *ngIf="apiError">
+          <md-icon class="material-icons">error</md-icon> {{ apiError }}
+        </div>
+        <div *ngIf="games.length > 0" class="gamesList">
+          <div class="grid-container">
+            <div *ngFor="let game of games; let i = index">
+              <div class="card" (click)="setActive(i)" id="{{ 'card' + i }}">
+                <div class="imgText">
+                  <img src="{{ game.imagePath }}" />
+                  <div class="content-container">
+                    <div class="card-content">
+                      <h1>{{ game.title }}</h1>
+                      <div class="gameProperties">
+                        <div class="content">
+                          <mat-icon aria-hidden="false"
+                            >groups_outline</mat-icon
+                          >
+                          {{ game.minPlayers }} - {{ game.maxPlayers }}
+                        </div>
+                        <div class="content">
+                          <mat-icon aria-hidden="false">timer</mat-icon>
+                          {{ game.minPlayTime }}-{{ game.maxPlayTime }} min
+                        </div>
+                        <div class="content">
+                          <mat-icon aria-hidden="false">person</mat-icon>
+                          {{ game.minAge }}+
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div
-                class="content note"
-                id="{{ 'game' + i }}"
-                *ngIf="game.note != ''"
-                (click)="toggleNote(i)"
-                truncated="0"
-              >
-                <mat-icon aria-hidden="false">info_outline</mat-icon>
-                <!--{{ (game.note.length>50)? (game.note | slice:0:50)+'..':(game.note) }}-->
-                {{ game.note }}
-                <div
-                  *ngIf="game.note.length > maxNoteLength"
-                  class="showMore"
-                  id="{{ 'showMore' + i }}"
-                >
-                  show more
+                  <div
+                    class="content note"
+                    id="{{ 'game' + i }}"
+                    *ngIf="game.note != ''"
+                    (click)="toggleNote(i)"
+                    truncated="0"
+                  >
+                    <mat-icon aria-hidden="false">info_outline</mat-icon>
+                    <!--{{ (game.note.length>50)? (game.note | slice:0:50)+'..':(game.note) }}-->
+                    {{ game.note }}
+                    <div
+                      *ngIf="game.note.length > maxNoteLength"
+                      class="showMore"
+                      id="{{ 'showMore' + i }}"
+                    >
+                      show more
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div *ngIf="!useApi">
-    <div class="form-container">
-      <form [formGroup]="customAddGameForm" (ngSubmit)="onSubmitCustom()">
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label>Title</mat-label>
-          <input matInput formControlName="title" required />
-          <mat-error
-            *ngIf="
-              customAddGameForm.controls.title.touched &&
-              customAddGameForm.controls.title.invalid
-            "
-          >
-            <span
-              *ngIf="
-                customAddGameForm.controls.title.errors &&
-                customAddGameForm.controls.title.errors.required
-              "
-              >This field is mandatory.</span
-            >
-            <span
-              *ngIf="
-                customAddGameForm.controls.title.errors &&
-                customAddGameForm.controls.title.errors.pattern
-              "
-              >This field is invalid.</span
-            >
-          </mat-error>
-        </mat-form-field>
+      <div *ngIf="!useApi">
         <mat-form-field class="form-field" appearance="outline">
           <mat-label>Image</mat-label>
           <input
@@ -130,15 +105,12 @@
           <mat-label>minAge</mat-label>
           <input matInput formControlName="minAge" required type="number" />
           <mat-error
-            *ngIf="
-              customAddGameForm.controls.minAge.touched &&
-              customAddGameForm.controls.minAge.invalid
-            "
+            *ngIf="form.controls.minAge.touched && form.controls.minAge.invalid"
           >
             <span
               *ngIf="
-                customAddGameForm.controls.minAge.errors &&
-                customAddGameForm.controls.minAge.errors.required
+                form.controls.minAge.errors &&
+                form.controls.minAge.errors.required
               "
               >This field is mandatory.</span
             >
@@ -155,14 +127,14 @@
             />
             <mat-error
               *ngIf="
-                customAddGameForm.controls.minPlayers.touched &&
-                customAddGameForm.controls.minPlayers.invalid
+                form.controls.minPlayers.touched &&
+                form.controls.minPlayers.invalid
               "
             >
               <span
                 *ngIf="
-                  customAddGameForm.controls.minPlayers.errors &&
-                  customAddGameForm.controls.minPlayers.errors.required
+                  form.controls.minPlayers.errors &&
+                  form.controls.minPlayers.errors.required
                 "
                 >This field is mandatory.</span
               >
@@ -178,14 +150,14 @@
             />
             <mat-error
               *ngIf="
-                customAddGameForm.controls.maxPlayers.touched &&
-                customAddGameForm.controls.maxPlayers.invalid
+                form.controls.maxPlayers.touched &&
+                form.controls.maxPlayers.invalid
               "
             >
               <span
                 *ngIf="
-                  customAddGameForm.controls.maxPlayers.errors &&
-                  customAddGameForm.controls.maxPlayers.errors.required
+                  form.controls.maxPlayers.errors &&
+                  form.controls.maxPlayers.errors.required
                 "
                 >This field is mandatory.</span
               >
@@ -203,14 +175,14 @@
             />
             <mat-error
               *ngIf="
-                customAddGameForm.controls.minPlayTime.touched &&
-                customAddGameForm.controls.minPlayTime.invalid
+                form.controls.minPlayTime.touched &&
+                form.controls.minPlayTime.invalid
               "
             >
               <span
                 *ngIf="
-                  customAddGameForm.controls.minPlayTime.errors &&
-                  customAddGameForm.controls.minPlayTime.errors.required
+                  form.controls.minPlayTime.errors &&
+                  form.controls.minPlayTime.errors.required
                 "
                 >This field is mandatory.</span
               >
@@ -226,14 +198,14 @@
             />
             <mat-error
               *ngIf="
-                customAddGameForm.controls.maxPlayTime.touched &&
-                customAddGameForm.controls.maxPlayTime.invalid
+                form.controls.maxPlayTime.touched &&
+                form.controls.maxPlayTime.invalid
               "
             >
               <span
                 *ngIf="
-                  customAddGameForm.controls.maxPlayTime.errors &&
-                  customAddGameForm.controls.maxPlayTime.errors.required
+                  form.controls.maxPlayTime.errors &&
+                  form.controls.maxPlayTime.errors.required
                 "
                 >This field is mandatory.</span
               >
@@ -251,21 +223,31 @@
           <mat-label>note</mat-label>
           <textarea matInput formControlName="note"></textarea>
         </mat-form-field>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <div class="flex horizontal spaceBetween">
+  <div class="buttons-container">
     <div class="toggleButton">
       <button mat-button (click)="toggleFormType()">
         {{ toggleFormText }}
       </button>
     </div>
-    <div class="actionButtons">
+    <div class="actionButtons flex horizontal">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button *ngIf="useApi" color="primary" mat-raised-button cdkFocusInitial (click)="onSubmitApi()">Save</button>
-      <button *ngIf="!useApi" color="primary" mat-raised-button cdkFocusInitial (click)="onSubmitCustom()">Save</button>
+      <div class="save-button-container">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <button
+            color="primary"
+            mat-raised-button
+            cdkFocusInitial
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+      </div>
       <!--[mat-dialog-close]="true"-->
     </div>
   </div>
