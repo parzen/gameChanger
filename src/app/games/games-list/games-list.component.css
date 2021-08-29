@@ -49,14 +49,11 @@ mat-spinner {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
-}
-
-.image-text-container {
+  height: 100%;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   justify-content: space-between;
-  height: 350px;
 }
 
 /* Add rounded corners to the top left and the top right corner of the image */
