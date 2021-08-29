@@ -35,8 +35,8 @@ export class GamesListComponent implements OnInit, OnDestroy {
       width: '100%',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+    const sub = dialogRef.componentInstance.onSaveEmitter.subscribe(() => {
+      dialogRef.close();
     });
   }
 

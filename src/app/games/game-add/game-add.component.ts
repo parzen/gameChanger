@@ -3,7 +3,7 @@ import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { GamesService } from './../games.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-game-add',
@@ -20,6 +20,8 @@ export class GameAddComponent implements OnInit {
   games: Game[] = [];
   form: FormGroup;
   authStatusSub: Subscription;
+
+  @Output() onSaveEmitter = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -161,6 +163,7 @@ export class GameAddComponent implements OnInit {
     }
     console.log(newGame);
     this.gameService.addGame(newGame);
+    this.onSaveEmitter.emit();
   }
 
   validateAllFormFields(formGroup: FormGroup) {
