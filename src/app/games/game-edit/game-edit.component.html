@@ -1,27 +1,26 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <div class="form-container" *ngIf="!isLoading">
+    <h1>{{ form.controls.title.value }}</h1>
+    <div class="img-container">
+      <img src="{{ form.controls.imagePath.value }}" />
+    </div>
     <form [formGroup]="form" (ngSubmit)="onSaveGame()">
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>Title</mat-label>
         <input matInput formControlName="title" required />
         <mat-error
-          *ngIf="
-            form.controls.title.touched &&
-            form.controls.title.invalid
-          "
+          *ngIf="form.controls.title.touched && form.controls.title.invalid"
         >
           <span
             *ngIf="
-              form.controls.title.errors &&
-              form.controls.title.errors.required
+              form.controls.title.errors && form.controls.title.errors.required
             "
             >This field is mandatory.</span
           >
           <span
             *ngIf="
-              form.controls.title.errors &&
-              form.controls.title.errors.pattern
+              form.controls.title.errors && form.controls.title.errors.pattern
             "
             >This field is invalid.</span
           >
@@ -39,10 +38,7 @@
         <mat-label>minAge</mat-label>
         <input matInput formControlName="minAge" required type="number" />
         <mat-error
-          *ngIf="
-            form.controls.minAge.touched &&
-            form.controls.minAge.invalid
-          "
+          *ngIf="form.controls.minAge.touched && form.controls.minAge.invalid"
         >
           <span
             *ngIf="
@@ -150,7 +146,11 @@
         <mat-label>note</mat-label>
         <textarea matInput formControlName="note"></textarea>
       </mat-form-field>
-      <button mat-raised-button type="submit" color="accent">Save Game</button>
+      <div class="button-container">
+        <button mat-raised-button type="submit" color="accent">
+          Save Game
+        </button>
+      </div>
     </form>
   </div>
 </mat-card>

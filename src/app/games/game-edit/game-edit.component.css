@@ -1,0 +1,19 @@
+.img-container {
+  text-align: center;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.horizontal {
+  flex: 1 1 auto;
+}
+
+.button-container {
+  text-align: right;
+}
