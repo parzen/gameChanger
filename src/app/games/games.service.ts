@@ -125,11 +125,11 @@ export class GamesService {
     return this.http.delete(BACKEND_URL + '/' + gameId);
   }
 
-  play(players: string, maxPlayTime: string, ageGroup: string) {
+  play(players: string, maxPlayTime: string, minAge: string) {
     let params = new HttpParams();
     params = params.append('players', players);
     params = params.append('maxPlayTime', maxPlayTime);
-    params = params.append('ageGroup', ageGroup);
+    params = params.append('minAge', minAge);
     return this.http
       .get<{ message: string; games: any }>(BACKEND_URL + 'play', {params: params})
       .pipe(

@@ -115,40 +115,15 @@ exports.deleteGame = (req, res, next) => {
 
 exports.getGamesToPlay = (req, res, next) => {
   const players = parseInt(req.query.players);
-  const maxPlayTime = parseInt(req.query.maxPlayTime);
-  const ageGroup = req.query.ageGroup;
-
-  let minAgeS, maxAges;
-  switch (ageGroup) {
-    case "all":
-      minAgeS = 0;
-      maxAges = 99;
-      break;
-    case "kids":
-      minAgeS = 0;
-      maxAges = 6;
-      break;
-    case "family":
-      minAgeS = 6;
-      maxAges = 12;
-      break;
-    case "adult":
-      minAgeS = 12;
-      maxAges = 99;
-      break;
-
-    default:
-      res.status(401).json({ message: "Wrong age group!" });
-      break;
-  }
+  const maxPlayTimeInput = parseInt(req.query.maxPlayTime);
+  const minAgeInput = parseInt(req.query.minAge);
 
   Game.find({
     creator: req.userData.userId,
     maxPlayers: { $gte: players },
     minPlayers: { $lte: players },
-    minPlayTime: { $lte: maxPlayTime },
-    minAge: {$gte: minAgeS},
-    minAge: {$lte: maxAges}
+    minPlayTime: { $lte: maxPlayTimeInput },
+    minAge: { $gte: minAgeInput },
   })
     .limit(10)
     .then((fetchedGames) => {

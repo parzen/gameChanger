@@ -3,57 +3,50 @@
     <form [formGroup]="form" (submit)="onPlay()">
       <div class="form-container">
         <mat-form-field class="form-field" appearance="outline">
-          <mat-label> Players </mat-label>
-          <input matInput formControlName="players" type="number" required />
-          <mat-error
-            *ngIf="
-              form.controls.players.touched && form.controls.players.invalid
-            "
-          >
-            <span *ngIf="form.controls.players.errors.required"
-              >This field is mandatory.</span
-            >
-            <span *ngIf="form.controls.players.errors.pattern"
-              >This field is invalid.</span
-            >
-          </mat-error>
+          <mat-label>Players</mat-label>
+          <mat-select formControlName="playerControl" required>
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
+            <mat-option value="5">5</mat-option>
+            <mat-option value="6">6</mat-option>
+            <mat-option value="7">7</mat-option>
+            <mat-option value="8">8</mat-option>
+            <mat-option value="9">9</mat-option>
+            <mat-option value="99">9+</mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-form-field class="form-field" appearance="outline">
-          <mat-label> Maximal play time </mat-label>
-          <input matInput formControlName="maxPlayTime" type="number" required/>
-          <mat-error
-            *ngIf="
-              form.controls.maxPlayTime.touched &&
-              form.controls.maxPlayTime.invalid
-            "
-          >
-            <span *ngIf="form.controls.maxPlayTime.errors.required"
-              >This field is mandatory.</span
-            >
-          </mat-error>
+          <mat-label>Select maximal play time</mat-label>
+          <mat-select formControlName="maxPlayControl" required>
+            <mat-option value="15">15 min</mat-option>
+            <mat-option value="30">30 min</mat-option>
+            <mat-option value="45">45 min</mat-option>
+            <mat-option value="60">60 min</mat-option>
+            <mat-option value="90">90 min</mat-option>
+            <mat-option value="120">120 min</mat-option>
+            <mat-option value="999">120+ min</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Select minimal age</mat-label>
+          <mat-select formControlName="minAgeControl" required>
+            <mat-option value="0">0+</mat-option>
+            <mat-option value="6">6+</mat-option>
+            <mat-option value="12">12+</mat-option>
+            <mat-option value="18">18+</mat-option>
+          </mat-select>
         </mat-form-field>
         <!--
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label> Minimal age </mat-label>
-          <input matInput formControlName="minAge" type="number" />
-          <mat-error
-            *ngIf="form.controls.minAge.touched && form.controls.minAge.invalid"
-          >
-            <span *ngIf="form.controls.minAge.errors.required"
-              >This field is mandatory.</span
-            >
-          </mat-error>
-        </mat-form-field>
-      -->
       <mat-form-field class="form-field" appearance="outline">
-        <mat-label>Select age group</mat-label>
-        <mat-select formControlName="ageControl" required>
-          <mat-option value="all">All ages</mat-option>
-          <mat-option value="kids">Kids (<6)</mat-option>
-          <mat-option value="family">Family (6-12)</mat-option>
-          <mat-option value="adult">Adult (>12)</mat-option>
+        <mat-label>Game type</mat-label>
+        <mat-select formControlName="gameTypeControl" required>
+          <mat-option value="boardgame">Boardgame</mat-option>
+          <mat-option value="videogame">Videogame</mat-option>
         </mat-select>
       </mat-form-field>
+    -->
       </div>
       <div class="button-container">
         <button mat-raised-button color="accent" type="submit">Play!</button>
