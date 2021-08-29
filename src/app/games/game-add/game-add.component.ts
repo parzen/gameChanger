@@ -75,9 +75,9 @@ export class GameAddComponent implements OnInit {
     console.log('Try to add active to: ', idx);
     const current = document.getElementsByClassName('active');
     if (current[0]) {
-      current[0].className = current[0].className.replace(' active', '');
+      current[0].classList.remove('active');
     }
-    element.className += ' active';
+    element.classList.add('active');
     this.activeCard = idx;
   }
 
@@ -117,9 +117,16 @@ export class GameAddComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.form.valid || (this.useApi && this.activeCard == null)) {
-      this.validateAllFormFields(this.form); //{7}
-      return;
+    if (this.useApi) {
+      if (this.activeCard == null) {
+        this.validateAllFormFields(this.form);
+        return;
+      }
+    } else {
+      if (!this.form.valid) {
+        this.validateAllFormFields(this.form);
+        return;
+      }
     }
 
     let newGame: Game;
@@ -133,8 +140,8 @@ export class GameAddComponent implements OnInit {
         minPlayTime: this.games[this.activeCard].minPlayTime,
         maxPlayTime: this.games[this.activeCard].maxPlayTime,
         minAge: this.games[this.activeCard].minAge,
-        note: this.games[this.activeCard].note,
-        gameType: this.games[this.activeCard].gameType,
+        note: '',
+        gameType: this.games[this.activeCard].gameType === 'game' ? 'boardgame' : this.games[this.activeCard].gameType,
         creator: '',
       };
     } else {
@@ -156,13 +163,13 @@ export class GameAddComponent implements OnInit {
     this.gameService.addGame(newGame);
   }
 
-  validateAllFormFields(formGroup: FormGroup) {         //{1}
-    Object.keys(formGroup.controls).forEach(field => {  //{2}
-      const control = formGroup.get(field);             //{3}
-      if (control instanceof FormControl) {             //{4}
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {        //{5}
-        this.validateAllFormFields(control);            //{6}
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
       }
     });
   }
