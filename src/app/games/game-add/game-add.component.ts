@@ -2,7 +2,12 @@ import { Game } from './../../shared/interfaces/game.interface';
 import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { GamesService } from './../games.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -14,7 +19,6 @@ export class GameAddComponent implements OnInit {
   isLoading: boolean = false;
   useApi: boolean = false;
   apiError = null;
-  activeCard = null;
   toggleFormText: string = '';
   maxNoteLength = 50;
   games: Game[] = [];
@@ -80,7 +84,16 @@ export class GameAddComponent implements OnInit {
       current[0].classList.remove('active');
     }
     element.classList.add('active');
-    this.activeCard = idx;
+
+    this.form.controls['title'].setValue(this.games[idx].title);
+    this.form.controls['imagePath'].setValue(this.games[idx].imagePath);
+    this.form.controls['minPlayers'].setValue(this.games[idx].minPlayers);
+    this.form.controls['maxPlayers'].setValue(this.games[idx].maxPlayers);
+    this.form.controls['minPlayTime'].setValue(this.games[idx].minPlayTime);
+    this.form.controls['maxPlayTime'].setValue(this.games[idx].maxPlayTime);
+    this.form.controls['minAge'].setValue(this.games[idx].minAge);
+    this.form.controls['note'].setValue(this.games[idx].note);
+    this.form.controls['gameType'].setValue(this.games[idx].gameType);
   }
 
   async onSearch() {
@@ -119,55 +132,33 @@ export class GameAddComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.useApi) {
-      if (this.activeCard == null) {
-        this.validateAllFormFields(this.form);
-        return;
-      }
-    } else {
-      if (!this.form.valid) {
-        this.validateAllFormFields(this.form);
-        return;
-      }
+    if (!this.form.valid) {
+      this.validateAllFormFields(this.form);
+      return;
     }
 
-    let newGame: Game;
-    if (this.useApi) {
-      newGame = {
-        id: '',
-        title: this.games[this.activeCard].title,
-        imagePath: this.games[this.activeCard].imagePath,
-        minPlayers: this.games[this.activeCard].minPlayers,
-        maxPlayers: this.games[this.activeCard].maxPlayers,
-        minPlayTime: this.games[this.activeCard].minPlayTime,
-        maxPlayTime: this.games[this.activeCard].maxPlayTime,
-        minAge: this.games[this.activeCard].minAge,
-        note: '',
-        gameType: this.games[this.activeCard].gameType === 'game' ? 'boardgame' : this.games[this.activeCard].gameType,
-        creator: '',
-      };
-    } else {
-      newGame = {
-        id: '',
-        title: this.form.value.title,
-        imagePath: this.form.value.imagePath,
-        minPlayers: this.form.value.minPlayers,
-        maxPlayers: this.form.value.maxPlayers,
-        minPlayTime: this.form.value.minPlayTime,
-        maxPlayTime: this.form.value.maxPlayTime,
-        minAge: this.form.value.minAge,
-        note: this.form.value.note,
-        gameType: this.form.value.gameType,
-        creator: '',
-      };
-    }
+    const newGame: Game = {
+      id: '',
+      title: this.form.value.title,
+      imagePath: this.form.value.imagePath,
+      minPlayers: this.form.value.minPlayers,
+      maxPlayers: this.form.value.maxPlayers,
+      minPlayTime: this.form.value.minPlayTime,
+      maxPlayTime: this.form.value.maxPlayTime,
+      minAge: this.form.value.minAge,
+      note: this.form.value.note,
+      gameType: this.form.value.gameType,
+      creator: '',
+    };
     console.log(newGame);
     this.gameService.addGame(newGame);
     this.onSaveEmitter.emit();
+
+    // TODO: subscribe in this method, on error switch tocustom form: this.useApi = false;
   }
 
   validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
+    Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
