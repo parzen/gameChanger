@@ -9,6 +9,7 @@ import { GameAddComponent } from '../game-add/game-add.component';
 import { Game } from '../../shared/interfaces/game.interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-games-list',
@@ -27,17 +28,25 @@ export class GamesListComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private gameService: GamesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Close",{
+      duration: 3000,
+      panelClass: ["custom-style"]
+    });
+  }
 
   addGame() {
     const dialogRef = this.dialog.open(GameAddComponent, {
       width: '80%',
-      maxWidth: '800px',
     });
 
     const sub = dialogRef.componentInstance.onSaveEmitter.subscribe(() => {
       dialogRef.close();
+      this.openSnackBar('Added successfully!')
     });
   }
 

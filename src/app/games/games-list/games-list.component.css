@@ -2,6 +2,11 @@ mat-spinner {
   margin: auto;
 }
 
+::ng-deep .custom-style{
+  background-color:white;
+  color:green;
+}
+
 .add-button-container {
   right: 20px;
   padding-top: 20px;
