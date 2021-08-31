@@ -32,7 +32,8 @@ export class GamesListComponent implements OnInit, OnDestroy {
 
   addGame() {
     const dialogRef = this.dialog.open(GameAddComponent, {
-      width: '100%',
+      width: '80%',
+      maxWidth: '800px',
     });
 
     const sub = dialogRef.componentInstance.onSaveEmitter.subscribe(() => {
@@ -66,7 +67,10 @@ export class GamesListComponent implements OnInit, OnDestroy {
 
   onDelete(gameId: string) {
     const message = null;
-    const dialogData = new ConfirmDialogModel('Are you sure you want to delete?', message);
+    const dialogData = new ConfirmDialogModel(
+      'Are you sure you want to delete?',
+      message
+    );
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '400px',
