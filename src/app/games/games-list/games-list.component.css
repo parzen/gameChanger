@@ -2,9 +2,14 @@ mat-spinner {
   margin: auto;
 }
 
-::ng-deep .custom-style{
+::ng-deep .success-style{
   background-color:white;
   color:green;
+}
+
+::ng-deep .error-style{
+  background-color:white;
+  color:red;
 }
 
 .add-button-container {

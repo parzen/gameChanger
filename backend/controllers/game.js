@@ -17,7 +17,7 @@ exports.addGame = (req, res, next) => {
     .save()
     .then((createdGame) => {
       res.status(201).json({
-        message: "Game added successfully",
+        message: "Game added successfully!",
         game: {
           ...createdGame,
           id: createdGame._id,
@@ -26,7 +26,7 @@ exports.addGame = (req, res, next) => {
     })
     .catch((error) => {
       res.status(500).json({
-        message: "Creating a game failed!",
+        message: "Adding a game failed!",
       });
     });
 };

@@ -32,10 +32,10 @@ export class GamesListComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar
   ) {}
 
-  openSnackBar(message: string) {
+  openSnackBar(message: string, error: boolean) {
     this._snackBar.open(message, "Close",{
       duration: 3000,
-      panelClass: ["custom-style"]
+      panelClass: error ? ["error-style"] : ["success-style"]
     });
   }
 
@@ -44,9 +44,9 @@ export class GamesListComponent implements OnInit, OnDestroy {
       width: '80%',
     });
 
-    const sub = dialogRef.componentInstance.onSaveEmitter.subscribe(() => {
+    const sub = dialogRef.componentInstance.onSaveEmitter.subscribe((response: {"message": string, "error": boolean}) => {
       dialogRef.close();
-      this.openSnackBar('Added successfully!')
+      this.openSnackBar(response.message, response.error)
     });
   }
 

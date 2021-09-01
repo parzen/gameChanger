@@ -1,7 +1,7 @@
 import { Game } from './../shared/interfaces/game.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -81,22 +81,18 @@ export class GamesService {
     }>(BACKEND_URL + '/game/' + id);
   }
 
-  addGame(game: Game) {
-    this.http
-      .post<{ message: string; game: Game }>(BACKEND_URL, {
-        title: game.title,
-        imagePath: game.imagePath,
-        minPlayers: game.minPlayers,
-        maxPlayers: game.maxPlayers,
-        minPlayTime: game.minPlayTime,
-        maxPlayTime: game.maxPlayTime,
-        minAge: game.minAge,
-        note: game.note,
-        gameType: game.gameType,
-      })
-      .subscribe((responseData) => {
-        this.router.navigate(['/games/list']);
-      });
+  addGame(game: Game): Observable<{ message: string; game: Game }> {
+    return this.http.post<{ message: string; game: Game }>(BACKEND_URL, {
+      title: game.title,
+      imagePath: game.imagePath,
+      minPlayers: game.minPlayers,
+      maxPlayers: game.maxPlayers,
+      minPlayTime: game.minPlayTime,
+      maxPlayTime: game.maxPlayTime,
+      minAge: game.minAge,
+      note: game.note,
+      gameType: game.gameType,
+    });
   }
 
   updateGame(game: Game) {
@@ -131,7 +127,9 @@ export class GamesService {
     params = params.append('maxPlayTime', maxPlayTime);
     params = params.append('minAge', minAge);
     return this.http
-      .get<{ message: string; games: any }>(BACKEND_URL + 'play', {params: params})
+      .get<{ message: string; games: any }>(BACKEND_URL + 'play', {
+        params: params,
+      })
       .pipe(
         map((gameData) => {
           return {

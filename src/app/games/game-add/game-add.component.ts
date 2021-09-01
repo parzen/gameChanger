@@ -134,6 +134,11 @@ export class GameAddComponent implements OnInit {
   onSubmit() {
     if (!this.form.valid) {
       this.validateAllFormFields(this.form);
+
+      // If some values are missing, switch to custom form
+      if (this.useApi) {
+        this.useApi = false;
+      }
       return;
     }
 
@@ -150,11 +155,12 @@ export class GameAddComponent implements OnInit {
       gameType: this.form.value.gameType,
       creator: '',
     };
-    console.log(newGame);
-    this.gameService.addGame(newGame);
-    this.onSaveEmitter.emit();
 
-    // TODO: subscribe in this method, on error switch tocustom form: this.useApi = false;
+    this.gameService.addGame(newGame).subscribe((response) => {
+      this.onSaveEmitter.emit({"message": response.message, "error": false});
+    }, error => {
+      this.onSaveEmitter.emit({"message": error.error.message, "error": true});
+    });
   }
 
   validateAllFormFields(formGroup: FormGroup) {
