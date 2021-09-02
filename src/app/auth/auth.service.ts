@@ -44,7 +44,7 @@ export class AuthService {
     this.http
       .post(BACKEND_URL + '/signup', authData)
       .subscribe(() => {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/games/list"]);
       }, error => {
         this.authStatusListener.next(false);
       });
