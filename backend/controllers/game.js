@@ -66,7 +66,7 @@ exports.editGame = (req, res, next) => {
 };
 
 exports.getGames = (req, res, next) => {
-  const gameQuery = Game.find();
+  const gameQuery = Game.find({creator: req.userData.userId});
   gameQuery
     .then((fetchedGames) => {
       res.status(200).json({

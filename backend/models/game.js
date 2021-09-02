@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const gameSchema = mongoose.Schema({
-  title: { type: String, required: true, unique: true }, // TODO: unique combine with creator
+  title: { type: String, required: true, unique: false },
   imagePath: { type: String },
   minPlayers: { type: Number, required: true },
   maxPlayers: { type: Number, required: true },
@@ -15,9 +15,11 @@ const gameSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+    unique: false
   },
 });
 
+gameSchema.index({ title: 1, creator: 1 }, { unique: true })
 gameSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("Game", gameSchema);

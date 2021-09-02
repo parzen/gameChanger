@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Erster Parameter ist ein Filter, z.B. Pfad. Nur
 // dieser durchläuft die middleware
-router.get("", GameController.getGames);
+router.get("", checkAuth, GameController.getGames);
 
 router.get("/game/:id", GameController.getGame);
 
