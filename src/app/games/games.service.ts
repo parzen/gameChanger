@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
-const BACKEND_URL = environment.apiUrl + '/games/';
+const BACKEND_URL = environment.apiUrl + 'api/games/';
 
 // Dependency Injection:
 // Anstatt Property und Data Binding kann man ein Service verwenden

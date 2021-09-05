@@ -7,7 +7,7 @@
 }
 
 .dashboard-image {
-  background: url("http://localhost:3000/images/dashboard.jpg") no-repeat center;
+  background: url("http://gamechanger-env.eba-gcdtb5tt.eu-central-1.elasticbeanstalk.com/images/dashboard.jpg") no-repeat center;
   background-size: cover;
   padding-top: 36px;
   height: 380px;
