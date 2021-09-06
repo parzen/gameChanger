@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './error/error-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GamesModule } from './games/games.module';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -19,7 +20,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     HeaderComponent,
     DashboardComponent,
     PlayComponent,
-    ConfirmDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +33,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

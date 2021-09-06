@@ -2,3 +2,15 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Styles for snackbar
+.snackbar-success-style{
+  background-color:white;
+  color:green;
+}
+
+.snackbar-error-style{
+  background-color:white;
+  color:red;
+}
+*/

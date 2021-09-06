@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../snackbar.service';
 import {
   ConfirmDialogComponent,
   ConfirmDialogModel,
@@ -9,7 +10,6 @@ import { GameAddComponent } from '../game-add/game-add.component';
 import { Game } from '../../shared/interfaces/game.interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-games-list',
@@ -29,14 +29,11 @@ export class GamesListComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private gameService: GamesService,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private snackBarService: SnackbarService
   ) {}
 
   openSnackBar(message: string, error: boolean) {
-    this._snackBar.open(message, "Close",{
-      duration: 3000,
-      panelClass: error ? ["error-style"] : ["success-style"]
-    });
+    this.snackBarService.open(message, "Close", error)
   }
 
   addGame() {
