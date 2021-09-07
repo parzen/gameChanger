@@ -24,9 +24,6 @@
       required/>
       <mat-error *ngIf="passwortInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
-    <div class="server-error" *ngIf="serverError">
-      <md-icon class="material-icons">error</md-icon> {{ serverError }}
-    </div>
     <button mat-raised-button type="submit" color="accent">Login</button>
   </form>
 </mat-card>

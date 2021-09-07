@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           errorMessage = error.error.message;
         }
 
-        this.snackBarService.open(errorMessage, "Close", true)
+        this.snackBarService.open(errorMessage, true)
         return throwError(error);
       })
     );

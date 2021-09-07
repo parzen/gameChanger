@@ -9,7 +9,6 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
-  serverError = null;
   private authStatusSub: Subscription = new Subscription;
 
   constructor(public authService: AuthService) {}

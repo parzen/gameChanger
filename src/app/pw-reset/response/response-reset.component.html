@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="form-container" *ngIf="!isLoading">
+    <form [formGroup]="form" (ngSubmit)="resetPassword()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Token</mat-label>
+        <input matInput formControlName="resettoken" required type="text"/>
+        <mat-error
+          *ngIf="form.controls.resettoken.touched && form.controls.resettoken.invalid"
+        >
+          <span
+            *ngIf="
+              form.controls.resettoken.errors && form.controls.resettoken.errors.required
+            "
+            >This field is mandatory.</span
+          >
+          <span
+            *ngIf="
+              form.controls.resettoken.errors && form.controls.resettoken.errors.pattern
+            "
+            >This field is invalid.</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>New password</mat-label>
+        <input matInput formControlName="newPassword" required type="password"/>
+        <mat-error
+          *ngIf="form.controls.newPassword.touched && form.controls.newPassword.invalid"
+        >
+          <span
+            *ngIf="
+              form.controls.newPassword.errors && form.controls.newPassword.errors.required
+            "
+            >This field is mandatory.</span
+          >
+          <span
+            *ngIf="
+              form.controls.newPassword.errors && form.controls.newPassword.errors.pattern
+            "
+            >This field is invalid.</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <div class="button-container">
+        <button mat-raised-button type="submit" color="accent">
+          Reset password
+        </button>
+      </div>
+    </form>
+  </div>
+</mat-card>

@@ -1,6 +1,8 @@
 {
   "env": {
     "MONGO_ATLAS_PW": "mOIXouXKkcOSlWOr",
-    "JWT_KEY": "v+QqW^KRno:bvzXL5m!;;J]P_>WhY_B*B.HvIK[/X~p~0.(=^d_gSq0*#2kfi"
+    "JWT_KEY": "v+QqW^KRno:bvzXL5m!;;J]P_>WhY_B*B.HvIK[/X~p~0.(=^d_gSq0*#2kfi",
+    "MAIL_PW": "MRM4#yJc~SvkuK83",
+    "MAIL_AD": "gamechanger.nfo@gmail.com"
   }
 }

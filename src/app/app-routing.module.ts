@@ -12,15 +12,21 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
+    path: 'pw-reset',
+    loadChildren: () =>
+      import('./pw-reset/pw-reset.module').then((m) => m.PwResetModule),
+  },
+  {
     path: 'games',
-    loadChildren: () => import('./games/games.module').then((m) => m.GamesModule),
-    canActivate: [AuthGuard]
+    loadChildren: () =>
+      import('./games/games.module').then((m) => m.GamesModule),
+    canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard],
 })
 export class AppRoutingModule {}

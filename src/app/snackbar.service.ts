@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SnackbarService {
   constructor(public snackBar: MatSnackBar, private zone: NgZone) {}
 
-  public open(message, action = 'close', error = false, duration = 3000 ) {
+  public open(message, error = false, action = 'close', duration = 3000 ) {
     this.zone.run(() => {
       this.snackBar.open(message, action, {
         duration,

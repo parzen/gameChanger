@@ -33,7 +33,7 @@ export class GamesListComponent implements OnInit, OnDestroy {
   ) {}
 
   openSnackBar(message: string, error: boolean) {
-    this.snackBarService.open(message, "Close", error)
+    this.snackBarService.open(message, error)
   }
 
   addGame() {

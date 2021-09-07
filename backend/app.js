@@ -1,6 +1,7 @@
 const express = require("express");
 const userRoutes = require("./routes/user");
 const gameRoutes = require("./routes/game");
+const passwordResetTokenRoues = require("./routes/passwordResetToken");
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/games", gameRoutes);
-app.use(express.static('public'));
+app.use("/api/resetpassword", passwordResetTokenRoues);
+app.use(express.static("public"));
 
 module.exports = app;
