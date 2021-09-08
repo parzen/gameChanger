@@ -1,6 +1,11 @@
 import { SnackbarService } from './../../snackbar.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PwResetService } from '../pw-reset.service';
 
@@ -14,6 +19,7 @@ export class ResponseResetComponent implements OnInit {
   resetToken: string;
   CurrentState: any;
   isLoading: boolean = false;
+  isVerified: boolean = false;
 
   constructor(
     private pwResetService: PwResetService,
@@ -24,58 +30,57 @@ export class ResponseResetComponent implements OnInit {
   ) {
     this.route.params.subscribe((params) => {
       this.resetToken = params.token;
-      console.log(this.resetToken);
       this.verifyToken();
     });
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      resettoken: [this.resetToken],
       newPassword: ['', Validators.required],
     });
   }
 
   verifyToken() {
     this.isLoading = true;
-    this.pwResetService
-      .validPasswordToken(this.resetToken)
-      .subscribe(
-        (data) => {
-          this.isLoading = false;
-          console.log('Token verified!');
-        },
-        (err) => {
-          this.isLoading = false;
-          this.snackBarService.open('The token is not verified!', true);
-        }
-      );
+    this.pwResetService.validPasswordToken(this.resetToken).subscribe(
+      (data) => {
+        this.isLoading = false;
+        this.isVerified = true;
+      },
+      (err) => {
+        this.isLoading = false;
+        this.isVerified = false;
+        this.snackBarService.open('The token is not verified!', true);
+      }
+    );
   }
 
   resetPassword() {
-    if (this.form.invalid) {
+    if (this.form.invalid || !this.isVerified) {
       this.validateAllFormFields(this.form);
       return;
     }
     this.isLoading = true;
 
-    this.pwResetService.newPassword(this.form.value.resettoken, this.form.value.newPassword).subscribe(
-      (data) => {
-        this.isLoading = false;
-        this.form.reset();
-        this.snackBarService.open(data.message);
-        setTimeout(() => {
-          this.router.navigate(['/auth/login']);
-        }, 3000);
-      },
-      (err) => {
-        if (err.error.message) {
+    this.pwResetService
+      .newPassword(this.resetToken, this.form.value.newPassword)
+      .subscribe(
+        (data) => {
           this.isLoading = false;
           this.form.reset();
-          this.snackBarService.open(err.error.message, true);
+          this.snackBarService.open(data.message);
+          setTimeout(() => {
+            this.router.navigate(['/auth/login']);
+          }, 3000);
+        },
+        (err) => {
+          if (err.error.message) {
+            this.isLoading = false;
+            this.form.reset();
+            this.snackBarService.open(err.error.message, true);
+          }
         }
-      }
-    );
+      );
   }
 
   validateAllFormFields(formGroup: FormGroup) {

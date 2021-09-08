@@ -14,3 +14,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color:red;
 }
 */
+
+
+/* unvisited link */
+a:link {
+  color: #3F51AE;
+}
+
+/* visited link */
+a:visited {
+  color: #3F51AE;
+}
+
+/* mouse over link */
+a:hover {
+  color: #f13f81;
+}
+
+/* selected link */
+a:active {
+  color: #3F51AE;
+}

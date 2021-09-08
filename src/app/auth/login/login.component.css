@@ -10,3 +10,9 @@ mat-form-field {
 mat-spinner {
   margin: auto;
 }
+
+.forget-pw {
+  padding-top: 5px;
+  padding-bottom: 15px;
+  font-size: 0.8em;
+}

@@ -24,6 +24,9 @@
       required/>
       <mat-error *ngIf="passwortInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
+    <div class="forget-pw">
+      <a routerLink="/pw-reset/request-reset-password">Don't remember your password?</a>
+    </div>
     <button mat-raised-button type="submit" color="accent">Login</button>
   </form>
 </mat-card>

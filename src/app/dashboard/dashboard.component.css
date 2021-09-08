@@ -29,23 +29,3 @@
 .login {
   padding-top: 5px;
 }
-
-/* unvisited link */
-a:link {
-  color: #3F51AE;
-}
-
-/* visited link */
-a:visited {
-  color: #3F51AE;
-}
-
-/* mouse over link */
-a:hover {
-  color: #f13f81;
-}
-
-/* selected link */
-a:active {
-  color: #3F51AE;
-}
