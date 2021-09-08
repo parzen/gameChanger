@@ -13,3 +13,13 @@ a {
 .spacer {
   flex: 1 1 auto;
 }
+
+mat-toolbar {
+  margin: auto;
+  max-width: 1600px;
+}
+
+.full-width {
+  width: 100%;
+  background: #3f51b6;
+}
