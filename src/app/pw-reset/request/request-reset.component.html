@@ -1,10 +1,15 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <div class="form-container" *ngIf="!isLoading">
+    <h2>Forgot your password?</h2>
+    <span
+      >Don’t worry, just enter your registered email address and we’ll send you
+      a link to reset your password</span
+    >
     <form [formGroup]="form" (ngSubmit)="requestReset()">
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required type="email"/>
+        <input matInput formControlName="email" required type="email" />
         <mat-error
           *ngIf="form.controls.email.touched && form.controls.email.invalid"
         >
