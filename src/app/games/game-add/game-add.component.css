@@ -41,8 +41,8 @@ mat-form-field {
   margin-left: 10px;
 }
 
-.apiError {
-  color: red;
+.dispError {
+  margin-top: 0px;
 }
 
 /* Game view */
@@ -133,10 +133,6 @@ h1 {
 
 .note {
   cursor: pointer;
-}
-
-.material-icons {
-  vertical-align: -6px;
 }
 
 .showMore{

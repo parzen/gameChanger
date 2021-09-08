@@ -1,4 +1,3 @@
-import { SnackbarService } from './../../snackbar.service';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -16,8 +15,9 @@ import { PwResetService } from '../pw-reset.service';
 })
 export class ResponseResetComponent implements OnInit {
   form: FormGroup;
+  dispError: string;
+  dispSuccess: string;
   resetToken: string;
-  CurrentState: any;
   isLoading: boolean = false;
   isVerified: boolean = false;
 
@@ -25,8 +25,7 @@ export class ResponseResetComponent implements OnInit {
     private pwResetService: PwResetService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private snackBarService: SnackbarService
+    private fb: FormBuilder
   ) {
     this.route.params.subscribe((params) => {
       this.resetToken = params.token;
@@ -50,7 +49,7 @@ export class ResponseResetComponent implements OnInit {
       (err) => {
         this.isLoading = false;
         this.isVerified = false;
-        this.snackBarService.open('The token is not verified!', true);
+        this.dispError = "The token is not verified!";
       }
     );
   }
@@ -68,7 +67,7 @@ export class ResponseResetComponent implements OnInit {
         (data) => {
           this.isLoading = false;
           this.form.reset();
-          this.snackBarService.open(data.message);
+          this.dispSuccess = data.message;
           setTimeout(() => {
             this.router.navigate(['/auth/login']);
           }, 3000);
@@ -77,7 +76,7 @@ export class ResponseResetComponent implements OnInit {
           if (err.error.message) {
             this.isLoading = false;
             this.form.reset();
-            this.snackBarService.open(err.error.message, true);
+            this.dispError = err.error.message;
           }
         }
       );

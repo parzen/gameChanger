@@ -10,3 +10,11 @@ mat-form-field {
 mat-spinner {
   margin: auto;
 }
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}

@@ -16,6 +16,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 */
 
 
+.material-icons {
+  vertical-align: -6px;
+}
+
+.dispError {
+  color: red;
+  margin-top: 20px;
+}
+
+.dispSuccess{
+  color: green;
+  margin-top: 20px;
+}
+
 /* unvisited link */
 a:link {
   color: #3F51AE;

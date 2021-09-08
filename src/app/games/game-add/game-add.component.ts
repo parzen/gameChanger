@@ -18,7 +18,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class GameAddComponent implements OnInit {
   isLoading: boolean = false;
   useApi: boolean = false;
-  apiError = null;
+  dispError = null;
   toggleFormText: string = '';
   maxNoteLength = 50;
   games: Game[] = [];
@@ -55,7 +55,7 @@ export class GameAddComponent implements OnInit {
   }
 
   toggleFormType() {
-    this.apiError = null;
+    this.dispError = null;
     this.useApi = !this.useApi;
     if (this.useApi) {
       this.toggleFormText = 'Use custom form';
@@ -97,7 +97,7 @@ export class GameAddComponent implements OnInit {
   }
 
   async onSearch() {
-    this.apiError = null;
+    this.dispError = null;
     if (!this.form.value.title) {
       return;
     }
@@ -110,7 +110,7 @@ export class GameAddComponent implements OnInit {
     const response = await fetch(query);
     const data = await response.json();
     if (data.count == 0) {
-      this.apiError = 'Nothing found, try custom form!';
+      this.dispError = 'Nothing found, try custom form!';
     } else {
       this.games = data.games.map((game) => {
         return {

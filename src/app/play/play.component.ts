@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class PlayComponent implements OnInit {
   isLoading = false;
   game: Game = null;
-  apiError = null;
+  dispError = null;
   form: FormGroup;
 
   constructor(private fb: FormBuilder, private gamesService: GamesService) {}
@@ -29,14 +29,14 @@ export class PlayComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    this.apiError = null;
+    this.dispError = null;
     this.game = null;
 
     this.gamesService
       .play(this.form.value.playerControl, this.form.value.maxPlayControl, this.form.value.minAgeControl)
       .subscribe((transformedGameData) => {
         if (transformedGameData.games.length == 0) {
-          this.apiError = 'No games found, try different parameters!';
+          this.dispError = 'No games found, try different parameters!';
         } else {
           const random = Math.floor(
             Math.random() * transformedGameData.games.length

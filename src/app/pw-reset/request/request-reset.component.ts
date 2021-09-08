@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class RequestResetComponent implements OnInit {
   form: FormGroup;
-  errorMessage: string;
-  successMessage: string;
+  dispError: string;
+  dispSuccess: string;
   isLoading: boolean = false;
 
   constructor(
@@ -29,22 +29,18 @@ export class RequestResetComponent implements OnInit {
   }
 
   requestReset() {
-    console.log(this.form);
     if (this.form.invalid) {
       this.validateAllFormFields(this.form);
       return;
     }
     this.isLoading = true;
 
-    console.log(this.form.value.email)
     this.pwResetService.requestReset(this.form.value.email).subscribe(
       (res) => {
         this.isLoading = false;
         this.form.reset();
-        this.snackbarService.open(
-          'Reset password link send to email successfully.'
-        );
 
+        this.dispSuccess = 'Reset password link send to email successfully.';
         setTimeout(() => {
           this.router.navigate(['/auth/login']);
         }, 3000);
@@ -53,7 +49,7 @@ export class RequestResetComponent implements OnInit {
         this.isLoading = false;
         this.form.reset();
         if (err.error.message) {
-          this.snackbarService.open(err.error.message, false);
+          this.dispError = err.error.message;
         }
       }
     );

@@ -28,5 +28,11 @@
         </button>
       </div>
     </form>
+    <div class="dispSuccess" *ngIf="dispSuccess">
+      <md-icon class="material-icons">done</md-icon> {{ dispSuccess }}
+    </div>
+    <div class="dispError" *ngIf="dispError">
+      <md-icon class="material-icons">error</md-icon> {{ dispError }}
+    </div>
   </div>
 </mat-card>

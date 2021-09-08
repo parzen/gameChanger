@@ -7,7 +7,6 @@ const nodemailer = require("nodemailer");
 
 module.exports = {
   async requestResetPassword(req, res) {
-    console.log(req.body)
     if (!req.body.email) {
       return res.status(500).json({ message: "Email is required!" });
     }
@@ -23,7 +22,6 @@ module.exports = {
     });
     resettoken.save(function (err) {
       if (err) {
-        console.log("Ein error: ", err)
         return res.status(500).send({ msg: err.message });
       }
       passwordResetToken

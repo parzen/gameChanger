@@ -38,8 +38,8 @@
         </div>
       </div>
       <div *ngIf="useApi">
-        <div class="apiError" *ngIf="apiError">
-          <md-icon class="material-icons">error</md-icon> {{ apiError }}
+        <div class="dispError" *ngIf="dispError">
+          <md-icon class="material-icons">error</md-icon> {{ dispError }}
         </div>
 
         <div *ngIf="games.length > 0" class="gamesList">
