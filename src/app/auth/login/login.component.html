@@ -1,6 +1,7 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+    <h2>Login</h2>
     <mat-form-field appearance="legacy">
       <input
        matInput

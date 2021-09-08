@@ -6,6 +6,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <div *ngIf="games.length > 0" class="gamesList">
+  <h2>Your games</h2>
   <div class="grid-container">
     <div *ngFor="let game of games; let i = index">
       <div class="card" id="{{ 'card' + i }}">
