@@ -4,7 +4,7 @@
   <div class="form-container">
     <form [formGroup]="form" (submit)="onSubmit()">
       <div class="flex horizontal">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>Title</mat-label>
           <input matInput formControlName="title" required cdkFocusInitial/>
           <mat-error
@@ -104,7 +104,7 @@
         </div>
       </div>
       <div *ngIf="!useApi">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>Image</mat-label>
           <input
             matInput
@@ -112,7 +112,7 @@
             placeholder="Insert link to image path"
           />
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>minAge</mat-label>
           <input matInput formControlName="minAge" required type="number" />
           <mat-error
@@ -128,7 +128,7 @@
           </mat-error>
         </mat-form-field>
         <div class="flex horizontal">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="legacy">
             <mat-label>minPlayers</mat-label>
             <input
               matInput
@@ -151,7 +151,7 @@
               >
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="legacy">
             <mat-label>maxPlayers</mat-label>
             <input
               matInput
@@ -176,7 +176,7 @@
           </mat-form-field>
         </div>
         <div class="flex horizontal">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="legacy">
             <mat-label>minPlaytime</mat-label>
             <input
               matInput
@@ -199,7 +199,7 @@
               >
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="legacy">
             <mat-label>maxPlayTime</mat-label>
             <input
               matInput
@@ -223,14 +223,14 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>gameType</mat-label>
           <mat-select required value="boardgame">
             <mat-option value="boardgame">Boardgame</mat-option>
             <mat-option value="videogame">Videogame</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>note</mat-label>
           <textarea matInput formControlName="note"></textarea>
         </mat-form-field>

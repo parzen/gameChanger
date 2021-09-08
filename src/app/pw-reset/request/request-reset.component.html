@@ -2,7 +2,7 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <div class="form-container" *ngIf="!isLoading">
     <form [formGroup]="form" (ngSubmit)="requestReset()">
-      <mat-form-field class="form-field" appearance="outline">
+      <mat-form-field class="form-field" appearance="legacy">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" required type="email"/>
         <mat-error

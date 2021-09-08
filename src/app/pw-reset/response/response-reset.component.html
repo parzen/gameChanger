@@ -2,7 +2,7 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <div class="form-container" *ngIf="!isLoading">
     <form [formGroup]="form" (ngSubmit)="resetPassword()">
-      <mat-form-field class="form-field" appearance="outline">
+      <mat-form-field class="form-field" appearance="legacy">
         <mat-label>New password</mat-label>
         <input matInput formControlName="newPassword" required type="password"/>
         <mat-error

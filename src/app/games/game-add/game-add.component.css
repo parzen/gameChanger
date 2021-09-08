@@ -34,7 +34,7 @@ mat-form-field {
 }
 
 #search-button {
-  height: 100%;
+  margin-left: 5px;
 }
 
 .save-button-container {

@@ -10,3 +10,7 @@ mat-form-field {
 mat-spinner {
   margin: auto;
 }
+
+button {
+  margin-top: 15px;
+}

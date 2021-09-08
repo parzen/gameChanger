@@ -2,7 +2,7 @@
   <div class="example-container">
     <form [formGroup]="form" (submit)="onPlay()">
       <div class="form-container">
-        <mat-form-field class="form-field" appearance="outline">
+        <mat-form-field class="form-field" appearance="legacy">
           <mat-label>Players</mat-label>
           <mat-select formControlName="playerControl" required>
             <mat-option value="1">1</mat-option>
@@ -17,7 +17,7 @@
             <mat-option value="99">9+</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="form-field" appearance="outline">
+        <mat-form-field class="form-field" appearance="legacy">
           <mat-label>Select maximal play time</mat-label>
           <mat-select formControlName="maxPlayControl" required>
             <mat-option value="15">15 min</mat-option>
@@ -29,7 +29,7 @@
             <mat-option value="999">120+ min</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="form-field" appearance="outline">
+        <mat-form-field class="form-field" appearance="legacy">
           <mat-label>Select minimal age</mat-label>
           <mat-select formControlName="minAgeControl" required>
             <mat-option value="0">0+</mat-option>
@@ -39,7 +39,7 @@
           </mat-select>
         </mat-form-field>
         <!--
-      <mat-form-field class="form-field" appearance="outline">
+      <mat-form-field class="form-field" appearance="legacy">
         <mat-label>Game type</mat-label>
         <mat-select formControlName="gameTypeControl" required>
           <mat-option value="boardgame">Boardgame</mat-option>
