@@ -1,6 +1,7 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <div class="form-container" *ngIf="!isLoading">
+    <h2>Set your new password</h2>
     <form [formGroup]="form" (ngSubmit)="resetPassword()">
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>New password</mat-label>

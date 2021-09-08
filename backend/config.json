@@ -4,7 +4,7 @@
     "env": "development"
   },
   "production": {
-    "FRONTEND_URL": "http://game-changer-tms.s3-website.eu-central-1.amazonaws.com/",
+    "FRONTEND_URL": "http://game-changer-tms.s3-website.eu-central-1.amazonaws.com",
     "env": "production"
   }
 }
