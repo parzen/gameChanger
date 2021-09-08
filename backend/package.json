@@ -4,7 +4,8 @@
   "description": "Game changer Api",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "NODE_ENV=development nodemon server.js",
+    "start:production": "NODE_ENV=production nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
