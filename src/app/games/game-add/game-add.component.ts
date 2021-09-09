@@ -58,7 +58,7 @@ export class GameAddComponent implements OnInit {
     this.dispError = null;
     this.useApi = !this.useApi;
     if (this.useApi) {
-      this.toggleFormText = 'Use custom form';
+      this.toggleFormText = 'Use form';
     } else {
       this.toggleFormText = 'Use Api';
     }
