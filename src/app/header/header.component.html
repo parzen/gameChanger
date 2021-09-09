@@ -1,6 +1,8 @@
 <div class="full-width">
-  <mat-toolbar color="primary">
-    <span><a routerLink="/">Game Changer</a></span>
+  <mat-toolbar color="primary" fxLayout="row">
+    <div class="logo">
+      <span><a routerLink="/">Game Changer</a></span>
+    </div>
     <ul>
       <li *ngIf="userIsAuthenticated">
         <a mat-button routerLink="games/list" routerLinkActive="mat-accent"
@@ -14,7 +16,7 @@
       </li>
     </ul>
     <span class="spacer"></span>
-    <ul>
+    <ul class="nomenu">
       <li *ngIf="!userIsAuthenticated">
         <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
           >Login</a
@@ -29,5 +31,33 @@
         <a mat-button (click)="onLogout()">Logout</a>
       </li>
     </ul>
+    <div class="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="primary-background">
+        <a
+          *ngIf="!userIsAuthenticated"
+          mat-button
+
+          routerLink="/auth/login"
+          routerLinkActive="mat-accent"
+          >Login</a
+        >
+
+        <a
+          *ngIf="!userIsAuthenticated"
+          mat-button
+
+          routerLink="/auth/signup"
+          routerLinkActive="mat-accent"
+          >Signup</a
+        >
+
+        <a *ngIf="userIsAuthenticated"  mat-button (click)="onLogout()"
+          >Logout</a
+        >
+      </mat-menu>
+    </div>
   </mat-toolbar>
 </div>

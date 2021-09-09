@@ -10,6 +10,16 @@ a {
   color: white;
 }
 
+::ng-deep .primary-background {
+  background: #3f51b6;
+}
+
+::ng-deep .mat-menu-panel {
+  min-width: auto !important;
+  min-height: auto !important;
+  margin-top: 10px;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -22,4 +32,20 @@ mat-toolbar {
 .full-width {
   width: 100%;
   background: #3f51b6;
+}
+
+.menu {
+  display: none;
+}
+.nomenu {
+  display: flex;
+}
+
+@media screen and (max-width: 400px) {
+  .menu {
+    display: flex;
+  }
+  .nomenu {
+    display: none;
+  }
 }
