@@ -20,6 +20,10 @@ mat-form-field {
   width: 100%;
 }
 
+mat-dialog-content {
+  padding-bottom: 24px;
+}
+
 ::ng-deep .mat-form-field-infix {
   width: auto !important;
 }
@@ -29,7 +33,7 @@ mat-form-field {
 }
 
 .search-button-container {
-  margin: .25em 0;
+  margin: 0.25em 0;
   height: 50px;
 }
 
@@ -54,25 +58,25 @@ mat-form-field {
 }
 
 @media screen and (max-width: 1400px) {
-  .grid-container  {
+  .grid-container {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media screen and (max-width: 1280px) {
-  .grid-container  {
+  .grid-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media screen and (max-width: 860px) {
-  .grid-container  {
+  .grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media screen and (max-width: 600px) {
-  .grid-container  {
+  .grid-container {
     grid-template-columns: repeat(1, 1fr);
   }
 }
@@ -105,8 +109,8 @@ mat-form-field {
 /* Add rounded corners to the top left and the top right corner of the image */
 img {
   border-radius: 5px 5px 0 0;
-  max-width:80%;
-  max-height:200px;
+  max-width: 80%;
+  max-height: 200px;
   width: auto;
   height: auto;
 }
@@ -135,6 +139,11 @@ h1 {
   cursor: pointer;
 }
 
-.showMore{
-  color: gray
+.showMore {
+  color: gray;
+}
+
+.moreGames {
+  text-align: center;
+  padding-top: 20px;
 }

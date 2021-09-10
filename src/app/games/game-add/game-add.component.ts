@@ -24,6 +24,7 @@ export class GameAddComponent implements OnInit {
   games: Game[] = [];
   form: FormGroup;
   authStatusSub: Subscription;
+  noMoreEntries = false;
 
   @Output() onSaveEmitter = new EventEmitter();
 
@@ -96,23 +97,38 @@ export class GameAddComponent implements OnInit {
     this.form.controls['gameType'].setValue(this.games[idx].gameType);
   }
 
-  async onSearch() {
+  onSearch() {
     this.dispError = null;
     if (!this.form.value.title) {
       return;
     }
-    this.isLoading = true;
     this.games = [];
+    this.noMoreEntries = false;
+    this.searchGames(0);
+  }
+
+  moreGames() {
+    const index = this.games.length;
+    if (index <= 0) {
+      return;
+    }
+    this.searchGames(index);
+  }
+
+  async searchGames(index: number) {
+    this.isLoading = true;
     const clientId = 'XcGu7GjNEz';
-    const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=10&name=`;
+    const limit = 10;
+    const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=${limit}&skip=${index}&name=`;
     const query = BGA_URL + this.form.value.title;
     console.log(query);
     const response = await fetch(query);
     const data = await response.json();
     if (data.count == 0) {
       this.dispError = 'Nothing found, try custom form!';
+      this.noMoreEntries = true;
     } else {
-      this.games = data.games.map((game) => {
+      const newGames = data.games.map((game) => {
         return {
           title: game.name,
           imagePath: game.images.medium,
@@ -126,7 +142,11 @@ export class GameAddComponent implements OnInit {
           gameType: game.type,
         };
       });
-      console.log(this.games);
+      this.games = [...this.games, ...newGames]
+
+      if (newGames.length < limit) {
+        this.noMoreEntries = true;
+      }
     }
     this.isLoading = false;
   }
@@ -156,11 +176,14 @@ export class GameAddComponent implements OnInit {
       creator: '',
     };
 
-    this.gameService.addGame(newGame).subscribe((response) => {
-      this.onSaveEmitter.emit({"message": response.message, "error": false});
-    }, error => {
-      this.onSaveEmitter.emit({"message": error.error.message, "error": true});
-    });
+    this.gameService.addGame(newGame).subscribe(
+      (response) => {
+        this.onSaveEmitter.emit({ message: response.message, error: false });
+      },
+      (error) => {
+        this.onSaveEmitter.emit({ message: error.error.message, error: true });
+      }
+    );
   }
 
   validateAllFormFields(formGroup: FormGroup) {
