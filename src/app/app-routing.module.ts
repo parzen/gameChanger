@@ -1,3 +1,5 @@
+import { DatenschutzComponent } from './footer/datenschutz/datenschutz.component';
+import { ImpressumComponent } from './footer/impressum/impressum.component';
 import { AuthGuard } from './auth/auth.gard';
 import { PlayComponent } from './play/play.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -22,6 +24,8 @@ const routes: Routes = [
       import('./games/games.module').then((m) => m.GamesModule),
     canActivate: [AuthGuard],
   },
+  { path: 'impressum', component: ImpressumComponent },
+  { path: 'datenschutz', component: DatenschutzComponent },
 ];
 
 @NgModule({

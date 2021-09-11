@@ -13,6 +13,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlayComponent } from './play/play.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { FooterComponent } from './footer/footer.component';
+import { ImpressumComponent } from './footer/impressum/impressum.component';
+import { DatenschutzComponent } from './footer/datenschutz/datenschutz.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     HeaderComponent,
     DashboardComponent,
     PlayComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    FooterComponent,
+    ImpressumComponent,
+    DatenschutzComponent
   ],
   imports: [
     BrowserModule,

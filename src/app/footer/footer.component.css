@@ -1,0 +1,27 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-size: 0.7em;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  margin: auto;
+  max-width: 1600px;
+  margin-top: 30px;
+}
+
+.full-width {
+  width: 100%;
+  background: #3f51b6;
+}
