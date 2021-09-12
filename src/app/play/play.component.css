@@ -25,6 +25,12 @@ button {
   justify-content: space-between;
 }
 
+@media screen and (max-width: 800px) {
+  .form-container {
+    flex-wrap: wrap;
+  }
+}
+
 .play-button {
   text-align: center;
 }
