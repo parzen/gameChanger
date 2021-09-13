@@ -19,6 +19,18 @@ mat-form-field {
   flex: 1 1 auto;
 }
 
+.horizontal mat-form-field {
+  width: 50%;
+}
+
+.horizontal mat-form-field:nth-child(1) {
+  padding-right: 5px;
+}
+
+.horizontal mat-form-field:nth-child(2) {
+   padding-left: 5px;
+}
+
 .button-container {
   display: flex;
   flex: 1 1 auto;
