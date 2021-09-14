@@ -1,8 +1,0 @@
-{
-  "env": {
-    "MONGO_ATLAS_PW": "INSERT_KEY",
-    "JWT_KEY": "INSERT_KEY",
-    "MAIL_PW": "INSERT_KEY",
-    "MAIL_AD": "INSERT_KEY"
-  }
-}
