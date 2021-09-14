@@ -30,6 +30,7 @@
             *ngIf="useApi"
             mat-raised-button
             color="primary"
+            type="button"
             (click)="onSearch()"
             id="search-button"
           >
@@ -251,13 +252,13 @@
       </button>
     </div>
     <div class="actionButtons flex horizontal">
-      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="button" mat-dialog-close>Cancel</button>
       <div class="save-button-container">
           <button
             color="primary"
             mat-raised-button
             cdkFocusInitial
-            type="submit"
+            type="button"
             [disabled]="!form.valid"
             (click)="onSubmit()"
           >
