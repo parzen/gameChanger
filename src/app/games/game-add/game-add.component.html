@@ -2,7 +2,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-dialog-content class="mat-typography" *ngIf="!isLoading">
   <div class="form-container">
-    <form [formGroup]="form" (submit)="onSubmit()">
+    <form [formGroup]="form">
       <div class="flex horizontal">
         <mat-form-field appearance="legacy">
           <mat-label>Title</mat-label>
@@ -253,16 +253,16 @@
     <div class="actionButtons flex horizontal">
       <button mat-button mat-dialog-close>Cancel</button>
       <div class="save-button-container">
-        <form [formGroup]="form" (submit)="onSubmit()">
           <button
             color="primary"
             mat-raised-button
             cdkFocusInitial
             type="submit"
+            [disabled]="!form.valid"
+            (click)="onSubmit()"
           >
             Save
           </button>
-        </form>
       </div>
       <!--[mat-dialog-close]="true"-->
     </div>
