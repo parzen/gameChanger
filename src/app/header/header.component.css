@@ -27,6 +27,8 @@ a {
 mat-toolbar {
   margin: auto;
   max-width: 1600px;
+  min-height: 64px;
+  max-height: 64px;
 }
 
 .full-width {
