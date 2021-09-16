@@ -28,7 +28,7 @@
         </mat-error>
       </mat-form-field>
       <div class="button-container">
-        <button mat-raised-button type="submit" color="accent">
+        <button mat-raised-button type="submit" color="accent" [disabled]="form.invalid">
           Reset password
         </button>
       </div>

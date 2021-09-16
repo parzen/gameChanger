@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GamesModule } from './games/games.module';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { AngularMaterialModule } from './angular-material.module';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,19 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { FooterComponent } from './footer/footer.component';
 import { ImpressumComponent } from './footer/impressum/impressum.component';
 import { DatenschutzComponent } from './footer/datenschutz/datenschutz.component';
+import Rollbar from 'rollbar';
+
+const rollbarConfig = {
+  accessToken: 'fcb6eb7dcf8b4c8caa627787d1bfc1a7',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+};
+
+export function rollbarFactory() {
+  return new Rollbar(rollbarConfig);
+}
+
+export const RollbarService = new InjectionToken<Rollbar>('rollbar');
 
 @NgModule({
   declarations: [
@@ -26,7 +39,7 @@ import { DatenschutzComponent } from './footer/datenschutz/datenschutz.component
     ConfirmDialogComponent,
     FooterComponent,
     ImpressumComponent,
-    DatenschutzComponent
+    DatenschutzComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,12 +48,13 @@ import { DatenschutzComponent } from './footer/datenschutz/datenschutz.component
     AngularMaterialModule,
     HttpClientModule,
     GamesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: RollbarService, useFactory: rollbarFactory }
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

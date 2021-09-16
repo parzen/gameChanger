@@ -1,8 +1,8 @@
-import { SnackbarService } from './../../snackbar.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder, EmailValidator } from '@angular/forms';
 import { PwResetService } from '../pw-reset.service';
 import { Router } from '@angular/router';
+import { emailValidator } from 'src/app/shared/validators/email.validator';
 
 @Component({
   selector: 'app-request-reset',
@@ -17,14 +17,13 @@ export class RequestResetComponent implements OnInit {
 
   constructor(
     private pwResetService: PwResetService,
-    private snackbarService: SnackbarService,
     private router: Router,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      email: [null,  [Validators.required, Validators.email]],
+      email: [null,  [Validators.required, emailValidator()]],
     });
   }
 
