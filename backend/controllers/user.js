@@ -16,9 +16,10 @@ exports.createUser = (req, res, next) => {
           result: result,
         });
       })
-      .catch((err) => {
+      .catch((error) => {
         res.status(500).json({
           message: "Invalid authentication credentials!",
+          dberror: error.message
         });
       });
   });
@@ -53,10 +54,10 @@ exports.userLogin = (req, res, next) => {
         userId: fetchedUser._id,
       });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
       return res.status(401).json({
         message: "Invalid authentication credentials!",
+        dberror: error.message
       });
     });
 };

@@ -22,8 +22,9 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         const rollbar = this.injector.get(RollbarService);
         let errorMessage = '';
+        let dberror = error.error.dberror ? ' | dberror: ' + error.error.dberror : '';
 
-        if (error.error instanceof ErrorEvent) {
+        if (error.error.message) {
           // client-side error
           errorMessage = `Error: ${error.error.message}`;
         } else {
@@ -32,7 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
 
         this.snackBarService.open(errorMessage, true);
-        rollbar.error(new Error(error.message).stack);
+        rollbar.error(new Error(errorMessage + dberror).stack);
         return throwError(errorMessage);
       })
     );

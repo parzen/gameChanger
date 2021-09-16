@@ -66,7 +66,6 @@ export class GameAddComponent implements OnInit {
   }
 
   toggleNote(idx) {
-    console.log('Toggle ', idx);
     const element = document.getElementById('game' + idx);
     const text = element.textContent;
     let newText = text;
@@ -74,12 +73,10 @@ export class GameAddComponent implements OnInit {
       newText = text.slice(0, this.maxNoteLength) + '...';
       element.setAttribute('truncated', '1');
     }
-    console.log('newText: ' + newText);
   }
 
   setActive(idx) {
     const element = document.getElementById('card' + idx);
-    console.log('Try to add active to: ', idx);
     const current = document.getElementsByClassName('active');
     if (current[0]) {
       current[0].classList.remove('active');
@@ -121,7 +118,6 @@ export class GameAddComponent implements OnInit {
     const limit = 10;
     const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=${limit}&skip=${index}&name=`;
     const query = BGA_URL + this.form.value.title;
-    console.log(query);
     const response = await fetch(query);
     const data = await response.json();
     if (data.count == 0) {
@@ -181,7 +177,7 @@ export class GameAddComponent implements OnInit {
         this.onSaveEmitter.emit({ message: response.message, error: false });
       },
       (error) => {
-        this.onSaveEmitter.emit({ message: error.error.message, error: true });
+        this.onSaveEmitter.emit({ message: error, error: true });
       }
     );
   }

@@ -6,7 +6,7 @@
       <div class="flex horizontal">
         <mat-form-field appearance="legacy">
           <mat-label>Title</mat-label>
-          <input matInput formControlName="title" required cdkFocusInitial />
+          <input matInput formControlName="title" required cdkFocusInitial (keyup.enter)="onSearch()"/>
           <mat-error
             *ngIf="form.controls.title.touched && form.controls.title.invalid"
           >

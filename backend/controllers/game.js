@@ -27,6 +27,7 @@ exports.addGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Adding a game failed!",
+        dberror: error.message
       });
     });
 };
@@ -61,6 +62,7 @@ exports.editGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Couldn't update game!",
+        dberror: error.message
       });
     });
 };
@@ -77,6 +79,7 @@ exports.getGames = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Fetching games failed!",
+        dberror: error.message
       });
     });
 };
@@ -93,6 +96,7 @@ exports.getGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Fetching games failed!",
+        dberror: error.message
       });
     });
 };
@@ -109,6 +113,7 @@ exports.deleteGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Fetching games failed!",
+        dberror: error.message
       });
     });
 };
@@ -131,5 +136,11 @@ exports.getGamesToPlay = (req, res, next) => {
         message: "Games fetched successfully!",
         games: fetchedGames,
       });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: "Get games to play failed!",
+        dberror: error.message
+      })
     });
 };

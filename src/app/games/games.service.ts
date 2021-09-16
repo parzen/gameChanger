@@ -17,7 +17,7 @@ export class GamesService {
 
   getGames() {
     this.http
-      .get<{ message: string; games: any }>(BACKEND_URL)
+      .get<{ message: string; games: any; dberror: string }>(BACKEND_URL)
       .pipe(
         map((gameData) => {
           return {
@@ -67,8 +67,8 @@ export class GamesService {
     }>(BACKEND_URL + '/game/' + id);
   }
 
-  addGame(game: Game): Observable<{ message: string; game: Game }> {
-    return this.http.post<{ message: string; game: Game }>(BACKEND_URL, {
+  addGame(game: Game): Observable<{ message: string; game: Game; dberror: string }> {
+    return this.http.post<{ message: string; game: Game; dberror: string }>(BACKEND_URL, {
       title: game.title,
       imagePath: game.imagePath,
       minPlayers: game.minPlayers,
@@ -113,7 +113,7 @@ export class GamesService {
     params = params.append('maxPlayTime', maxPlayTime);
     params = params.append('minAge', minAge);
     return this.http
-      .get<{ message: string; games: any }>(BACKEND_URL + 'play', {
+      .get<{ message: string; games: any; dberror: string }>(BACKEND_URL + 'play', {
         params: params,
       })
       .pipe(
