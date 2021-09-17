@@ -7,10 +7,6 @@ mat-form-field {
   width: 100%;
 }
 
-mat-spinner {
-  margin: auto;
-}
-
 .forget-pw {
   padding-top: 5px;
   padding-bottom: 15px;

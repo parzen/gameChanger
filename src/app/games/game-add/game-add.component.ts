@@ -17,6 +17,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class GameAddComponent implements OnInit {
   isLoading: boolean = false;
+  isLoadingMore: boolean = false;
   useApi: boolean = false;
   dispError = null;
   toggleFormText: string = '';
@@ -39,6 +40,7 @@ export class GameAddComponent implements OnInit {
       .getAuthStatusListener()
       .subscribe((authStatus) => {
         this.isLoading = false;
+        this.isLoadingMore = false;
       });
     this.form = this.fb.group({
       id: [null],
@@ -101,6 +103,7 @@ export class GameAddComponent implements OnInit {
     }
     this.games = [];
     this.noMoreEntries = false;
+    this.isLoading = true;
     this.searchGames(0);
   }
 
@@ -109,11 +112,11 @@ export class GameAddComponent implements OnInit {
     if (index <= 0) {
       return;
     }
+    this.isLoadingMore = true;
     this.searchGames(index);
   }
 
   async searchGames(index: number) {
-    this.isLoading = true;
     const clientId = 'XcGu7GjNEz';
     const limit = 10;
     const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=${limit}&skip=${index}&name=`;
@@ -138,13 +141,14 @@ export class GameAddComponent implements OnInit {
           gameType: game.type,
         };
       });
-      this.games = [...this.games, ...newGames]
+      this.games = [...this.games, ...newGames];
 
       if (newGames.length < limit) {
         this.noMoreEntries = true;
       }
     }
     this.isLoading = false;
+    this.isLoadingMore = false;
   }
 
   onSubmit() {
@@ -191,5 +195,9 @@ export class GameAddComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+  trackByTitle(index: number, game: Game): string {
+    return game.title;
   }
 }

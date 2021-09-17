@@ -9,10 +9,6 @@ mat-form-field {
   margin-bottom: 10px;
 }
 
-mat-spinner {
-  margin: auto;
-}
-
 .error {
   color: red;
 }

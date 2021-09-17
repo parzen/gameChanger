@@ -45,7 +45,7 @@
 
         <div *ngIf="games.length > 0" class="gamesList">
           <div class="grid-container">
-            <div *ngFor="let game of games; let i = index">
+            <div *ngFor="let game of games; let i = index; trackBy: trackByTitle">
               <div class="card" (click)="setActive(i)" id="{{ 'card' + i }}">
                 <div class="image-container">
                   <img src="{{ game.imagePath }}" />
@@ -107,6 +107,7 @@
           <button mat-button (click)="moreGames()">
             Load more games
           </button>
+          <mat-spinner *ngIf="isLoadingMore"></mat-spinner>
         </div>
       </div>
       <div *ngIf="!useApi">

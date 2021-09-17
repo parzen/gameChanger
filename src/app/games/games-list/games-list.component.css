@@ -1,7 +1,3 @@
-mat-spinner {
-  margin: auto;
-}
-
 .add-button-container {
   right: calc((100% - 1600px)/2 + 20px);
   padding-top: 20px;
