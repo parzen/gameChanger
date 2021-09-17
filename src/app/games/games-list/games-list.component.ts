@@ -98,4 +98,8 @@ export class GamesListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  trackById(index: number, game: Game): string {
+    return game.id;
+  }
 }

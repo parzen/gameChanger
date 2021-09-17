@@ -8,7 +8,7 @@
 <div *ngIf="games.length > 0" class="gamesList">
   <h2>Your games</h2>
   <div class="grid-container">
-    <div *ngFor="let game of games; let i = index">
+    <div *ngFor="let game of games; let i = index; trackBy: trackById">
       <div class="card" id="{{ 'card' + i }}">
         <div class="menu">
           <button mat-icon-button [matMenuTriggerFor]="menu">
