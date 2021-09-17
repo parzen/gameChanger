@@ -6,7 +6,13 @@
       <div class="flex horizontal">
         <mat-form-field appearance="legacy">
           <mat-label>Title</mat-label>
-          <input matInput formControlName="title" required cdkFocusInitial (keyup.enter)="onSearch()"/>
+          <input
+            matInput
+            formControlName="title"
+            required
+            cdkFocusInitial
+            (keyup.enter)="onSearch()"
+          />
           <mat-error
             *ngIf="form.controls.title.touched && form.controls.title.invalid"
           >
@@ -45,8 +51,11 @@
 
         <div *ngIf="games.length > 0" class="gamesList">
           <div class="grid-container">
-            <div *ngFor="let game of games; let i = index; trackBy: trackByTitle">
-              <div class="card" (click)="setActive(i)" id="{{ 'card' + i }}">
+            <div
+              *ngFor="let game of games; let i = index; trackBy: trackByTitle"
+              #gamesRef
+            >
+              <div class="card" (click)="setActive(game, i)">
                 <div class="image-container">
                   <img src="{{ game.imagePath }}" />
                 </div>
@@ -104,9 +113,7 @@
           </div>
         </div>
         <div class="moreGames" *ngIf="!noMoreEntries && games.length > 0">
-          <button mat-button (click)="moreGames()">
-            Load more games
-          </button>
+          <button mat-button (click)="moreGames()">Load more games</button>
           <mat-spinner *ngIf="isLoadingMore"></mat-spinner>
         </div>
       </div>
@@ -255,16 +262,16 @@
     <div class="actionButtons flex horizontal">
       <button mat-button type="button" mat-dialog-close>Cancel</button>
       <div class="save-button-container">
-          <button
-            color="primary"
-            mat-raised-button
-            cdkFocusInitial
-            type="button"
-            [disabled]="!form.valid"
-            (click)="onSubmit()"
-          >
-            Save
-          </button>
+        <button
+          color="primary"
+          mat-raised-button
+          cdkFocusInitial
+          type="button"
+          [disabled]="!form.valid"
+          (click)="onSubmit()"
+        >
+          Save
+        </button>
       </div>
       <!--[mat-dialog-close]="true"-->
     </div>

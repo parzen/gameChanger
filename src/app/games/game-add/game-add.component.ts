@@ -8,7 +8,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 
 @Component({
   selector: 'app-game-add',
@@ -26,6 +34,8 @@ export class GameAddComponent implements OnInit {
   form: FormGroup;
   authStatusSub: Subscription;
   noMoreEntries = false;
+
+  @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
 
   @Output() onSaveEmitter = new EventEmitter();
 
@@ -77,23 +87,21 @@ export class GameAddComponent implements OnInit {
     }
   }
 
-  setActive(idx) {
-    const element = document.getElementById('card' + idx);
-    const current = document.getElementsByClassName('active');
-    if (current[0]) {
-      current[0].classList.remove('active');
-    }
-    element.classList.add('active');
+  setActive(game, i) {
+    this.gamesRef.forEach((game) => {
+      game.nativeElement.classList.remove('active');
+    });
+    this.gamesRef.get(i).nativeElement.classList.add('active');
 
-    this.form.controls['title'].setValue(this.games[idx].title);
-    this.form.controls['imagePath'].setValue(this.games[idx].imagePath);
-    this.form.controls['minPlayers'].setValue(this.games[idx].minPlayers);
-    this.form.controls['maxPlayers'].setValue(this.games[idx].maxPlayers);
-    this.form.controls['minPlayTime'].setValue(this.games[idx].minPlayTime);
-    this.form.controls['maxPlayTime'].setValue(this.games[idx].maxPlayTime);
-    this.form.controls['minAge'].setValue(this.games[idx].minAge);
-    this.form.controls['note'].setValue(this.games[idx].note);
-    this.form.controls['gameType'].setValue(this.games[idx].gameType);
+    this.form.controls['title'].setValue(game.title);
+    this.form.controls['imagePath'].setValue(game.imagePath);
+    this.form.controls['minPlayers'].setValue(game.minPlayers);
+    this.form.controls['maxPlayers'].setValue(game.maxPlayers);
+    this.form.controls['minPlayTime'].setValue(game.minPlayTime);
+    this.form.controls['maxPlayTime'].setValue(game.maxPlayTime);
+    this.form.controls['minAge'].setValue(game.minAge);
+    this.form.controls['note'].setValue(game.note);
+    this.form.controls['gameType'].setValue(game.gameType);
   }
 
   onSearch() {
