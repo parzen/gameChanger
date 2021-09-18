@@ -29,7 +29,6 @@ export class GameAddComponent implements OnInit {
   useApi: boolean = false;
   dispError = null;
   toggleFormText: string = '';
-  maxNoteLength = 50;
   games: Game[] = [];
   form: FormGroup;
   authStatusSub: Subscription;
@@ -74,16 +73,6 @@ export class GameAddComponent implements OnInit {
       this.toggleFormText = 'Use form';
     } else {
       this.toggleFormText = 'Use Api';
-    }
-  }
-
-  toggleNote(idx) {
-    const element = document.getElementById('game' + idx);
-    const text = element.textContent;
-    let newText = text;
-    if (element.getAttribute('truncated') === '0') {
-      newText = text.slice(0, this.maxNoteLength) + '...';
-      element.setAttribute('truncated', '1');
     }
   }
 

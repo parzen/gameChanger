@@ -8,7 +8,10 @@
 <div *ngIf="games.length > 0" class="gamesList">
   <h2>Your games</h2>
   <div class="grid-container">
-    <div *ngFor="let game of games; let i = index; trackBy: trackById">
+    <div
+      *ngFor="let game of games; let i = index; trackBy: trackById"
+      #gamesRef
+    >
       <div class="card" id="{{ 'card' + i }}">
         <div class="menu">
           <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -58,24 +61,14 @@
         </div>
         <div
           class="content note"
-          id="{{ 'game' + i }}"
           *ngIf="game.note != ''"
           (click)="toggleNote(i)"
           truncated="0"
         >
-          <mat-icon aria-hidden="false">info_outline</mat-icon>
-          {{
-            game.note.length > maxNoteLength
-              ? (game.note | slice: 0:50) + ".."
-              : game.note
-          }}
-          <!--{{ game.note }}-->
-          <div
-            *ngIf="game.note.length > maxNoteLength"
-            class="showMore"
-            id="{{ 'showMore' + i }}"
-          >
-            show more
+          <mat-icon aria-hidden="false" class="infoIcon">info_outline</mat-icon>
+          <div class="textAndMore">
+            <div class="noteText">{{ game.note }}</div>
+            <div class="showMore">show more</div>
           </div>
         </div>
       </div>

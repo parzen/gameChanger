@@ -86,27 +86,9 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  class="content note"
-                  id="{{ 'game' + i }}"
-                  *ngIf="game.note != ''"
-                  (click)="toggleNote(i)"
-                  truncated="0"
-                >
+                <div class="content note" *ngIf="game.note != ''">
                   <mat-icon aria-hidden="false">info_outline</mat-icon>
-                  {{
-                    game.note.length > maxNoteLength
-                      ? (game.note | slice: 0:50) + ".."
-                      : game.note
-                  }}
-                  <!--{{ game.note }}-->
-                  <div
-                    *ngIf="game.note.length > maxNoteLength"
-                    class="showMore"
-                    id="{{ 'showMore' + i }}"
-                  >
-                    show more
-                  </div>
+                  {{ game.note }}
                 </div>
               </div>
             </div>

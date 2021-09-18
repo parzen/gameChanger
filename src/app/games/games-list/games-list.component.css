@@ -1,5 +1,5 @@
 .add-button-container {
-  right: calc((100% - 1600px)/2 + 20px);
+  right: calc((100% - 1600px) / 2 + 20px);
   padding-top: 20px;
   position: fixed;
 }
@@ -61,8 +61,8 @@
 /* Add rounded corners to the top left and the top right corner of the image */
 img {
   border-radius: 5px 5px 0 0;
-  max-width:80%;
-  max-height:200px;
+  max-width: 80%;
+  max-height: 200px;
   width: auto;
   height: auto;
 }
@@ -88,11 +88,33 @@ h1 {
 }
 
 .note {
+  display: flex;
+  flex: 1 1 auto;
   cursor: pointer;
+  padding-left: 5px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.infoIcon {
+  padding-right: 5px;
 }
 
 .showMore {
   color: gray;
+}
+
+.noteText {
+  -moz-hyphens: auto;
+  -o-hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.hidden {
+  display: none;
 }
 
 .menu {
