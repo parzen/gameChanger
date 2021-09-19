@@ -1,3 +1,4 @@
+import { GameAddValidator } from './../../shared/validators/game-add.validator';
 import { Game } from './../../shared/interfaces/game.interface';
 import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -17,6 +18,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 
 @Component({
   selector: 'app-game-add',
@@ -33,6 +35,7 @@ export class GameAddComponent implements OnInit {
   form: FormGroup;
   authStatusSub: Subscription;
   noMoreEntries = false;
+  errors = errorMessages;
 
   @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
 
@@ -41,7 +44,8 @@ export class GameAddComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private gameService: GamesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private gameAddValidator: GameAddValidator
   ) {}
 
   ngOnInit(): void {
@@ -51,18 +55,27 @@ export class GameAddComponent implements OnInit {
         this.isLoading = false;
         this.isLoadingMore = false;
       });
-    this.form = this.fb.group({
-      id: [null],
-      title: [null, Validators.required],
-      imagePath: [null],
-      minPlayers: [null, [Validators.required, Validators.min(1)]],
-      maxPlayers: [null, [Validators.required, Validators.min(1)]],
-      minPlayTime: [null, Validators.required],
-      maxPlayTime: [null, Validators.required],
-      minAge: [null, [Validators.required, Validators.min(0)]],
-      note: [''],
-      gameType: ['boardgame', Validators.required],
-    });
+    this.form = this.fb.group(
+      {
+        id: [null],
+        title: [null, [Validators.required, Validators.minLength(2)]],
+        imagePath: [null],
+        minPlayers: [null, [Validators.required, Validators.min(1)]],
+        maxPlayers: [null, [Validators.required, Validators.min(1)]],
+        minPlayTime: [null, [Validators.required, Validators.min(1)]],
+        maxPlayTime: [null, [Validators.required, Validators.min(1)]],
+        minAge: [null, [Validators.required, Validators.min(0)]],
+        note: [''],
+        gameType: ['boardgame', Validators.required],
+      },
+      {
+        validators: [
+          this.gameAddValidator.minPlayTimeSmallerEqualMaxPlayTime(),
+          this.gameAddValidator.minPlayersSmallerEqualMaxPlayers(),
+        ],
+        updateOn: 'blur',
+      }
+    );
     this.toggleFormType();
   }
 

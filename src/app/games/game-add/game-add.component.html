@@ -16,19 +16,12 @@
           <mat-error
             *ngIf="form.controls.title.touched && form.controls.title.invalid"
           >
-            <span
-              *ngIf="
-                form.controls.title.errors &&
-                form.controls.title.errors.required
-              "
-              >This field is mandatory.</span
-            >
-            <span
-              *ngIf="
-                form.controls.title.errors && form.controls.title.errors.pattern
-              "
-              >This field is invalid.</span
-            >
+            <span *ngIf="form.controls.title.errors?.required">{{
+              errors.required
+            }}</span>
+            <span *ngIf="form.controls.title.errors?.minlength">{{
+              errors.minLength2
+            }}</span>
           </mat-error>
         </mat-form-field>
         <div class="search-button-container">
@@ -114,13 +107,12 @@
           <mat-error
             *ngIf="form.controls.minAge.touched && form.controls.minAge.invalid"
           >
-            <span
-              *ngIf="
-                form.controls.minAge.errors &&
-                form.controls.minAge.errors.required
-              "
-              >This field is mandatory.</span
-            >
+            <span *ngIf="form.controls.minAge.errors?.required">{{
+              errors.required
+            }}</span>
+            <span *ngIf="form.controls.minAge.errors?.min">{{
+              errors.minZero
+            }}</span>
           </mat-error>
         </mat-form-field>
         <div class="flex horizontal">
@@ -138,13 +130,12 @@
                 form.controls.minPlayers.invalid
               "
             >
-              <span
-                *ngIf="
-                  form.controls.minPlayers.errors &&
-                  form.controls.minPlayers.errors.required
-                "
-                >This field is mandatory.</span
-              >
+              <span *ngIf="form.controls.minPlayers.errors?.required">{{
+                errors.required
+              }}</span>
+              <span *ngIf="form.controls.minPlayers.errors?.min">{{
+                errors.minOne
+              }}</span>
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="legacy">
@@ -161,15 +152,28 @@
                 form.controls.maxPlayers.invalid
               "
             >
-              <span
-                *ngIf="
-                  form.controls.maxPlayers.errors &&
-                  form.controls.maxPlayers.errors.required
-                "
-                >This field is mandatory.</span
-              >
+              <span *ngIf="form.controls.maxPlayers.errors?.required">{{
+                errors.required
+              }}</span>
+              <span *ngIf="form.controls.maxPlayers.errors?.min">{{
+                errors.minOne
+              }}</span>
             </mat-error>
           </mat-form-field>
+        </div>
+        <div class="error-message">
+          <mat-error
+            *ngIf="
+              form.controls.minPlayers.touched &&
+              form.controls.minPlayers.valid &&
+              form.controls.maxPlayers.touched &&
+              form.controls.maxPlayers.valid
+            "
+          >
+            <span *ngIf="form.errors?.minPlayersGreaterMaxPlayers">{{
+              errors.minPlayersGreaterMaxPlayers
+            }}</span>
+          </mat-error>
         </div>
         <div class="flex horizontal">
           <mat-form-field appearance="legacy">
@@ -186,13 +190,12 @@
                 form.controls.minPlayTime.invalid
               "
             >
-              <span
-                *ngIf="
-                  form.controls.minPlayTime.errors &&
-                  form.controls.minPlayTime.errors.required
-                "
-                >This field is mandatory.</span
-              >
+              <span *ngIf="form.controls.minPlayTime.errors?.required">{{
+                errors.required
+              }}</span>
+              <span *ngIf="form.controls.minPlayTime.errors?.min">{{
+                errors.minOne
+              }}</span>
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="legacy">
@@ -209,15 +212,28 @@
                 form.controls.maxPlayTime.invalid
               "
             >
-              <span
-                *ngIf="
-                  form.controls.maxPlayTime.errors &&
-                  form.controls.maxPlayTime.errors.required
-                "
-                >This field is mandatory.</span
-              >
+              <span *ngIf="form.controls.maxPlayTime.errors?.required">{{
+                errors.required
+              }}</span>
+              <span *ngIf="form.controls.maxPlayTime.errors?.min">{{
+                errors.minOne
+              }}</span>
             </mat-error>
           </mat-form-field>
+        </div>
+        <div class="error-message">
+          <mat-error
+            *ngIf="
+              form.controls.minPlayTime.touched &&
+              form.controls.minPlayTime.valid &&
+              form.controls.maxPlayTime.touched &&
+              form.controls.maxPlayTime.valid
+            "
+          >
+            <span *ngIf="form.errors?.minPlayTimeGreaterMaxPlayTime">{{
+              errors.minPlayTimeGreaterMaxPlayTime
+            }}</span>
+          </mat-error>
         </div>
         <mat-form-field appearance="legacy">
           <mat-label>gameType</mat-label>

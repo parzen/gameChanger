@@ -157,3 +157,7 @@ h1 {
   text-align: center;
   padding-top: 20px;
 }
+
+.error-message {
+  font-size: 75%;
+}
