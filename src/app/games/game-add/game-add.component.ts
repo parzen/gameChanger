@@ -17,15 +17,17 @@ import {
   ElementRef,
   QueryList,
   ViewChildren,
+  OnDestroy,
 } from '@angular/core';
 import { errorMessages } from 'src/app/shared/error-messages/error-messages';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game-add',
   templateUrl: './game-add.component.html',
   styleUrls: ['./game-add.component.css'],
 })
-export class GameAddComponent implements OnInit {
+export class GameAddComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   isLoadingMore: boolean = false;
   useApi: boolean = false;
@@ -33,9 +35,9 @@ export class GameAddComponent implements OnInit {
   toggleFormText: string = '';
   games: Game[] = [];
   form: FormGroup;
-  authStatusSub: Subscription;
   noMoreEntries = false;
   errors = errorMessages;
+  private sub = new Subscription();
 
   @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
 
@@ -49,12 +51,12 @@ export class GameAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe((authStatus) => {
+    this.sub.add(
+      this.authService.getAuthStatusListener().subscribe((authStatus) => {
         this.isLoading = false;
         this.isLoadingMore = false;
-      });
+      })
+    );
     this.form = this.fb.group(
       {
         id: [null],
@@ -77,6 +79,7 @@ export class GameAddComponent implements OnInit {
       }
     );
     this.toggleFormType();
+    this.onChanges();
   }
 
   toggleFormType() {
@@ -87,6 +90,40 @@ export class GameAddComponent implements OnInit {
     } else {
       this.toggleFormText = 'Use Api';
     }
+  }
+
+  onChanges() {
+    this.sub.add(this.form.get('minPlayers').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
+      const maxPlayersControl = this.form.get('maxPlayers');
+
+      if (!this.useApi && !maxPlayersControl.touched) {
+        maxPlayersControl.patchValue(value);
+      }
+    }));
+
+    this.sub.add(this.form.get('maxPlayers').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
+      const minPlayersControl = this.form.get('minPlayers');
+
+      if (!this.useApi && !minPlayersControl.touched) {
+        minPlayersControl.patchValue(value);
+      }
+    }));
+
+    this.sub.add(this.form.get('minPlayTime').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
+      const maxPlayTimeControl = this.form.get('maxPlayTime');
+
+      if (!this.useApi && !maxPlayTimeControl.touched) {
+        maxPlayTimeControl.patchValue(value);
+      }
+    }));
+
+    this.sub.add(this.form.get('maxPlayTime').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
+      const minPlayTimeControl = this.form.get('minPlayTime');
+
+      if (!this.useApi && !minPlayTimeControl.touched) {
+        minPlayTimeControl.patchValue(value);
+      }
+    }));
   }
 
   setActive(game, i) {
@@ -209,5 +246,9 @@ export class GameAddComponent implements OnInit {
 
   trackByTitle(index: number, game: Game): string {
     return game.title;
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
