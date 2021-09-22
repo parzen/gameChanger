@@ -1,4 +1,7 @@
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { GameAddComponent } from './game-add.component';
 
@@ -8,9 +11,9 @@ describe('GameAddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameAddComponent ]
-    })
-    .compileComponents();
+      declarations: [GameAddComponent],
+      imports: [ReactiveFormsModule, HttpClientModule, RouterTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
