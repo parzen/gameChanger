@@ -7,4 +7,7 @@ export const errorMessages: { [key: string]: string } = {
   minZero: 'The minimal value is 0.',
   minOne: 'The minimal value is 1.',
   minLength2: 'The minimal length is 2.',
+  invalidEmail: 'Please enter a valid email.',
+  invalidPassword: 'Please enter a valid password.',
+  noGamesFound: 'No games found, try different parameters!'
 };

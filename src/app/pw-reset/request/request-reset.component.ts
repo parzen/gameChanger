@@ -1,3 +1,4 @@
+import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder, EmailValidator } from '@angular/forms';
 import { PwResetService } from '../pw-reset.service';
@@ -14,6 +15,7 @@ export class RequestResetComponent implements OnInit {
   dispError: string;
   dispSuccess: string;
   isLoading: boolean = false;
+  errors = errorMessages;
 
   constructor(
     private pwResetService: PwResetService,

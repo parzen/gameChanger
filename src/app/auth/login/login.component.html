@@ -4,29 +4,35 @@
     <h2>Login</h2>
     <mat-form-field appearance="legacy">
       <input
-       matInput
-       type="email"
-       placeholder="Email"
-       name="email"
-       ngModel
-       #emailInput="ngModel"
-       required
-       email/>
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+        matInput
+        type="email"
+        placeholder="Email"
+        name="email"
+        ngModel
+        #emailInput="ngModel"
+        required
+        email
+      />
+      <mat-error *ngIf="emailInput.invalid">{{ errors.invalidEmail }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="legacy">
       <input
-      matInput
-      type="password"
-      placeholder="Password"
-      name="password"
-      ngModel
-      #passwortInput="ngModel"
-      required/>
-      <mat-error *ngIf="passwortInput.invalid">Please enter a valid password.</mat-error>
+        matInput
+        type="password"
+        placeholder="Password"
+        name="password"
+        ngModel
+        #passwortInput="ngModel"
+        required
+      />
+      <mat-error *ngIf="passwortInput.invalid">{{
+        errors.invalidPassword
+      }}</mat-error>
     </mat-form-field>
     <div class="forget-pw">
-      <a routerLink="/pw-reset/request-reset-password">Don't remember your password?</a>
+      <a routerLink="/pw-reset/request-reset-password"
+        >Don't remember your password?</a
+      >
     </div>
     <button mat-raised-button type="submit" color="accent">Login</button>
   </form>

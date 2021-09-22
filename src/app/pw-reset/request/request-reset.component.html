@@ -13,22 +13,20 @@
         <mat-error
           *ngIf="form.controls.email.touched && form.controls.email.invalid"
         >
-          <span
-            *ngIf="
-              form.controls.email.errors && form.controls.email.errors.required
-            "
-            >This field is mandatory.</span
-          >
-          <span
-            *ngIf="
-              form.controls.email.errors && form.controls.email.errors.pattern
-            "
-            >This field is invalid.</span
-          >
+          <span *ngIf="form.controls.email.errors?.required">{{
+            errors.required
+          }}</span>
+          <span *ngIf="form.controls.email.errors?.wrongEmail">{{
+            errors.invalidEmail
+          }}</span>
         </mat-error>
       </mat-form-field>
       <div class="button-container">
-        <button mat-raised-button type="submit" color="accent" [disabled]="form.invalid">
+        <button
+          mat-raised-button
+          type="submit"
+          color="accent"
+        >
           Reset password
         </button>
       </div>

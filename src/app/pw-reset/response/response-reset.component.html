@@ -5,26 +5,33 @@
     <form [formGroup]="form" (ngSubmit)="resetPassword()">
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>New password</mat-label>
-        <input matInput formControlName="newPassword" required type="password"/>
+        <input
+          matInput
+          formControlName="newPassword"
+          required
+          type="password"
+        />
         <mat-error
-          *ngIf="form.controls.newPassword.touched && form.controls.newPassword.invalid"
+          *ngIf="
+            form.controls.newPassword.touched &&
+            form.controls.newPassword.invalid
+          "
         >
           <span
             *ngIf="
-              form.controls.newPassword.errors && form.controls.newPassword.errors.required
+              form.controls.newPassword.errors?.required
             "
-            >This field is mandatory.</span
-          >
-          <span
-            *ngIf="
-              form.controls.newPassword.errors && form.controls.newPassword.errors.pattern
-            "
-            >This field is invalid.</span
+            >{{ errors.required }}</span
           >
         </mat-error>
       </mat-form-field>
       <div class="button-container">
-        <button mat-raised-button type="submit" color="accent" [disabled]="!isVerified">
+        <button
+          mat-raised-button
+          type="submit"
+          color="accent"
+          [disabled]="!isVerified"
+        >
           Reset password
         </button>
       </div>

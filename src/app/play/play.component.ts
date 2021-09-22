@@ -1,3 +1,4 @@
+import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { GamesService } from './../games/games.service';
 import { Game } from './../shared/interfaces/game.interface';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,6 +14,7 @@ export class PlayComponent implements OnInit {
   game: Game = null;
   dispError = null;
   form: FormGroup;
+  errors = errorMessages;
 
   constructor(private fb: FormBuilder, private gamesService: GamesService) {}
 
@@ -36,7 +38,7 @@ export class PlayComponent implements OnInit {
       .play(this.form.value.playerControl, this.form.value.maxPlayControl, this.form.value.minAgeControl)
       .subscribe((transformedGameData) => {
         if (transformedGameData.games.length == 0) {
-          this.dispError = 'No games found, try different parameters!';
+          this.dispError = this.errors.noGamesFound;
         } else {
           const random = Math.floor(
             Math.random() * transformedGameData.games.length

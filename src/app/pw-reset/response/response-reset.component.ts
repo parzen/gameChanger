@@ -1,3 +1,4 @@
+import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -20,6 +21,7 @@ export class ResponseResetComponent implements OnInit {
   resetToken: string;
   isLoading: boolean = false;
   isVerified: boolean = false;
+  errors = errorMessages;
 
   constructor(
     private pwResetService: PwResetService,

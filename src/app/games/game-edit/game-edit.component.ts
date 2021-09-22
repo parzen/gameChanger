@@ -1,3 +1,4 @@
+import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Game } from './../../shared/interfaces/game.interface';
 import { GamesService } from './../games.service';
@@ -14,6 +15,7 @@ export class GameEditComponent implements OnInit {
   creator: string;
   isLoading = false;
   form: FormGroup;
+  errors = errorMessages;
 
   constructor(
     public route: ActivatedRoute,
@@ -24,7 +26,7 @@ export class GameEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: [null, Validators.required],
+      title: [null, [Validators.required, Validators.minLength(2)]],
       imagePath: [null],
       minPlayers: [null, [Validators.required, Validators.min(1)]],
       maxPlayers: [null, [Validators.required, Validators.min(1)]],

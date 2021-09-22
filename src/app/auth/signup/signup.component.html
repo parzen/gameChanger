@@ -4,26 +4,32 @@
     <h2>Sign up for free</h2>
     <mat-form-field appearance="legacy">
       <input
-       matInput
-       type="email"
-       placeholder="Email"
-       name="email"
-       ngModel
-       #emailInput="ngModel"
-       required
-       email/>
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+        matInput
+        type="email"
+        placeholder="Email"
+        name="email"
+        ngModel
+        #emailInput="ngModel"
+        required
+        email
+      />
+      <mat-error *ngIf="emailInput.invalid">{{
+        errors.invalidEmail
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="legacy">
       <input
-      matInput
-      type="password"
-      placeholder="Password"
-      name="password"
-      ngModel
-      #passwortInput="ngModel"
-      required/>
-      <mat-error *ngIf="passwortInput.invalid">Please enter a valid password.</mat-error>
+        matInput
+        type="password"
+        placeholder="Password"
+        name="password"
+        ngModel
+        #passwortInput="ngModel"
+        required
+      />
+      <mat-error *ngIf="passwortInput.invalid">{{
+        errors.invalidPassword
+      }}</mat-error>
     </mat-form-field>
     <button mat-raised-button type="submit" color="accent">Sign up</button>
   </form>
