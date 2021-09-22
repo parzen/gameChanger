@@ -117,7 +117,7 @@ export class GameAddComponent implements OnInit {
     this.searchGames(0);
   }
 
-  moreGames() {
+  loadMoreGames() {
     const index = this.games.length;
     if (index <= 0) {
       return;
