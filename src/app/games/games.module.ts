@@ -1,3 +1,4 @@
+import { FlattenPipe } from './../shared/pipes/flatten.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { GamesRoutingModule } from './games-routing.module';
 import { GamesListComponent } from './games-list/games-list.component';
@@ -10,13 +11,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [GameEditComponent, GameAddComponent, GamesListComponent],
+  declarations: [
+    GameEditComponent,
+    GameAddComponent,
+    GamesListComponent,
+    FlattenPipe,
+  ],
   imports: [
     AngularMaterialModule,
     CommonModule,
     ReactiveFormsModule,
     GamesRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 })
 export class GamesModule {}

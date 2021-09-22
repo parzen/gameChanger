@@ -60,16 +60,11 @@
                     <div class="gameProperties">
                       <div class="content">
                         <mat-icon aria-hidden="false">groups_outline</mat-icon>
-                        {{ game.minPlayers }} - {{ game.maxPlayers }}
+                        {{ game.minPlayers | flatten: game.maxPlayers }}
                       </div>
                       <div class="content">
                         <mat-icon aria-hidden="false">timer</mat-icon>
-                        {{ game.minPlayTime
-                        }}{{
-                          game.minPlayTime === game.maxPlayTime
-                            ? ""
-                            : "-" + game.maxPlayTime
-                        }}
+                        {{ game.minPlayTime | flatten: game.maxPlayTime }}
                         min
                       </div>
                       <div class="content">
