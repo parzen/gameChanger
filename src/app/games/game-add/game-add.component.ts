@@ -75,7 +75,6 @@ export class GameAddComponent implements OnInit, OnDestroy {
           this.gameAddValidator.minPlayTimeSmallerEqualMaxPlayTime(),
           this.gameAddValidator.minPlayersSmallerEqualMaxPlayers(),
         ],
-        updateOn: 'blur',
       }
     );
     this.toggleFormType();
@@ -93,37 +92,57 @@ export class GameAddComponent implements OnInit, OnDestroy {
   }
 
   onChanges() {
-    this.sub.add(this.form.get('minPlayers').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
-      const maxPlayersControl = this.form.get('maxPlayers');
+    this.sub.add(
+      this.form
+        .get('minPlayers')
+        .valueChanges.pipe(distinctUntilChanged())
+        .subscribe((value) => {
+          const maxPlayersControl = this.form.get('maxPlayers');
 
-      if (!this.useApi && !maxPlayersControl.touched) {
-        maxPlayersControl.patchValue(value);
-      }
-    }));
+          if (!this.useApi && !maxPlayersControl.touched) {
+            maxPlayersControl.patchValue(value);
+          }
+        })
+    );
 
-    this.sub.add(this.form.get('maxPlayers').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
-      const minPlayersControl = this.form.get('minPlayers');
+    this.sub.add(
+      this.form
+        .get('maxPlayers')
+        .valueChanges.pipe(distinctUntilChanged())
+        .subscribe((value) => {
+          const minPlayersControl = this.form.get('minPlayers');
 
-      if (!this.useApi && !minPlayersControl.touched) {
-        minPlayersControl.patchValue(value);
-      }
-    }));
+          if (!this.useApi && !minPlayersControl.touched) {
+            minPlayersControl.patchValue(value);
+          }
+        })
+    );
 
-    this.sub.add(this.form.get('minPlayTime').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
-      const maxPlayTimeControl = this.form.get('maxPlayTime');
+    this.sub.add(
+      this.form
+        .get('minPlayTime')
+        .valueChanges.pipe(distinctUntilChanged())
+        .subscribe((value) => {
+          const maxPlayTimeControl = this.form.get('maxPlayTime');
 
-      if (!this.useApi && !maxPlayTimeControl.touched) {
-        maxPlayTimeControl.patchValue(value);
-      }
-    }));
+          if (!this.useApi && !maxPlayTimeControl.touched) {
+            maxPlayTimeControl.patchValue(value);
+          }
+        })
+    );
 
-    this.sub.add(this.form.get('maxPlayTime').valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
-      const minPlayTimeControl = this.form.get('minPlayTime');
+    this.sub.add(
+      this.form
+        .get('maxPlayTime')
+        .valueChanges.pipe(distinctUntilChanged())
+        .subscribe((value) => {
+          const minPlayTimeControl = this.form.get('minPlayTime');
 
-      if (!this.useApi && !minPlayTimeControl.touched) {
-        minPlayTimeControl.patchValue(value);
-      }
-    }));
+          if (!this.useApi && !minPlayTimeControl.touched) {
+            minPlayTimeControl.patchValue(value);
+          }
+        })
+    );
   }
 
   setActive(game, i) {
@@ -145,7 +164,8 @@ export class GameAddComponent implements OnInit, OnDestroy {
 
   onSearch() {
     this.dispError = null;
-    if (!this.form.value.title) {
+    this.form.controls['title'].markAsTouched();
+    if (this.form.controls['title'].invalid) {
       return;
     }
     this.games = [];
