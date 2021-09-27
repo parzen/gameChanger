@@ -46,4 +46,3 @@ Thumbs.db
 backend/nodemon.json
 backend/node_modules
 *.zip
-deploy.sh
