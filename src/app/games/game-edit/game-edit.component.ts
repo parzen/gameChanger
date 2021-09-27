@@ -34,6 +34,7 @@ export class GameEditComponent implements OnInit {
       maxPlayTime: [null, Validators.required],
       minAge: [null, [Validators.required, Validators.min(0)]],
       note: [null],
+      consider: [null],
       gameType: ['boardgame', Validators.required],
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -53,6 +54,7 @@ export class GameEditComponent implements OnInit {
             maxPlayTime: gameData.maxPlayTime,
             minAge: gameData.minAge,
             note: gameData.note,
+            consider: gameData.consider,
             gameType: gameData.gameType,
           });
         });
@@ -79,6 +81,7 @@ export class GameEditComponent implements OnInit {
       maxPlayTime: this.form.value.maxPlayTime,
       minAge: this.form.value.minAge,
       note: this.form.value.note,
+      consider: this.form.value.consider,
       gameType: this.form.value.gameType,
       creator: this.creator,
     };

@@ -68,6 +68,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
         maxPlayTime: [null, [Validators.required, Validators.min(1)]],
         minAge: [null, [Validators.required, Validators.min(0)]],
         note: [''],
+        consider: [true],
         gameType: ['boardgame', Validators.required],
       },
       {
@@ -159,6 +160,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
     this.form.controls['maxPlayTime'].setValue(game.maxPlayTime);
     this.form.controls['minAge'].setValue(game.minAge);
     this.form.controls['note'].setValue(game.note);
+    this.form.controls['consider'].setValue(game.consider);
     this.form.controls['gameType'].setValue(game.gameType);
   }
 
@@ -203,8 +205,8 @@ export class GameAddComponent implements OnInit, OnDestroy {
           minPlayTime: game.min_playtime,
           maxPlayTime: game.max_playtime,
           minAge: game.min_age,
-          //note: game.description_preview,
           note: '',
+          consider: true,
           gameType: game.type,
         };
       });
@@ -239,6 +241,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
       maxPlayTime: this.form.value.maxPlayTime,
       minAge: this.form.value.minAge,
       note: this.form.value.note,
+      consider: this.form.value.consider,
       gameType: this.form.value.gameType,
       creator: '',
     };

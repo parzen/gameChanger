@@ -8,6 +8,7 @@ export interface Game {
   maxPlayTime: string;
   minAge: string;
   note: string;
+  consider: Boolean;
   gameType: string;
   creator: string;
 }

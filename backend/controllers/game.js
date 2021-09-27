@@ -10,6 +10,7 @@ exports.addGame = (req, res, next) => {
     maxPlayTime: req.body.maxPlayTime,
     minAge: req.body.minAge,
     note: req.body.note,
+    consider: req.body.consider,
     gameType: req.body.gameType,
     creator: req.userData.userId,
   });
@@ -27,17 +28,12 @@ exports.addGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Adding a game failed!",
-        dberror: error.message
+        dberror: error.message,
       });
     });
 };
 
 exports.editGame = (req, res, next) => {
-  /*   let imagePath = req.body.imagePath;
-  if (req.file) {
-    const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/images/" + req.file.filename;
-  } */
   const game = new Game({
     _id: req.body.id,
     title: req.body.title,
@@ -48,6 +44,7 @@ exports.editGame = (req, res, next) => {
     maxPlayTime: req.body.maxPlayTime,
     minAge: req.body.minAge,
     note: req.body.note,
+    consider: req.body.consider,
     gameType: req.body.gameType,
     creator: req.userData.userId,
   });
@@ -62,13 +59,13 @@ exports.editGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Couldn't update game!",
-        dberror: error.message
+        dberror: error.message,
       });
     });
 };
 
 exports.getGames = (req, res, next) => {
-  const gameQuery = Game.find({creator: req.userData.userId});
+  const gameQuery = Game.find({ creator: req.userData.userId });
   gameQuery
     .then((fetchedGames) => {
       res.status(200).json({
@@ -79,7 +76,7 @@ exports.getGames = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Fetching games failed!",
-        dberror: error.message
+        dberror: error.message,
       });
     });
 };
@@ -96,7 +93,7 @@ exports.getGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Fetching games failed!",
-        dberror: error.message
+        dberror: error.message,
       });
     });
 };
@@ -113,7 +110,7 @@ exports.deleteGame = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Fetching games failed!",
-        dberror: error.message
+        dberror: error.message,
       });
     });
 };
@@ -129,6 +126,7 @@ exports.getGamesToPlay = (req, res, next) => {
     minPlayers: { $lte: players },
     minPlayTime: { $lte: maxPlayTimeInput },
     minAge: { $gte: minAgeInput },
+    consider: true,
   })
     .limit(10)
     .then((fetchedGames) => {
@@ -140,7 +138,7 @@ exports.getGamesToPlay = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({
         message: "Get games to play failed!",
-        dberror: error.message
-      })
+        dberror: error.message,
+      });
     });
 };

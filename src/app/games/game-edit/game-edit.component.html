@@ -116,12 +116,15 @@
           <mat-option value="videogame">Videogame</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-checkbox formControlName="consider"
+        >Consider game in play selection</mat-checkbox
+      >
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>note</mat-label>
         <textarea matInput formControlName="note"></textarea>
       </mat-form-field>
       <div class="button-container">
-        <button mat-raised-button routerLink="games/list" type="submit">
+        <button mat-raised-button routerLink="/games/list" type="submit">
           Cancel
         </button>
         <button

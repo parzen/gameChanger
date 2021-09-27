@@ -32,6 +32,7 @@ export class GamesService {
                 maxPlayTime: game.maxPlayTime,
                 minAge: game.minAge,
                 note: game.note,
+                consider: game.consider,
                 gameType: game.gameType,
                 creator: game.creator,
               };
@@ -62,23 +63,30 @@ export class GamesService {
       maxPlayTime: string;
       minAge: string;
       note: string;
+      consider: Boolean;
       gameType: string;
       creator: string;
     }>(BACKEND_URL + '/game/' + id);
   }
 
-  addGame(game: Game): Observable<{ message: string; game: Game; dberror: string }> {
-    return this.http.post<{ message: string; game: Game; dberror: string }>(BACKEND_URL, {
-      title: game.title,
-      imagePath: game.imagePath,
-      minPlayers: game.minPlayers,
-      maxPlayers: game.maxPlayers,
-      minPlayTime: game.minPlayTime,
-      maxPlayTime: game.maxPlayTime,
-      minAge: game.minAge,
-      note: game.note,
-      gameType: game.gameType,
-    });
+  addGame(
+    game: Game
+  ): Observable<{ message: string; game: Game; dberror: string }> {
+    return this.http.post<{ message: string; game: Game; dberror: string }>(
+      BACKEND_URL,
+      {
+        title: game.title,
+        imagePath: game.imagePath,
+        minPlayers: game.minPlayers,
+        maxPlayers: game.maxPlayers,
+        minPlayTime: game.minPlayTime,
+        maxPlayTime: game.maxPlayTime,
+        minAge: game.minAge,
+        note: game.note,
+        consider: game.consider,
+        gameType: game.gameType,
+      }
+    );
   }
 
   updateGame(game: Game) {
@@ -93,6 +101,7 @@ export class GamesService {
       maxPlayTime: game.maxPlayTime,
       minAge: game.minAge,
       note: game.note,
+      consider: game.consider,
       gameType: game.gameType,
       creator: game.creator,
     };
@@ -113,9 +122,12 @@ export class GamesService {
     params = params.append('maxPlayTime', maxPlayTime);
     params = params.append('minAge', minAge);
     return this.http
-      .get<{ message: string; games: any; dberror: string }>(BACKEND_URL + 'play', {
-        params: params,
-      })
+      .get<{ message: string; games: any; dberror: string }>(
+        BACKEND_URL + 'play',
+        {
+          params: params,
+        }
+      )
       .pipe(
         map((gameData) => {
           return {
@@ -130,6 +142,7 @@ export class GamesService {
                 maxPlayTime: game.maxPlayTime,
                 minAge: game.minAge,
                 note: game.note,
+                consider: game.consider,
                 gameType: game.gameType,
                 creator: game.creator,
               };
