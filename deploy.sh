@@ -26,8 +26,10 @@ then
   print_usage
 fi
 
+git checkout master
 npm version ${update_type}
-#git checkout release
-#git merge master
-#git push
-#git checkout master
+git push
+git checkout release
+git merge master
+git push
+git checkout master
