@@ -27,9 +27,11 @@ then
 fi
 
 git checkout master
+git pull
 npm version ${update_type}
 git push
 git checkout release
+git pull
 git merge master
 git push
 git checkout master
