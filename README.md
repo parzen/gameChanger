@@ -6,9 +6,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 `cd backend` and run `npm run start` for the backend server.
 
-## Code scaffolding
+## Deploy
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `./deploy.sh` to deploy a new package.
 
 ## Build
 
