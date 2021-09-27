@@ -7,17 +7,12 @@ const app = express();
 
 const mongoose = require("mongoose");
 mongoose
-  .connect(
-    "mongodb+srv://adrian:" +
-      process.env.MONGO_ATLAS_PW +
-      "@cluster0.ewlak.mongodb.net/node-angular?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
-    }
-  )
+  .connect(process.env.MONGO_CONNECT, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
   .then(() => {
     console.log("Connected to database!");
   })
