@@ -21,6 +21,7 @@ import {
 } from '@angular/core';
 import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { validateAllFormFields } from 'src/app/shared/validators/validate-all-form-fields';
 
 @Component({
   selector: 'app-game-add',
@@ -222,7 +223,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (!this.form.valid) {
-      this.validateAllFormFields(this.form);
+      validateAllFormFields(this.form);
 
       // If some values are missing, switch to custom form
       if (this.useApi) {
@@ -254,17 +255,6 @@ export class GameAddComponent implements OnInit, OnDestroy {
         this.onSaveEmitter.emit({ message: error, error: true });
       }
     );
-  }
-
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 
   trackByTitle(index: number, game: Game): string {

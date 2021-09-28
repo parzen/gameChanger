@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PwResetService } from '../pw-reset.service';
+import { validateAllFormFields } from 'src/app/shared/validators/validate-all-form-fields';
 
 @Component({
   selector: 'app-request-reset',
@@ -37,7 +38,7 @@ export class ResponseResetComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      newPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -51,14 +52,14 @@ export class ResponseResetComponent implements OnInit {
       (err) => {
         this.isLoading = false;
         this.isVerified = false;
-        this.dispError = "The token is not verified!";
+        this.dispError = 'The token is not verified!';
       }
     );
   }
 
   resetPassword() {
     if (this.form.invalid || !this.isVerified) {
-      this.validateAllFormFields(this.form);
+      validateAllFormFields(this.form);
       return;
     }
     this.isLoading = true;
@@ -82,16 +83,5 @@ export class ResponseResetComponent implements OnInit {
           }
         }
       );
-  }
-
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 }

@@ -1,9 +1,16 @@
 import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, FormBuilder, EmailValidator } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormControl,
+  FormBuilder,
+  EmailValidator,
+} from '@angular/forms';
 import { PwResetService } from '../pw-reset.service';
 import { Router } from '@angular/router';
 import { emailValidator } from 'src/app/shared/validators/email.validator';
+import { validateAllFormFields } from 'src/app/shared/validators/validate-all-form-fields';
 
 @Component({
   selector: 'app-request-reset',
@@ -25,13 +32,13 @@ export class RequestResetComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      email: [null,  [Validators.required, emailValidator()]],
+      email: [null, [Validators.required, emailValidator()]],
     });
   }
 
   requestReset() {
     if (this.form.invalid) {
-      this.validateAllFormFields(this.form);
+      validateAllFormFields(this.form);
       return;
     }
     this.isLoading = true;
@@ -54,16 +61,5 @@ export class RequestResetComponent implements OnInit {
         }
       }
     );
-  }
-
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 }

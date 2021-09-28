@@ -17,12 +17,12 @@
             form.controls.newPassword.invalid
           "
         >
-          <span
-            *ngIf="
-              form.controls.newPassword.errors?.required
-            "
-            >{{ errors.required }}</span
-          >
+          <span *ngIf="form.controls.newPassword.errors?.required">{{
+            errors.required
+          }}</span>
+          <span *ngIf="form.controls.newPassword.errors?.minlength">{{
+            errors.minLength6
+          }}</span>
         </mat-error>
       </mat-form-field>
       <div class="button-container">

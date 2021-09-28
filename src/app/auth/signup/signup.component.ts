@@ -4,6 +4,7 @@ import { AuthService } from './../auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/shared/validators/email.validator';
+import { validateAllFormFields } from 'src/app/shared/validators/validate-all-form-fields';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -31,6 +32,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   onSignup() {
     if (this.form.invalid) {
+      validateAllFormFields(this.form);
       return;
     }
     this.isLoading = true;

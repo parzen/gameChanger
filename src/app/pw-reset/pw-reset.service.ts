@@ -19,7 +19,7 @@ export class PwResetService {
   newPassword(token: string, newPassword: string): Observable<any> {
     return this.http.post(`${BACKEND_URL}/new-password`, {
       resettoken: token,
-      newPassword: newPassword,
+      password: newPassword,
     });
   }
 

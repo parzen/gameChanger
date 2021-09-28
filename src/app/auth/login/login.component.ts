@@ -4,6 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { emailValidator } from 'src/app/shared/validators/email.validator';
+import { validateAllFormFields } from 'src/app/shared/validators/validate-all-form-fields';
 
 @Component({
   templateUrl: './login.component.html',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onLogin() {
     if (this.form.invalid) {
+      validateAllFormFields(this.form);
       return;
     }
     this.isLoading = true;
