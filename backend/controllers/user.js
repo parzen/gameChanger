@@ -19,7 +19,7 @@ exports.createUser = (req, res, next) => {
       .catch((error) => {
         res.status(500).json({
           message: "Invalid authentication credentials!",
-          dberror: error.message
+          dberror: error.message,
         });
       });
   });
@@ -43,11 +43,9 @@ exports.userLogin = (req, res, next) => {
           message: "Auth failed",
         });
       }
-      const token = jwt.sign(
-        { email: fetchedUser.email, userId: fetchedUser._id },
-        process.env.JWT_KEY,
-        { expiresIn: "1h" }
-      );
+      const token = jwt.sign({ userId: fetchedUser._id }, process.env.JWT_KEY, {
+        expiresIn: "1h",
+      });
       res.status(200).json({
         token: token,
         expiresIn: 3600,
@@ -57,7 +55,7 @@ exports.userLogin = (req, res, next) => {
     .catch((error) => {
       return res.status(401).json({
         message: "Invalid authentication credentials!",
-        dberror: error.message
+        dberror: error.message,
       });
     });
 };
