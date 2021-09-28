@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "./theme.scss";
+$accent: map-get($theme, accent);
+$warn: map-get($theme, warn);
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* Styles for snackbar
 .snackbar-success-style{
@@ -11,7 +21,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .snackbar-error-style{
   background-color:white;
-  color:red;
+  color: mat-color($warn);
 }
 */
 
@@ -24,31 +34,31 @@ mat-spinner {
 }
 
 .dispError {
-  color: red;
+  color: mat-color($warn);
   margin-top: 20px;
 }
 
-.dispSuccess{
+.dispSuccess {
   color: green;
   margin-top: 20px;
 }
 
 /* unvisited link */
 a:link {
-  color: #3F51AE;
+  color: #3f51ae;
 }
 
 /* visited link */
 a:visited {
-  color: #3F51AE;
+  color: #3f51ae;
 }
 
 /* mouse over link */
 a:hover {
-  color: #f13f81;
+  color: mat-color($accent);
 }
 
 /* selected link */
 a:active {
-  color: #3F51AE;
+  color: #3f51ae;
 }

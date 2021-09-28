@@ -1,8 +1,8 @@
-<mat-card>
+<mat-card class="mat-card-style">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
     <h2>Sign up for free</h2>
-    <mat-form-field appearance="legacy">
+    <mat-form-field class="mat-form-field-style" appearance="legacy">
       <input
         matInput
         type="email"
@@ -17,7 +17,7 @@
         errors.invalidEmail
       }}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="legacy">
+    <mat-form-field class="mat-form-field-style" appearance="legacy">
       <input
         matInput
         type="password"

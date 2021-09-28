@@ -1,5 +1,5 @@
 <div class="full-width">
-  <mat-toolbar color="primary" fxLayout="row">
+  <mat-toolbar class="mat-toolbar-style" color="primary" fxLayout="row">
     <div class="logo">
       <span><a routerLink="/">Game Changer</a></span>
     </div>
@@ -39,7 +39,6 @@
         <a
           *ngIf="!userIsAuthenticated"
           mat-button
-
           routerLink="/auth/login"
           routerLinkActive="mat-accent"
           >Login</a
@@ -48,13 +47,12 @@
         <a
           *ngIf="!userIsAuthenticated"
           mat-button
-
           routerLink="/auth/signup"
           routerLinkActive="mat-accent"
           >Signup</a
         >
 
-        <a *ngIf="userIsAuthenticated"  mat-button (click)="onLogout()"
+        <a *ngIf="userIsAuthenticated" mat-button (click)="onLogout()"
           >Logout</a
         >
       </mat-menu>
