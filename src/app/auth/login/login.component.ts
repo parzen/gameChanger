@@ -1,8 +1,9 @@
 import { Subscription } from 'rxjs';
 import { AuthService } from './../auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { errorMessages } from 'src/app/shared/error-messages/error-messages';
+import { emailValidator } from 'src/app/shared/validators/email.validator';
 
 @Component({
   templateUrl: './login.component.html',
@@ -11,24 +12,29 @@ import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
   errors = errorMessages;
-  private authStatusSub: Subscription = new Subscription;
+  form: FormGroup;
+  private authStatusSub: Subscription = new Subscription();
 
-  constructor(public authService: AuthService) {}
+  constructor(private fb: FormBuilder, public authService: AuthService) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
-      authStatus => {
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe((authStatus) => {
         this.isLoading = false;
-      }
-    )
+      });
+    this.form = this.fb.group({
+      email: [null, [Validators.required, emailValidator()]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
+    });
   }
 
-  onLogin(form: NgForm) {
-    if (form.invalid) {
+  onLogin() {
+    if (this.form.invalid) {
       return;
     }
     this.isLoading = true;
-    this.authService.login(form.value.email, form.value.password);
+    this.authService.login(this.form.value.email, this.form.value.password);
   }
 
   ngOnDestroy() {
