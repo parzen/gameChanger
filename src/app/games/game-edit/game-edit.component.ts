@@ -8,7 +8,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 @Component({
   selector: 'app-game-edit',
   templateUrl: './game-edit.component.html',
-  styleUrls: ['./game-edit.component.css'],
+  styleUrls: ['./game-edit.component.scss'],
 })
 export class GameEditComponent implements OnInit {
   gameId: string;

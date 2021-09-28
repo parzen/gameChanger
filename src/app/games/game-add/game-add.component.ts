@@ -25,7 +25,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-game-add',
   templateUrl: './game-add.component.html',
-  styleUrls: ['./game-add.component.css'],
+  styleUrls: ['./game-add.component.scss'],
 })
 export class GameAddComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;

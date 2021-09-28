@@ -12,7 +12,7 @@ import { PwResetService } from '../pw-reset.service';
 @Component({
   selector: 'app-request-reset',
   templateUrl: './response-reset.component.html',
-  styleUrls: ['./response-reset.component.css'],
+  styleUrls: ['./response-reset.component.scss'],
 })
 export class ResponseResetComponent implements OnInit {
   form: FormGroup;
