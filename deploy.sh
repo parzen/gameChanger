@@ -26,12 +26,12 @@ then
   print_usage
 fi
 
-git checkout master
+git checkout main
 git pull
 npm version ${update_type}
 git push
 git checkout release
 git pull
-git merge master
+git merge main
 git push
-git checkout master
+git checkout main
