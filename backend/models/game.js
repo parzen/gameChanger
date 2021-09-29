@@ -18,6 +18,7 @@ const gameSchema = mongoose.Schema({
     required: true,
     unique: false,
   },
+  schema_version: { type: Number, default: 1 },
 });
 
 gameSchema.index({ title: 1, creator: 1 }, { unique: true });

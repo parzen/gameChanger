@@ -13,6 +13,7 @@ exports.addGame = (req, res, next) => {
     consider: req.body.consider,
     gameType: req.body.gameType,
     creator: req.userData.userId,
+    schema_version: 1,
   });
   game
     .save()
