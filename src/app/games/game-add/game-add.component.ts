@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../snackbar.service';
 import { GameAddValidator } from './../../shared/validators/game-add.validator';
 import { Game } from './../../shared/interfaces/game.interface';
 import { AuthService } from './../../auth/auth.service';
@@ -48,7 +49,8 @@ export class GameAddComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private gameService: GamesService,
     private authService: AuthService,
-    private gameAddValidator: GameAddValidator
+    private gameAddValidator: GameAddValidator,
+    private snackBarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -148,9 +150,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
   }
 
   setActive(game, i) {
-    this.gamesRef.forEach((game) => {
-      game.nativeElement.classList.remove('active');
-    });
+    this.removeActiveClass();
     this.gamesRef.get(i).nativeElement.classList.add('active');
 
     this.form.controls['title'].setValue(game.title);
@@ -163,6 +163,12 @@ export class GameAddComponent implements OnInit, OnDestroy {
     this.form.controls['note'].setValue(game.note);
     this.form.controls['consider'].setValue(game.consider);
     this.form.controls['gameType'].setValue(game.gameType);
+  }
+
+  removeActiveClass() {
+    this.gamesRef.forEach((game) => {
+      game.nativeElement.classList.remove('active');
+    });
   }
 
   onSearch() {
@@ -221,7 +227,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
     this.isLoadingMore = false;
   }
 
-  onSubmit() {
+  onSubmit(closeAfterSaving) {
     if (!this.form.valid) {
       validateAllFormFields(this.form);
 
@@ -249,10 +255,19 @@ export class GameAddComponent implements OnInit, OnDestroy {
 
     this.gameService.addGame(newGame).subscribe(
       (response) => {
-        this.onSaveEmitter.emit({ message: response.message, error: false });
+        if (closeAfterSaving) {
+          this.onSaveEmitter.emit({ message: response.message, error: false });
+        } else {
+          this.removeActiveClass();
+          this.snackBarService.open(response.message, false);
+        }
       },
       (error) => {
-        this.onSaveEmitter.emit({ message: error, error: true });
+        if (closeAfterSaving) {
+          this.onSaveEmitter.emit({ message: error, error: true });
+        } else {
+          this.snackBarService.open(error, true);
+        }
       }
     );
   }
