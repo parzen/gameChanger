@@ -39,6 +39,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
   form: FormGroup;
   noMoreEntries = false;
   errors = errorMessages;
+  searchTitle: string = '';
   private sub = new Subscription();
 
   @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
@@ -169,14 +170,26 @@ export class GameAddComponent implements OnInit, OnDestroy {
     this.gamesRef.forEach((game) => {
       game.nativeElement.classList.remove('active');
     });
+
+    this.form.controls['imagePath'].setValue(null);
+    this.form.controls['minPlayers'].setValue(null);
+    this.form.controls['maxPlayers'].setValue(null);
+    this.form.controls['minPlayTime'].setValue(null);
+    this.form.controls['maxPlayTime'].setValue(null);
+    this.form.controls['minAge'].setValue(null);
+    this.form.controls['note'].setValue(null);
+    this.form.controls['consider'].setValue(true);
+    this.form.controls['gameType'].setValue('boardgame');
   }
 
   onSearch() {
     this.dispError = null;
+    this.removeActiveClass();
     this.form.controls['title'].markAsTouched();
     if (this.form.controls['title'].invalid) {
       return;
     }
+    this.searchTitle = this.form.value.title;
     this.games = [];
     this.noMoreEntries = false;
     this.isLoading = true;
@@ -196,7 +209,8 @@ export class GameAddComponent implements OnInit, OnDestroy {
     const clientId = 'XcGu7GjNEz';
     const limit = 10;
     const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=${limit}&skip=${index}&name=`;
-    const query = BGA_URL + this.form.value.title;
+    const query = BGA_URL + this.searchTitle;
+    console.log(query);
     const response = await fetch(query);
     const data = await response.json();
     if (data.count == 0) {
@@ -256,7 +270,11 @@ export class GameAddComponent implements OnInit, OnDestroy {
     this.gameService.addGame(newGame).subscribe(
       (response) => {
         if (closeAfterSaving) {
-          this.onSaveEmitter.emit({ message: response.message, error: false });
+          this.onSaveEmitter.emit({
+            message: response.message,
+            error: false,
+            cancel: false,
+          });
         } else {
           this.removeActiveClass();
           this.snackBarService.open(response.message, false);
@@ -264,12 +282,20 @@ export class GameAddComponent implements OnInit, OnDestroy {
       },
       (error) => {
         if (closeAfterSaving) {
-          this.onSaveEmitter.emit({ message: error, error: true });
+          this.onSaveEmitter.emit({
+            message: error,
+            error: true,
+            cancel: false,
+          });
         } else {
           this.snackBarService.open(error, true);
         }
       }
     );
+  }
+
+  onCancel() {
+    this.onSaveEmitter.emit({ message: '', error: false, cancel: true });
   }
 
   trackByTitle(index: number, game: Game): string {

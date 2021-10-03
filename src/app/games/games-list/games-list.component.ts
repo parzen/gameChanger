@@ -53,9 +53,11 @@ export class GamesListComponent implements OnInit, OnDestroy {
     });
 
     const sub = dialogRef.componentInstance.onSaveEmitter.subscribe(
-      (response: { message: string; error: boolean }) => {
+      (response: { message: string; error: boolean; cancel: boolean }) => {
         dialogRef.close();
-        this.openSnackBar(response.message, response.error);
+        if (!response.cancel) {
+          this.openSnackBar(response.message, response.error);
+        }
         this.gameService.getGames();
       }
     );
