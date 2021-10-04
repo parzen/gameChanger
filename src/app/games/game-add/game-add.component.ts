@@ -4,12 +4,7 @@ import { Game } from './../../shared/interfaces/game.interface';
 import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { GamesService } from './../games.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Component,
   OnInit,
