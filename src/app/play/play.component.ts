@@ -14,6 +14,7 @@ export class PlayComponent implements OnInit {
   game: Game = null;
   dispError = null;
   form: FormGroup;
+  games: Game[];
   errors = errorMessages;
 
   constructor(private fb: FormBuilder, private gamesService: GamesService) {}
@@ -22,28 +23,37 @@ export class PlayComponent implements OnInit {
     this.form = this.fb.group({
       playerControl: ['2', Validators.required],
       maxPlayControl: ['999', Validators.required],
-      minAgeControl: ['6', Validators.required]
+      minAgeControl: ['6', Validators.required],
     });
   }
 
-  onPlay() {
+  getGamesToPlay(random: boolean) {
     if (this.form.invalid) {
       return;
     }
     this.isLoading = true;
     this.dispError = null;
     this.game = null;
+    this.games = null;
 
     this.gamesService
-      .play(this.form.value.playerControl, this.form.value.maxPlayControl, this.form.value.minAgeControl)
+      .play(
+        this.form.value.playerControl,
+        this.form.value.maxPlayControl,
+        this.form.value.minAgeControl
+      )
       .subscribe((transformedGameData) => {
         if (transformedGameData.games.length == 0) {
           this.dispError = this.errors.noGamesFound;
         } else {
-          const random = Math.floor(
-            Math.random() * transformedGameData.games.length
-          );
-          this.game = transformedGameData.games[random];
+          if (random) {
+            const randomNumber = Math.floor(
+              Math.random() * transformedGameData.games.length
+            );
+            this.game = transformedGameData.games[randomNumber];
+          } else {
+            this.games = transformedGameData.games;
+          }
         }
         this.isLoading = false;
       });
