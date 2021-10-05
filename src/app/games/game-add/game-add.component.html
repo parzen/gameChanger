@@ -86,7 +86,9 @@
           </div>
         </div>
         <div class="loadMoreGames" *ngIf="!noMoreEntries && games.length > 0">
-          <button mat-button (click)="loadMoreGames()">Load more games</button>
+          <button mat-button (click)="loadMoreGames()" type="button">
+            Load more games
+          </button>
           <mat-spinner *ngIf="isLoadingMore"></mat-spinner>
         </div>
       </div>

@@ -205,7 +205,6 @@ export class GameAddComponent implements OnInit, OnDestroy {
     const limit = 10;
     const BGA_URL = `https://api.boardgameatlas.com/api/search?client_id=${clientId}&limit=${limit}&skip=${index}&name=`;
     const query = BGA_URL + this.searchTitle;
-    console.log(query);
     const response = await fetch(query);
     const data = await response.json();
     if (data.count == 0) {
