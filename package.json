@@ -1,6 +1,6 @@
 {
   "name": "game-changer",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
