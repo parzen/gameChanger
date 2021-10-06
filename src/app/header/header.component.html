@@ -5,12 +5,20 @@
     </div>
     <ul>
       <li *ngIf="userIsAuthenticated">
-        <a mat-button routerLink="games/list" routerLinkActive="mat-accent"
+        <a
+          mat-button
+          routerLink="games/list"
+          routerLinkActive="mat-accent"
+          id="headerGamesListButton"
           >Games</a
         >
       </li>
       <li *ngIf="userIsAuthenticated">
-        <a mat-button routerLink="play" routerLinkActive="mat-accent"
+        <a
+          mat-button
+          routerLink="play"
+          routerLinkActive="mat-accent"
+          id="headerPlayButton"
           >Lets' Play!</a
         >
       </li>
@@ -18,17 +26,25 @@
     <span class="spacer"></span>
     <ul class="nomenu">
       <li *ngIf="!userIsAuthenticated">
-        <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
+        <a
+          mat-button
+          routerLink="/auth/login"
+          routerLinkActive="mat-accent"
+          id="headerLoginButton"
           >Login</a
         >
       </li>
       <li *ngIf="!userIsAuthenticated">
-        <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
+        <a
+          mat-button
+          routerLink="/auth/signup"
+          routerLinkActive="mat-accent"
+          id="headerSignupButton"
           >Signup</a
         >
       </li>
       <li *ngIf="userIsAuthenticated">
-        <a mat-button (click)="onLogout()">Logout</a>
+        <a mat-button (click)="onLogout()" id="headerLogoutButton">Logout</a>
       </li>
     </ul>
     <div class="menu">
@@ -41,6 +57,7 @@
           mat-button
           routerLink="/auth/login"
           routerLinkActive="mat-accent"
+          id="headerLoginMenuButton"
           >Login</a
         >
 
@@ -49,10 +66,15 @@
           mat-button
           routerLink="/auth/signup"
           routerLinkActive="mat-accent"
+          id="headerSignupMenuButton"
           >Signup</a
         >
 
-        <a *ngIf="userIsAuthenticated" mat-button (click)="onLogout()"
+        <a
+          *ngIf="userIsAuthenticated"
+          mat-button
+          (click)="onLogout()"
+          id="headerLogoutMenuButton"
           >Logout</a
         >
       </mat-menu>

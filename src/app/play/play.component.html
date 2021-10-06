@@ -69,10 +69,16 @@
           mat-raised-button
           color="accent"
           (click)="getGamesToPlay(false)"
+          id="getGamesListButton"
         >
           Game List
         </button>
-        <button mat-raised-button color="accent" (click)="getGamesToPlay(true)">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="getGamesToPlay(true)"
+          id="getRandomGameButton"
+        >
           Random game
         </button>
       </div>

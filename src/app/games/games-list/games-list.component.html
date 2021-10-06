@@ -1,5 +1,5 @@
 <div class="add-button-container">
-  <button mat-fab color="accent" (click)="addGame()">
+  <button mat-fab color="accent" (click)="addGame()" id="addGameButton">
     <mat-icon>add</mat-icon>
   </button>
 </div>
@@ -14,15 +14,27 @@
     >
       <div class="card" id="{{ 'card' + i }}">
         <div class="menu">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            id="{{ 'menuButton' + i }}"
+          >
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item [routerLink]="['/edit', game.id]">
+            <button
+              mat-menu-item
+              id="{{ 'editButton' + i }}"
+              [routerLink]="['/edit', game.id]"
+            >
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item (click)="onDelete(game.id)">
+            <button
+              mat-menu-item
+              id="{{ 'deleteButton' + i }}"
+              (click)="onDelete(game.id)"
+            >
               <mat-icon>delete</mat-icon>
               <span>Delete</span>
             </button>

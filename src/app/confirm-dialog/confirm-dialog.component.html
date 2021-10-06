@@ -1,12 +1,19 @@
 <h1 mat-dialog-title>
-  {{title}}
+  {{ title }}
 </h1>
 
 <div mat-dialog-content *ngIf="message">
-  <p>{{message}}</p>
+  <p>{{ message }}</p>
 </div>
 
 <div mat-dialog-actions class="mat-dialog-actions">
-  <button mat-button (click)="onDismiss()">No</button>
-  <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+  <button mat-button (click)="onDismiss()" id="noButton">No</button>
+  <button
+    mat-raised-button
+    (click)="onConfirm()"
+    color="primary"
+    id="yesButton"
+  >
+    Yes
+  </button>
 </div>

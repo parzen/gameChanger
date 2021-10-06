@@ -4,7 +4,13 @@
     <h2>Login</h2>
     <mat-form-field class="mat-form-field-style" appearance="legacy">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" required />
+      <input
+        matInput
+        formControlName="email"
+        type="email"
+        id="email"
+        required
+      />
       <mat-error
         *ngIf="form.controls.email.touched && form.controls.email.invalid"
       >
@@ -18,7 +24,13 @@
     </mat-form-field>
     <mat-form-field class="mat-form-field-style" appearance="legacy">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="password" required />
+      <input
+        matInput
+        formControlName="password"
+        type="password"
+        id="password"
+        required
+      />
       <mat-error
         *ngIf="form.controls.password.touched && form.controls.password.invalid"
       >
@@ -36,6 +48,8 @@
         >Don't remember your password?</a
       >
     </div>
-    <button mat-raised-button type="submit" color="accent">Login</button>
+    <button mat-raised-button type="submit" color="accent" id="loginButton">
+      Login
+    </button>
   </form>
 </mat-card>

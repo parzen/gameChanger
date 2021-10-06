@@ -72,7 +72,9 @@ module.exports = {
     }
     User.findOneAndUpdate({ _id: resetToken.user })
       .then(() => {
-        res.status(200).json({ message: "Token verified successfully!" });
+        return res
+          .status(200)
+          .json({ message: "Token verified successfully!" });
       })
       .catch((err) => {
         return res.status(500).send({ msg: err.message });

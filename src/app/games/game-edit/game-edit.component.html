@@ -8,7 +8,7 @@
     <form [formGroup]="form" (ngSubmit)="onSaveGame()">
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>Title</mat-label>
-        <input matInput formControlName="title" required />
+        <input matInput formControlName="title" required id="title" />
         <mat-error
           *ngIf="form.controls.title.touched && form.controls.title.invalid"
         >
@@ -26,11 +26,18 @@
           matInput
           formControlName="imagePath"
           placeholder="Insert link to image path"
+          id="imagePath"
         />
       </mat-form-field>
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>minAge</mat-label>
-        <input matInput formControlName="minAge" required type="number" />
+        <input
+          matInput
+          formControlName="minAge"
+          required
+          type="number"
+          id="minAge"
+        />
         <mat-error
           *ngIf="form.controls.minAge.touched && form.controls.minAge.invalid"
         >
@@ -42,7 +49,13 @@
       <div class="flex horizontal">
         <mat-form-field class="form-field" appearance="legacy">
           <mat-label>minPlayers</mat-label>
-          <input matInput formControlName="minPlayers" required type="number" />
+          <input
+            matInput
+            formControlName="minPlayers"
+            required
+            type="number"
+            id="minPlayers"
+          />
           <mat-error
             *ngIf="
               form.controls.minPlayers.touched &&
@@ -56,7 +69,13 @@
         </mat-form-field>
         <mat-form-field class="form-field" appearance="legacy">
           <mat-label>maxPlayers</mat-label>
-          <input matInput formControlName="maxPlayers" required type="number" />
+          <input
+            matInput
+            formControlName="maxPlayers"
+            required
+            type="number"
+            id="maxPlayers"
+          />
           <mat-error
             *ngIf="
               form.controls.maxPlayers.touched &&
@@ -71,12 +90,13 @@
       </div>
       <div class="flex horizontal">
         <mat-form-field class="form-field" appearance="legacy">
-          <mat-label>minPlaytime</mat-label>
+          <mat-label>minPlayTime</mat-label>
           <input
             matInput
             formControlName="minPlayTime"
             required
             type="number"
+            id="minPlayTime"
           />
           <mat-error
             *ngIf="
@@ -96,6 +116,7 @@
             formControlName="maxPlayTime"
             required
             type="number"
+            id="maxPlayTime"
           />
           <mat-error
             *ngIf="
@@ -111,17 +132,17 @@
       </div>
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>gameType</mat-label>
-        <mat-select required value="boardgame">
+        <mat-select required value="boardgame" id="gameType">
           <mat-option value="boardgame">Boardgame</mat-option>
           <mat-option value="videogame">Videogame</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-checkbox formControlName="consider"
+      <mat-checkbox formControlName="consider" id="consider"
         >Consider game in play selection</mat-checkbox
       >
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>note</mat-label>
-        <textarea matInput formControlName="note"></textarea>
+        <textarea matInput formControlName="note" id="note"></textarea>
       </mat-form-field>
       <div class="button-container">
         <button mat-raised-button routerLink="/games/list" type="submit">
