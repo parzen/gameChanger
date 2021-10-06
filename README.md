@@ -19,3 +19,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running e2e test
+
+1. Run backend server: `cd backend` and run `npm run start`
+2. Run development server: `ng serve`
+3. Start cypress e2e test: `npm run cy:open`
