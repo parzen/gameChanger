@@ -1,6 +1,6 @@
 {
   "name": "game-changer-api",
-  "version": "1.0.20",
+  "version": "1.0.22",
   "description": "Game changer Api",
   "main": "server.js",
   "scripts": {
