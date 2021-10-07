@@ -22,6 +22,11 @@ workflows:
     jobs:
       - cypress/run:
           executor: with-mongo
+          steps:
+            - run: npm install
+            - run: cd backend
+            - run: npm install
+            - run: npm run start:testing &
           start: npm run e2e:ci
           # no need to save the workspace after this job
           no-workspace: true
