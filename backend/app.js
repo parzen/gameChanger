@@ -6,19 +6,35 @@ const passwordResetTokenRoues = require("./routes/passwordResetToken");
 const app = express();
 
 const mongoose = require("mongoose");
-mongoose
-  .connect(process.env.MONGO_CONNECT, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then(() => {
-    console.log("Connected to database!");
-  })
-  .catch(() => {
-    console.log("Connected to database failed!");
-  });
+
+if (process.env.NODE_ENV === "development") {
+  mongoose
+    .connect(process.env.MONGO_CONNECT_TEST, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    })
+    .then(() => {
+      console.log("Connected to database!");
+    })
+    .catch(() => {
+      console.log("Connected to database failed!");
+    });
+} else {
+  mongoose
+    .connect(process.env.MONGO_CONNECT, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+    })
+    .then(() => {
+      console.log("Connected to database!");
+    })
+    .catch(() => {
+      console.log("Connected to database failed!");
+    });
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
