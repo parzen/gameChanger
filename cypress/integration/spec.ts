@@ -61,7 +61,7 @@ describe('Login Module', () => {
     cy.get('#headerLoginButton').click();
   });
 
-  it('should show be possible to login', () => {
+  it('should be possible to login', () => {
     cy.get('#email').type(DEMO_USER);
     cy.get('#password').type(DEMO_PW);
     cy.get('#loginButton').click();
