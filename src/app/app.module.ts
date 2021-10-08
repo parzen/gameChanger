@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PlayComponent } from './play/play.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { ImpressumComponent } from './footer/impressum/impressum.component';
@@ -36,7 +35,6 @@ export const RollbarService = new InjectionToken<Rollbar>('rollbar');
     AppComponent,
     HeaderComponent,
     DashboardComponent,
-    PlayComponent,
     ConfirmDialogComponent,
     FooterComponent,
     ImpressumComponent,

@@ -43,6 +43,25 @@ export class GamesListComponent implements OnInit, OnDestroy {
     private snackBarService: SnackbarService
   ) {}
 
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.gameService.getGames();
+    this.userId = this.authService.getUserId();
+    this.gamesSub = this.gameService
+      .getGameUpdateListener()
+      .subscribe((gameData: { games: Game[] }) => {
+        this.isLoading = false;
+        this.games = gameData.games;
+      });
+    this.userIsauthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.userId = this.authService.getUserId();
+        this.userIsauthenticated = isAuthenticated;
+      });
+  }
+
   openSnackBar(message: string, error: boolean) {
     this.snackBarService.open(message, error);
   }
@@ -61,25 +80,6 @@ export class GamesListComponent implements OnInit, OnDestroy {
         this.gameService.getGames();
       }
     );
-  }
-
-  ngOnInit(): void {
-    this.isLoading = true;
-    this.gameService.getGames();
-    this.userId = this.authService.getUserId();
-    this.gamesSub = this.gameService
-      .getGameUpdateListener()
-      .subscribe((gameData: { games: Game[] }) => {
-        this.isLoading = false;
-        this.games = gameData.games;
-      });
-    this.userIsauthenticated = this.authService.getIsAuth();
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
-        this.userId = this.authService.getUserId();
-        this.userIsauthenticated = isAuthenticated;
-      });
   }
 
   ngOnDestroy() {

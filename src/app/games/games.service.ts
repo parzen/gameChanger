@@ -115,40 +115,4 @@ export class GamesService {
   deleteGame(gameId: string) {
     return this.http.delete(BACKEND_URL + '/' + gameId);
   }
-
-  play(players: string, maxPlayTime: string, minAge: string) {
-    let params = new HttpParams();
-    params = params.append('players', players);
-    params = params.append('maxPlayTime', maxPlayTime);
-    params = params.append('minAge', minAge);
-    return this.http
-      .get<{ message: string; games: any; dberror: string }>(
-        BACKEND_URL + 'play',
-        {
-          params: params,
-        }
-      )
-      .pipe(
-        map((gameData) => {
-          return {
-            games: gameData.games.map((game: Game | any) => {
-              return {
-                id: game._id,
-                title: game.title,
-                imagePath: game.imagePath,
-                minPlayers: game.minPlayers,
-                maxPlayers: game.maxPlayers,
-                minPlayTime: game.minPlayTime,
-                maxPlayTime: game.maxPlayTime,
-                minAge: game.minAge,
-                note: game.note,
-                consider: game.consider,
-                gameType: game.gameType,
-                creator: game.creator,
-              };
-            }),
-          };
-        })
-      );
-  }
 }
