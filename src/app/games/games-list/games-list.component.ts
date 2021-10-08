@@ -2,7 +2,7 @@ import { SnackbarService } from './../../snackbar.service';
 import {
   ConfirmDialogComponent,
   ConfirmDialogModel,
-} from './../../confirm-dialog/confirm-dialog.component';
+} from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { GamesService } from './../games.service';

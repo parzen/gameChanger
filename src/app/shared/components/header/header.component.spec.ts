@@ -1,4 +1,4 @@
-import { AngularMaterialModule } from './../angular-material.module';
+import { AngularMaterialModule } from '../../../angular-material.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';

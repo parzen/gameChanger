@@ -1,5 +1,5 @@
-import { DatenschutzComponent } from './footer/datenschutz/datenschutz.component';
-import { ImpressumComponent } from './footer/impressum/impressum.component';
+import { DatenschutzComponent } from './shared/components/footer/datenschutz/datenschutz.component';
+import { ImpressumComponent } from './shared/components/footer/impressum/impressum.component';
 import { AuthGuard } from './auth/auth.gard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';

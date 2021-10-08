@@ -1,4 +1,4 @@
-import { SnackbarService } from './../snackbar.service';
+import { SnackbarService } from '../../../snackbar.service';
 import {
   HttpErrorResponse,
   HttpHandler,
@@ -8,7 +8,7 @@ import {
 import { Injectable, Injector } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { RollbarService } from '../app.module';
+import { RollbarService } from '../../../app.module';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -22,7 +22,9 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         const rollbar = this.injector.get(RollbarService);
         let errorMessage = '';
-        let dberror = error.error.dberror ? ' | dberror: ' + error.error.dberror : '';
+        let dberror = error.error.dberror
+          ? ' | dberror: ' + error.error.dberror
+          : '';
 
         if (error.error.message) {
           // client-side error

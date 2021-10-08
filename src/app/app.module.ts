@@ -1,5 +1,5 @@
 import { FlattenModule } from './shared/pipes/flatten.module';
-import { ErrorInterceptor } from './error/error-interceptor';
+import { ErrorInterceptor } from './shared/services/error/error-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GamesModule } from './games/games.module';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -9,13 +9,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { FooterComponent } from './footer/footer.component';
-import { ImpressumComponent } from './footer/impressum/impressum.component';
-import { DatenschutzComponent } from './footer/datenschutz/datenschutz.component';
+import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { ImpressumComponent } from './shared/components/footer/impressum/impressum.component';
+import { DatenschutzComponent } from './shared/components/footer/datenschutz/datenschutz.component';
 import Rollbar from 'rollbar';
 
 const rollbarConfig = {
