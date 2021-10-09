@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/components/shared.module';
 import { FlattenModule } from './../shared/pipes/flatten.module';
 import { HttpClientModule } from '@angular/common/http';
 import { GamesRoutingModule } from './games-routing.module';
@@ -19,6 +20,7 @@ import { CommonModule } from '@angular/common';
     GamesRoutingModule,
     HttpClientModule,
     FlattenModule,
+    SharedModule,
   ],
 })
 export class GamesModule {}

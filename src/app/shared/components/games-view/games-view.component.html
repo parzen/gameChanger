@@ -1,0 +1,76 @@
+<div class="grid-container">
+  <div *ngFor="let game of games; let i = index; trackBy: trackById" #gamesRef>
+    <div class="card" id="{{ 'card' + i }}">
+      <div class="menu" [hidden]="!showMenu">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          id="{{ 'menuButton' + i }}"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button
+            mat-menu-item
+            id="{{ 'editButton' + i }}"
+            [routerLink]="['/edit', game.id]"
+          >
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button
+            mat-menu-item
+            id="{{ 'deleteButton' + i }}"
+            (click)="onDelete(game.id)"
+          >
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+
+      <div class="game-container">
+        <div class="image-container">
+          <img
+            src="{{ game.imagePath }}"
+            onerror="this.onerror=null; this.src='/assets/images/no-image-icon.png'"
+          />
+        </div>
+        <div class="title-container">
+          <h1>{{ game.title }}</h1>
+        </div>
+        <div class="content-container">
+          <div class="card-content">
+            <div class="gameProperties">
+              <div class="content">
+                <mat-icon aria-hidden="false">groups_outline</mat-icon>
+                {{ game.minPlayers | flatten: game.maxPlayers }}
+              </div>
+              <div class="content">
+                <mat-icon aria-hidden="false">timer</mat-icon>
+                {{ game.minPlayTime | flatten: game.maxPlayTime }}
+                min
+              </div>
+              <div class="content">
+                <mat-icon aria-hidden="false">person</mat-icon>
+                {{ game.minAge }}+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="note"
+          *ngIf="game.note != ''"
+          (click)="toggleNote(i)"
+          truncated="0"
+        >
+          <mat-icon aria-hidden="false" class="infoIcon">info_outline</mat-icon>
+          <div class="textAndMore">
+            <div class="noteText">{{ game.note }}</div>
+            <div class="showMore">show more</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
