@@ -1,5 +1,5 @@
 <mat-card>
-  <div class="example-container">
+  <div class="container">
     <h2>Select the game parameters and press Play!</h2>
     <form [formGroup]="form">
       <div class="form-container">
@@ -95,92 +95,13 @@
 
 <div class="result-container">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <div class="game-container">
-    <mat-card *ngIf="!isLoading && game">
+  <div *ngIf="!isLoading && games.length > 0">
+    <div *ngIf="games.length == 1; else elseBlock">
       <h3>Selected game:</h3>
-      <div class="game-appear">
-        <div class="image-text-container">
-          <div class="image-container">
-            <img
-              src="{{ game.imagePath }}"
-              onerror="this.onerror=null; this.src='/assets/images/no-image-icon.png'"
-            />
-          </div>
-          <div class="title-container">
-            <h1>{{ game.title }}</h1>
-          </div>
-          <div class="content-container">
-            <div class="card-content">
-              <div class="gameProperties">
-                <div class="content">
-                  <mat-icon aria-hidden="false">groups_outline</mat-icon>
-                  {{ game.minPlayers | flatten: game.maxPlayers }}
-                </div>
-                <div class="content">
-                  <mat-icon aria-hidden="false">timer</mat-icon>
-                  {{ game.minPlayTime | flatten: game.maxPlayTime }}
-                  min
-                </div>
-                <div class="content">
-                  <mat-icon aria-hidden="false">person</mat-icon>
-                  {{ game.minAge }}+
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="note" *ngIf="game.note != ''">
-            <mat-icon aria-hidden="false">info_outline</mat-icon>
-            {{ game.note }}
-          </div>
-        </div>
-      </div>
-    </mat-card>
-  </div>
-  <div class="games-container">
-    <mat-card *ngIf="!isLoading && games">
-      <h3>Games List:</h3>
-      <div class="game-appear">
-        <div *ngIf="games.length > 0">
-          <div class="grid-container">
-            <div *ngFor="let game of games">
-              <div class="card">
-                <div class="image-container">
-                  <img
-                    src="{{ game.imagePath }}"
-                    onerror="this.onerror=null; this.src='/assets/images/no-image-icon.png'"
-                  />
-                </div>
-                <div class="title-container">
-                  <h1>{{ game.title }}</h1>
-                </div>
-                <div class="content-container">
-                  <div class="card-content">
-                    <div class="gameProperties">
-                      <div class="content">
-                        <mat-icon aria-hidden="false">groups_outline</mat-icon>
-                        {{ game.minPlayers | flatten: game.maxPlayers }}
-                      </div>
-                      <div class="content">
-                        <mat-icon aria-hidden="false">timer</mat-icon>
-                        {{ game.minPlayTime | flatten: game.maxPlayTime }}
-                        min
-                      </div>
-                      <div class="content">
-                        <mat-icon aria-hidden="false">person</mat-icon>
-                        {{ game.minAge }}+
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="note" *ngIf="game.note != ''">
-                  <mat-icon aria-hidden="false">info_outline</mat-icon>
-                  {{ game.note }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </mat-card>
+    </div>
+    <ng-template #elseBlock><h3>Games List:</h3></ng-template>
+    <div class="game-appear">
+      <app-games-view [games]="games" [showMenu]="false"></app-games-view>
+    </div>
   </div>
 </div>

@@ -81,10 +81,19 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   }
 
   onDelete(gameId: string) {
-    this.deleteEvent.emit(gameId);
+    if (this.showMenu) {
+      this.deleteEvent.emit(gameId);
+    }
   }
 
   trackById(index: number, game: Game): string {
     return game.id;
+  }
+
+  getStyles() {
+    const nrColums = this.games.length < 5 ? this.games.length : 5;
+    return {
+      'grid-template-columns': `repeat(${nrColums}, 1fr)`,
+    };
   }
 }

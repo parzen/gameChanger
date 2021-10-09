@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/components/shared.module';
 import { PlayComponent } from './play/play.component';
 import { FlattenModule } from './../shared/pipes/flatten.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
     PlayRoutingModule,
     HttpClientModule,
     FlattenModule,
+    SharedModule,
   ],
 })
 export class PlayModule {}

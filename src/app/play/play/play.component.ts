@@ -11,10 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayComponent implements OnInit {
   isLoading = false;
-  game: Game = null;
   dispError = null;
   form: FormGroup;
-  games: Game[];
+  games: Game[] = [];
   errors = errorMessages;
 
   constructor(private fb: FormBuilder, private PlayService: PlayService) {}
@@ -33,8 +32,7 @@ export class PlayComponent implements OnInit {
     }
     this.isLoading = true;
     this.dispError = null;
-    this.game = null;
-    this.games = null;
+    this.games = [];
 
     this.PlayService.play(
       this.form.value.playerControl,
@@ -48,7 +46,7 @@ export class PlayComponent implements OnInit {
           const randomNumber = Math.floor(
             Math.random() * transformedGameData.games.length
           );
-          this.game = transformedGameData.games[randomNumber];
+          this.games = [transformedGameData.games[randomNumber]];
         } else {
           this.games = transformedGameData.games;
         }

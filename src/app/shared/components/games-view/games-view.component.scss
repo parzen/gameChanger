@@ -1,33 +1,32 @@
 /* Game view */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   grid-auto-columns: 100px;
   padding-top: 10px;
 }
 
 @media screen and (max-width: 1400px) {
-  .grid-container {
-    grid-template-columns: repeat(4, 1fr);
+  .grid-container-multi {
+    grid-template-columns: repeat(4, 1fr) !important;
   }
 }
 
 @media screen and (max-width: 1280px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr);
+  .grid-container-multi {
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
 @media screen and (max-width: 860px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
+  .grid-container-multi {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .grid-container {
-    grid-template-columns: repeat(1, 1fr);
+  .grid-container-multi {
+    grid-template-columns: repeat(1, 1fr) !important;
   }
 }
 
@@ -46,9 +45,16 @@
 img {
   border-radius: 5px 5px 0 0;
   max-width: 80%;
-  max-height: 200px;
   width: auto;
   height: auto;
+}
+
+.normal-img {
+  max-height: 200px;
+}
+
+.large-img {
+  max-height: 300px;
 }
 
 .image-container {

@@ -1,4 +1,8 @@
-<div class="grid-container">
+<div
+  [ngClass]="games.length > 1 ? 'grid-container-multi' : ''"
+  class="grid-container"
+  [ngStyle]="getStyles()"
+>
   <div *ngFor="let game of games; let i = index; trackBy: trackById" #gamesRef>
     <div class="card" id="{{ 'card' + i }}">
       <div class="menu" [hidden]="!showMenu">
@@ -32,6 +36,7 @@
       <div class="game-container">
         <div class="image-container">
           <img
+            [ngClass]="games.length === 1 ? 'large-img' : 'normal-img'"
             src="{{ game.imagePath }}"
             onerror="this.onerror=null; this.src='/assets/images/no-image-icon.png'"
           />
