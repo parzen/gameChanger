@@ -246,7 +246,7 @@ describe('Play Module', () => {
   it('should show only Taboo with params 5 30 12', () => {
     cy.get('#playerControl').click().get('mat-option').contains('5').click();
     cy.get('#maxPlayControl').click().get('mat-option').contains('30').click();
-    cy.get('#minAgeControl').click().get('mat-option').contains('12').click();
+    cy.get('#minAgeControl').click().get('mat-option').contains('12+').click();
     cy.get('#getRandomGameButton').click();
     cy.get('.title-container').should('contain', 'Taboo');
 
