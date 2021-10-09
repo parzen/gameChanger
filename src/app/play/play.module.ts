@@ -1,6 +1,5 @@
 import { SharedModule } from './../shared/components/shared.module';
 import { PlayComponent } from './play/play.component';
-import { FlattenModule } from './../shared/pipes/flatten.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PlayRoutingModule } from './play-routing.module';
 
@@ -17,7 +16,6 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     PlayRoutingModule,
     HttpClientModule,
-    FlattenModule,
     SharedModule,
   ],
 })

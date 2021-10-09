@@ -1,4 +1,3 @@
-import { FlattenModule } from './shared/pipes/flatten.module';
 import { ErrorInterceptor } from './shared/services/error/error-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GamesModule } from './games/games.module';
@@ -48,7 +47,6 @@ export const RollbarService = new InjectionToken<Rollbar>('rollbar');
     HttpClientModule,
     GamesModule,
     ReactiveFormsModule,
-    FlattenModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
