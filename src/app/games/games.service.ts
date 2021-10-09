@@ -11,7 +11,7 @@ const BACKEND_URL = environment.apiUrl + 'api/games/';
 @Injectable({ providedIn: 'root' })
 export class GamesService {
   private games: Game[] = [];
-  private gamesUpdated = new Subject<{ games: Game[] }>(); // Subject ist einfache Art eines Observable
+  private gamesUpdated = new Subject<{ games: Game[] }>();
 
   constructor(private http: HttpClient, private router: Router) {}
 

@@ -3,7 +3,7 @@ import { SnackbarService } from './../../snackbar.service';
 import { GameAddValidator } from './../../shared/validators/game-add.validator';
 import { Game } from './../../shared/interfaces/game.interface';
 import { AuthService } from './../../auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { GamesService } from './../games.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -36,14 +36,13 @@ export class GameAddComponent implements OnInit, OnDestroy {
   noMoreEntries = false;
   errors = errorMessages;
   searchTitle: string = '';
+  triggerRemoveActiveClass: Subject<void> = new Subject<void>();
   private sub = new Subscription();
 
   @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
 
   @Output() onSaveEmitter: EventEmitter<AddGameResponse> =
     new EventEmitter<AddGameResponse>();
-
-  @Output() removeActiveClass: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -268,7 +267,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
           });
         } else {
           this.emptyForm();
-          this.removeActiveClass.emit(); // TODO: this should call removeActiveClass in games-view
+          this.triggerRemoveActiveClass.next();
           this.snackBarService.open(response.message, false);
         }
       },

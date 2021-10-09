@@ -48,6 +48,9 @@
             [games]="games"
             [useActiveCards]="true"
             [canBeActivated]="true"
+            [triggerRemoveActiveClassObservable]="
+              triggerRemoveActiveClass.asObservable()
+            "
             (deleteEvent)="onActivated($event)"
             (activeClassRemoved)="emptyForm($event)"
             (returnActiveGame)="fillForm($event)"

@@ -9,7 +9,7 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Game } from '../../interfaces/game.interface';
 
 @Component({
@@ -20,7 +20,7 @@ import { Game } from '../../interfaces/game.interface';
 export class GamesViewComponent implements OnInit, OnDestroy {
   maxNoteLength = 50;
   initNotesDone = false;
-  private gamesRefSub: Subscription;
+  private subs = new Subscription();
 
   @Input()
   games: Game[] = [];
@@ -30,6 +30,8 @@ export class GamesViewComponent implements OnInit, OnDestroy {
 
   @Input()
   canBeActivated: boolean = false;
+
+  @Input() triggerRemoveActiveClassObservable: Observable<void>;
 
   @Output()
   deleteEvent: EventEmitter<string> = new EventEmitter<string>();
@@ -44,16 +46,26 @@ export class GamesViewComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.triggerRemoveActiveClassObservable) {
+      this.subs.add(
+        this.triggerRemoveActiveClassObservable.subscribe(() => {
+          this.removeActiveClass();
+        })
+      );
+    }
+  }
 
   ngAfterViewInit() {
-    this.gamesRefSub = this.gamesRef.changes.subscribe((change) => {
-      this.initNote();
-    });
+    this.subs.add(
+      this.gamesRef.changes.subscribe((change) => {
+        this.initNote();
+      })
+    );
   }
 
   ngOnDestroy(): void {
-    this.gamesRefSub.unsubscribe();
+    this.subs.unsubscribe();
   }
 
   initNote() {
