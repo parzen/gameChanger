@@ -28,8 +28,17 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   @Input()
   showMenu: boolean = false;
 
+  @Input()
+  canBeActivated: boolean = false;
+
   @Output()
   deleteEvent: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  activeClassRemoved: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  returnActiveGame: EventEmitter<Game> = new EventEmitter<Game>();
 
   @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
 
@@ -90,10 +99,29 @@ export class GamesViewComponent implements OnInit, OnDestroy {
     return game.id;
   }
 
-  getStyles() {
+  setNrColumns() {
     const nrColums = this.games.length < 5 ? this.games.length : 5;
     return {
       'grid-template-columns': `repeat(${nrColums}, 1fr)`,
     };
+  }
+
+  setActive(game, i) {
+    if (this.canBeActivated) {
+      this.removeActiveClass();
+      this.gamesRef.get(i).nativeElement.classList.add('active');
+
+      this.returnActiveGame.emit(game);
+    }
+  }
+
+  removeActiveClass() {
+    if (this.canBeActivated) {
+      this.gamesRef.forEach((game) => {
+        game.nativeElement.classList.remove('active');
+      });
+
+      this.activeClassRemoved.emit();
+    }
   }
 }

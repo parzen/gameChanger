@@ -1,10 +1,15 @@
 <div
   [ngClass]="games.length > 1 ? 'grid-container-multi' : ''"
   class="grid-container"
-  [ngStyle]="getStyles()"
+  [ngStyle]="setNrColumns()"
 >
   <div *ngFor="let game of games; let i = index; trackBy: trackById" #gamesRef>
-    <div class="card" id="{{ 'card' + i }}">
+    <div
+      [ngClass]="canBeActivated ? 'card-clickable' : ''"
+      class="card"
+      (click)="setActive(game, i)"
+      id="{{ 'card' + i }}"
+    >
       <div class="menu" [hidden]="!showMenu">
         <button
           mat-icon-button

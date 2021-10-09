@@ -41,6 +41,23 @@
   justify-content: space-between;
 }
 
+// if card active, use this class
+.card-clickable {
+  cursor: pointer;
+}
+
+.card-clickable:hover {
+  box-shadow: 0px 0px 14px 7px rgba(241, 63, 124, 0.3);
+}
+
+.card-clickable:active {
+  box-shadow: 0px 0px 14px 7px rgba(241, 63, 124, 1);
+}
+
+.active {
+  box-shadow: 0px 0px 14px 7px rgba(241, 63, 124, 1);
+}
+
 /* Add rounded corners to the top left and the top right corner of the image */
 img {
   border-radius: 5px 5px 0 0;

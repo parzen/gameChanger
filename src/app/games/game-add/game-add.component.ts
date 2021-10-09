@@ -1,3 +1,4 @@
+import { AddGameResponse } from './../../shared/interfaces/addGameResponse.interface';
 import { SnackbarService } from './../../snackbar.service';
 import { GameAddValidator } from './../../shared/validators/game-add.validator';
 import { Game } from './../../shared/interfaces/game.interface';
@@ -39,7 +40,10 @@ export class GameAddComponent implements OnInit, OnDestroy {
 
   @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
 
-  @Output() onSaveEmitter = new EventEmitter();
+  @Output() onSaveEmitter: EventEmitter<AddGameResponse> =
+    new EventEmitter<AddGameResponse>();
+
+  @Output() removeActiveClass: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -145,10 +149,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
     );
   }
 
-  setActive(game, i) {
-    this.removeActiveClass();
-    this.gamesRef.get(i).nativeElement.classList.add('active');
-
+  fillForm(game: Game) {
     this.form.controls['title'].setValue(game.title);
     this.form.controls['imagePath'].setValue(game.imagePath);
     this.form.controls['minPlayers'].setValue(game.minPlayers);
@@ -161,11 +162,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
     this.form.controls['gameType'].setValue(game.gameType);
   }
 
-  removeActiveClass() {
-    this.gamesRef.forEach((game) => {
-      game.nativeElement.classList.remove('active');
-    });
-
+  emptyForm() {
     this.form.controls['imagePath'].setValue(null);
     this.form.controls['minPlayers'].setValue(null);
     this.form.controls['maxPlayers'].setValue(null);
@@ -179,7 +176,7 @@ export class GameAddComponent implements OnInit, OnDestroy {
 
   onSearch() {
     this.dispError = null;
-    this.removeActiveClass();
+    this.emptyForm();
     this.form.controls['title'].markAsTouched();
     if (this.form.controls['title'].invalid) {
       return;
@@ -270,7 +267,8 @@ export class GameAddComponent implements OnInit, OnDestroy {
             cancel: false,
           });
         } else {
-          this.removeActiveClass();
+          this.emptyForm();
+          this.removeActiveClass.emit(); // TODO: this should call removeActiveClass in games-view
           this.snackBarService.open(response.message, false);
         }
       },

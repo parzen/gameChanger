@@ -43,48 +43,15 @@
           <md-icon class="material-icons">error</md-icon> {{ dispError }}
         </div>
 
-        <div *ngIf="games.length > 0" class="gamesList">
-          <div class="grid-container">
-            <div
-              *ngFor="let game of games; let i = index; trackBy: trackByTitle"
-              #gamesRef
-            >
-              <div class="card" (click)="setActive(game, i)">
-                <div class="image-container">
-                  <img
-                    src="{{ game.imagePath }}"
-                    onerror="this.onerror=null; this.src='/assets/images/no-image-icon.png'"
-                  />
-                </div>
-                <div class="title-container">
-                  <h1>{{ game.title }}</h1>
-                </div>
-                <div class="content-container">
-                  <div class="card-content">
-                    <div class="gameProperties">
-                      <div class="content">
-                        <mat-icon aria-hidden="false">groups_outline</mat-icon>
-                        {{ game.minPlayers | flatten: game.maxPlayers }}
-                      </div>
-                      <div class="content">
-                        <mat-icon aria-hidden="false">timer</mat-icon>
-                        {{ game.minPlayTime | flatten: game.maxPlayTime }}
-                        min
-                      </div>
-                      <div class="content">
-                        <mat-icon aria-hidden="false">person</mat-icon>
-                        {{ game.minAge }}+
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="content note" *ngIf="game.note != ''">
-                  <mat-icon aria-hidden="false">info_outline</mat-icon>
-                  {{ game.note }}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div *ngIf="games.length > 0">
+          <app-games-view
+            [games]="games"
+            [useActiveCards]="true"
+            [canBeActivated]="true"
+            (deleteEvent)="onActivated($event)"
+            (activeClassRemoved)="emptyForm($event)"
+            (returnActiveGame)="fillForm($event)"
+          ></app-games-view>
         </div>
         <div class="loadMoreGames" *ngIf="!noMoreEntries && games.length > 0">
           <button mat-button (click)="loadMoreGames()" type="button">

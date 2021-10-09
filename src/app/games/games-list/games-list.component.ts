@@ -10,6 +10,7 @@ import { GameAddComponent } from '../game-add/game-add.component';
 import { Game } from '../../shared/interfaces/game.interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AddGameResponse } from 'src/app/shared/interfaces/addGameResponse.interface';
 
 @Component({
   selector: 'app-games-list',
@@ -60,7 +61,7 @@ export class GamesListComponent implements OnInit, OnDestroy {
     });
 
     const sub = dialogRef.componentInstance.onSaveEmitter.subscribe(
-      (response: { message: string; error: boolean; cancel: boolean }) => {
+      (response: AddGameResponse) => {
         dialogRef.close();
         if (!response.cancel) {
           this.openSnackBar(response.message, response.error);
