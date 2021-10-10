@@ -7,7 +7,7 @@ phases:
 
       # Install puppeteer as a dev dependency
       - npm i -D puppeteer
-      - npm i –D @angular-devkit/build-angular
+      - npm i -D @angular-devkit/build-angular
 
       # Print out missing libs
       - echo "Missing Libs" || ldd ./node_modules/puppeteer/.local-chromium/linux-549031/chrome-linux/chrome | grep not

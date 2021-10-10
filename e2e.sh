@@ -25,8 +25,8 @@ if [ "${mongo_installation}" = "local" ]
 then
   # With local installation (perhaps need sudo)
   mongod --version
-  sudo systemctl start mongod
-  sudo systemctl status mongod
+  systemctl start mongod
+  systemctl status mongod
 elif [ "${mongo_installation}" = "docker" ]
 then
   # Create mongo docker
