@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+      - npm install -g @angular/cli
+      - cd backend
+      - npm install
+      - npm install -g wait-on
+      - cd ..
+      - echo "Installing mongodb"
+      - wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -
+      - echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+      - apt-get update
+      - apt-get install -y mongodb-org
+  build:
+    commands:
+      - ls
+      - ./e2e.sh local
+  post_build:
+    commands:
+      - echo Test completed on `date`
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
