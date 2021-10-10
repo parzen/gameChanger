@@ -24,6 +24,7 @@ echo ">>> Running mongodb server"
 if [ "${mongo_installation}" = "local" ]
 then
   # With local installation (perhaps need sudo)
+  npm install -g mongodb
   mongod --version
   systemctl start mongod
   systemctl status mongod
@@ -50,3 +51,7 @@ cd ..
 
 echo ">>> Starting frontend server and e2e test"
 npm run e2e:ci
+
+echo ">>> Stopping backend server"
+npm i kill-port
+npx kill-port 3000
