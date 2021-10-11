@@ -40,6 +40,9 @@ if [ "${mongo_installation}" = "local" ]; then
   call_cmd "$sudo mongo --eval 'db.createUser({ user: \"mongoadmin\", pwd: \"secret\" ]})'"
 elif [ "${mongo_installation}" = "docker" ]; then
   echo ">>>> Docker installation"
+  # Start docker daemon
+  call_cmd "$sudo dockerd"
+
   # Get mongo docker image
   call_cmd "$sudo docker pull mongo"
 
