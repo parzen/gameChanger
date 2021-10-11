@@ -1,10 +1,12 @@
 #!/bin/bash
 
 function print_usage() {
-  echo "Usage: $0 [arg]"
-  echo "arg: "
+  echo "Usage: $0 [arg1 arg2]"
+  echo "arg1: "
   echo "  local  :  Use local mongo installation"
   echo "  docker :  Use mongo docker image (default)"
+  echo "arg2: "
+  echo "  sudo   :  Use sudo command"
   exit 0
 }
 
@@ -22,26 +24,30 @@ if [ "$1" != "" ]; then
   mongo_installation=$1
 fi
 
+sudo=""
+if [ "$2" == "sudo" ]; then
+  sudo="sudo"
+fi
+
 echo ">>> Running mongodb server"
 if [ "${mongo_installation}" = "local" ]; then
   echo ">>>> Local installation"
-  # With local installation (perhaps need sudo)
-  call_cmd "mongod --version"
-  call_cmd "mongo --eval 'db.createUser({ user: \"mongoadmin\", pwd: \"secret\" ]})'"
-  call_cmd "service mongod start"
-  call_cmd "service mongod status"
-  call_cmd "mongo --eval 'db.runCommand({ connectionStatus: 1 })'"
+  # With local installation
+  call_cmd "$sudo mongod --version"
+  call_cmd "$sudo service mongod start"
+  call_cmd "$sudo service mongod status"
+  call_cmd "$sudo mongo --eval 'db.runCommand({ connectionStatus: 1 })'"
+  call_cmd "$sudo mongo --eval 'db.createUser({ user: \"mongoadmin\", pwd: \"secret\" ]})'"
 elif [ "${mongo_installation}" = "docker" ]; then
   echo ">>>> Docker installation"
+  # Get mongo docker image
+  call_cmd "$sudo docker pull mongo"
+
   # Create mongo docker
-  #sudo docker run -d --name mongo-on-docker \
-  #  -p 27017:27017 \
-  #  -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
-  #  -e MONGO_INITDB_ROOT_PASSWORD=secret \
-  #  mongo
+  call_cmd "$sudo docker run -d --name mongo-on-docker -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo"
 
   # Start docker
-  call_cmd "sudo docker start mongo-on-docker"
+  call_cmd "$sudo docker start mongo-on-docker"
 else
   echo "Error: Wrong argument!"
   print_usage
@@ -56,5 +62,5 @@ echo ">>> Starting frontend server and e2e test"
 call_cmd "npm run e2e:ci"
 
 echo ">>> Stopping backend server"
-npm i kill-port
-npx kill-port 3000
+call_cmd "PID=$(lsof -i tcp:3000 | grep 3000 | awk '{print $2}')"
+call_cmd "kill -9 $PID"
