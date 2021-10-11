@@ -23,6 +23,7 @@ fi
 echo ">>> Running mongodb server"
 if [ "${mongo_installation}" = "local" ]
 then
+  echo ">>>> Local installation"
   # With local installation (perhaps need sudo)
   npm install -g mongodb
   mongod --version
@@ -30,6 +31,7 @@ then
   systemctl status mongod
 elif [ "${mongo_installation}" = "docker" ]
 then
+  echo ">>>> Docker installation"
   # Create mongo docker
   #sudo docker run -d --name mongo-on-docker \
   #  -p 27017:27017 \
