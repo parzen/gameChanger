@@ -33,9 +33,11 @@ echo ">>> Running mongodb server"
 if [ "${mongo_installation}" = "local" ]; then
   echo ">>>> Local installation"
   # With local installation
+  call_cmd "ls /var/lib/mongodb/"
   call_cmd "$sudo mongod --version"
   call_cmd "$sudo service mongodb start"
   call_cmd "$sudo service mongodb status"
+  call_cmd "$sudo start mongod"
   call_cmd "$sudo mongo --eval 'db.runCommand({ connectionStatus: 1 })'"
   call_cmd "$sudo mongo --eval 'db.createUser({ user: \"mongoadmin\", pwd: \"secret\" ]})'"
 elif [ "${mongo_installation}" = "docker" ]; then
