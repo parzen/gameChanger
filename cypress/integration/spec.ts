@@ -138,6 +138,36 @@ describe('Game Module', () => {
     cy.contains(newTitle);
   });
 
+  it('should be possible to edit a game note', () => {
+    const note = 'New Note';
+    cy.get('#menuButton0').click();
+    cy.get('#editButton0').click();
+    cy.url().should('contain', '/edit');
+    cy.get('#note').clear();
+    cy.get('#note').type(note);
+    cy.get('.save-button').click();
+    cy.url().should('contain', '/games/list');
+    cy.get('.game-container').should('contain', note);
+    cy.get('.showMore').should('not.be.visible');
+  });
+
+  it('should be possible to add and show a very long game note', () => {
+    const note =
+      'This is a very long text which should be truncated in the game view. There this sentence should be UNVISIBLE per default!';
+    cy.get('#menuButton0').click();
+    cy.get('#editButton0').click();
+    cy.url().should('contain', '/edit');
+    cy.get('#note').clear();
+    cy.get('#note').type(note);
+    cy.get('.save-button').click();
+    cy.url().should('contain', '/games/list');
+    cy.get('.game-container').should('contain', note.substring(0, 20));
+    cy.get('.showMore').should('be.visible');
+    cy.get('#note0').click();
+    cy.get('.game-container').should('contain', note);
+    cy.get('.showMore').should('not.be.visible');
+  });
+
   it('should be possible to delete a game', () => {
     cy.get('#menuButton0').click();
     cy.get('#deleteButton0').click();
@@ -160,6 +190,7 @@ describe('Game Module', () => {
     cy.get('#minPlayTime').type('40');
     cy.get('#maxPlayTime').clear().type('300');
     cy.get('#saveButton').click();
+    cy.get('#note').type('This game is awesome');
     cy.contains('Game added successfully');
 
     cy.get('#title').clear().type('Risk');

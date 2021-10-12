@@ -80,6 +80,7 @@
           *ngIf="game.note !== ''"
           (click)="toggleNote(i)"
           truncated="0"
+          id="{{ 'note' + i }}"
         >
           <mat-icon aria-hidden="false" class="infoIcon">info_outline</mat-icon>
           <div class="textAndMore">
