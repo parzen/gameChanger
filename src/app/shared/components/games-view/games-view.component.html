@@ -3,7 +3,14 @@
   class="grid-container"
   [ngStyle]="setNrColumns()"
 >
-  <div *ngFor="let game of games; let i = index; trackBy: trackById" #gamesRef>
+  <div
+    *ngFor="
+      let game of games | sortByTitle: sortit;
+      let i = index;
+      trackBy: trackById
+    "
+    #gamesRef
+  >
     <div
       [ngClass]="canBeActivated ? 'card-clickable' : ''"
       class="card"

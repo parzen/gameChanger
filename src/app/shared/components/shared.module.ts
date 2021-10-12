@@ -1,3 +1,4 @@
+import { SortByTitlePipe } from './../pipes/sortByTitle.pipe';
 import { RouterModule } from '@angular/router';
 import { FlattenModule } from './../pipes/flatten.module';
 import { AngularMaterialModule } from './../../angular-material.module';
@@ -7,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [GamesViewComponent],
+  declarations: [GamesViewComponent, SortByTitlePipe],
   imports: [
     CommonModule,
     HttpClientModule,

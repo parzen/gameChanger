@@ -26,6 +26,9 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   games: Game[] = [];
 
   @Input()
+  sortit: boolean = false;
+
+  @Input()
   showMenu: boolean = false;
 
   @Input()
