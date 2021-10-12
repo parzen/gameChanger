@@ -26,7 +26,7 @@ workflows:
           requires:
             - cypress/install
           executor: with-mongo
-          start: cd backend && npm run start:testing & && cd .. && npm start
+          start: ./cypress_start.sh
           wait-on: "http://localhost:4200"
           # no need to save the workspace after this job
           no-workspace: true
