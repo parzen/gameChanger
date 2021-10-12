@@ -19,7 +19,6 @@ import { Game } from '../../interfaces/game.interface';
 })
 export class GamesViewComponent implements OnInit, OnDestroy {
   maxNoteLength = 50;
-  initNotesDone = false;
   private subs = new Subscription();
 
   @Input()
@@ -60,11 +59,7 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.subs.add(
-      this.gamesRef.changes.subscribe((change) => {
-        this.initNote();
-      })
-    );
+    this.initNote();
   }
 
   ngOnDestroy(): void {
@@ -72,16 +67,14 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   }
 
   initNote() {
-    if (this.initNotesDone) return;
     this.gamesRef.forEach((game, i) => {
       this.toggleNote(i);
     });
-    this.initNotesDone = true;
   }
 
   toggleNote(i) {
     const noteElement =
-      this.gamesRef.get(i).nativeElement.children[0].children[4];
+      this.gamesRef.get(i).nativeElement.children[0].children[1].children[3];
     if (noteElement) {
       const textAndMore = noteElement.children[1];
       const noteText = textAndMore.children[0];
