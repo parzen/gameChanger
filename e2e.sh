@@ -29,6 +29,13 @@ if [ "$2" == "sudo" ]; then
   sudo="sudo"
 fi
 
+echo ">>> Installing source NPM dependencies..."
+call_cmd "npm install"
+call_cmd "npm install -g @angular/cli"
+call_cmd "cd backend"
+call_cmd "npm install"
+call_cmd "cd .."
+
 echo ">>> Running mongodb server"
 if [ "${mongo_installation}" = "local" ]; then
   echo ">>>> Local installation"
