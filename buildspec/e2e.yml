@@ -11,7 +11,7 @@ phases:
       - npm install -g @angular/cli
       - cd backend
       - npm install
-      - npm install -g wait-on
+      #- npm install -g wait-on
       - cd ..
       - echo "Installing mongodb"
       - wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -
