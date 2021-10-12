@@ -33,7 +33,7 @@ echo ">>> Running mongodb server"
 if [ "${mongo_installation}" = "local" ]; then
   echo ">>>> Local installation"
   # With local installation
-  call_cmd "ls /var/lib/mongodb/"
+  call_cmd "uname --all"
   call_cmd "$sudo mongod --version"
   call_cmd "$sudo service mongodb start"
   call_cmd "$sudo service mongodb status"
