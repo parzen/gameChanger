@@ -21,16 +21,11 @@ workflows:
   build:
     jobs:
       - cypress/install:
-          build:
-            - npm install
-            - cd backend
-            - npm install
-            - cd ..
-            - npm run start:testing &
+          build: npm install && cd backend && npm install && cd ..
       - cypress/run:
           requires:
             - cypress/install
           executor: with-mongo
-          start: ./e2e.sh docker
+          start: ng serve
           # no need to save the workspace after this job
           no-workspace: true
