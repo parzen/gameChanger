@@ -29,13 +29,6 @@ if [ "$2" == "sudo" ]; then
   sudo="sudo"
 fi
 
-echo ">>> Installing source NPM dependencies..."
-call_cmd "npm install"
-call_cmd "npm install -g @angular/cli"
-call_cmd "cd backend"
-call_cmd "npm install"
-call_cmd "cd .."
-
 echo ">>> Running mongodb server"
 if [ "${mongo_installation}" = "local" ]; then
   echo ">>>> Local installation"
@@ -50,10 +43,10 @@ if [ "${mongo_installation}" = "local" ]; then
 elif [ "${mongo_installation}" = "docker" ]; then
   echo ">>>> Docker installation"
   # Start docker daemon
-  call_cmd "$sudo dockerd"
+  #call_cmd "$sudo dockerd"
 
   # Get mongo docker image
-  call_cmd "$sudo docker pull mongo"
+  #call_cmd "$sudo docker pull mongo"
 
   # Create mongo docker
   call_cmd "$sudo docker run -d --name mongo-on-docker -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo"
