@@ -22,7 +22,4 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running e2e test
 
-1. Start mongo server: `cd backend` and run `./start_db.sh`
-2. Run backend server: `cd backend` and run `npm run start:testing`
-3. Run development server: `ng serve`
-4. Start cypress e2e test: `npm run cy:run`
+Run `./e2e.sh`. This script start local mongoDb server, start development/backend server and run cypress e2e test
