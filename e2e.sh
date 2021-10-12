@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function print_usage() {
-  echo "Usage: $0 [arg1 arg2]"
-  echo "arg1: "
+  echo "Usage: $0 [mongo arg]"
+  echo "mongo: "
   echo "  local  :  Use local mongo installation"
   echo "  docker :  Use mongo docker image (default)"
-  echo "arg2: "
+  echo "arg: "
   echo "  sudo   :  Use sudo command"
   exit 0
 }
