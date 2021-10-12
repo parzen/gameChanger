@@ -1,3 +1,4 @@
+import { SortByTitlePipe } from './../../pipes/sortByTitle.pipe';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GamesViewComponent } from './games-view.component';
@@ -8,9 +9,8 @@ describe('GamesViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GamesViewComponent ]
-    })
-    .compileComponents();
+      declarations: [GamesViewComponent, SortByTitlePipe],
+    }).compileComponents();
   });
 
   beforeEach(() => {

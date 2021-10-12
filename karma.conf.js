@@ -29,6 +29,17 @@ module.exports = function (config) {
       subdir: ".",
       reporters: [{ type: "html" }, { type: "text-summary" }],
     },
+    customLaunchers: {
+      ChromeHeadless: {
+        base: "Chrome",
+        flags: [
+          "--no-sandbox",
+          "--headless",
+          "--disable-gpu",
+          "--remote-debugging-port=9222",
+        ],
+      },
+    },
     reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,

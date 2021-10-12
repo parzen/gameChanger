@@ -2,36 +2,13 @@ version: 0.2
 phases:
   install:
     commands:
-      # Install the Angular CLI
-      - npm install -g @angular/cli
-
-      # Install puppeteer as a dev dependency
-      - npm i -D puppeteer
-      - npm i -D @angular-devkit/build-angular
-
-      # Print out missing libs
-      - echo "Missing Libs" || ldd ./node_modules/puppeteer/.local-chromium/linux-549031/chrome-linux/chrome | grep not
-
-      # Upgrade apt
-      - apt-get upgrade
-
       # Update libs
       - apt-get update
 
-      # Install apt-transport-https
-      - apt-get install -y apt-transport-https
-
-      # Use apt to install the Chrome dependencies
-      - apt-get install -y libxcursor1
-      - apt-get install -y libgtk-3-dev
-      - apt-get install -y libxss1
-      - apt-get install -y libasound2
-      - apt-get install -y libnspr4
-      - apt-get install -y libnss3
-      - apt-get install -y libx11-xcb1
-
-      # Print out missing libs
-      - echo "Missing Libs" || ldd ./node_modules/puppeteer/.local-chromium/linux-549031/chrome-linux/chrome | grep not
+      # Headless Chrome
+      - apt-get install -y fonts-liberation libasound2 libnspr4 libnss3 libx11-xcb1 xdg-utils libxss1 libappindicator1 libindicator7
+      - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - dpkg -i google-chrome*.deb
 
       # Install project dependencies
       - npm install
@@ -42,14 +19,8 @@ phases:
 
   build:
     commands:
-      - printenv
-
       # Build the project
-      - ng build
-
-      # Run headless Chrome tests
-      #- ng test --watch=false
-      - printenv
+      - npm run test:ci
 
   post_build:
     commands:
