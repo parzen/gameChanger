@@ -10,6 +10,7 @@
     "test:ci": "ng test --no-watch --browsers=ChromeHeadless",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "e2e": "start-server-and-test start http://localhost:4200 cy:open",
     "e2e:ci": "start-server-and-test start http://localhost:4200 cy:run"
   },
   "private": true,

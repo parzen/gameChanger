@@ -6,7 +6,7 @@ function print_usage() {
   echo "  local  :  Use local mongo installation"
   echo "  docker :  Use mongo docker image (default)"
   echo "arg: "
-  echo "  sudo   :  Use sudo command"
+  echo "  nosudo :  Dont' use sudo command"
   exit 0
 }
 
@@ -24,9 +24,9 @@ if [ "$1" != "" ]; then
   mongo_installation=$1
 fi
 
-sudo=""
-if [ "$2" == "sudo" ]; then
-  sudo="sudo"
+sudo="sudo"
+if [ "$2" == "nosudo" ]; then
+  sudo=""
 fi
 
 echo ">>> Running mongodb server"
@@ -64,7 +64,7 @@ call_cmd "npm run start:testing &"
 cd ..
 
 echo ">>> Starting frontend server and e2e test"
-call_cmd "npm run e2e:ci"
+call_cmd "npm run e2e"
 
 echo ">>> Stopping backend server"
 call_cmd "PID=$(lsof -i tcp:3000 | grep 3000 | awk '{print $2}')"
