@@ -30,3 +30,6 @@ workflows:
           wait-on: "http://localhost:4200"
           # no need to save the workspace after this job
           no-workspace: true
+          post-steps:
+            - store_test_results:
+                path: cypress/results
