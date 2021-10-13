@@ -21,7 +21,7 @@ workflows:
   build:
     jobs:
       - cypress/install:
-          build: npm install && cd backend && npm install && cd ..
+          build: cd backend && npm install && cd ..
       - cypress/run:
           requires:
             - cypress/install
