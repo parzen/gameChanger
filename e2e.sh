@@ -67,5 +67,5 @@ echo ">>> Starting frontend server and e2e test"
 call_cmd "npm run e2e"
 
 echo ">>> Stopping backend server"
-call_cmd "PID=$(lsof -i tcp:3000 | grep 3000 | awk '{print $2}')"
-call_cmd "kill -9 $PID"
+call_cmd "kill -9 $(ps aux | grep nodemon | grep 'node ' | awk '{print $2}')"
+call_cmd "kill -9 $(lsof -i tcp:3000 | grep 3000 | awk '{print $2}')"

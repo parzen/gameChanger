@@ -15,8 +15,8 @@ executors:
       # image used to run Mongo in a separate container
       - image: mongo:4.4.5
         environment:
-          MONGO_INITDB_ROOT_USERNAME: mongoadmin
-          MONGO_INITDB_ROOT_PASSWORD: secret
+          MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+          MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
 workflows:
   build:
     jobs:

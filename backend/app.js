@@ -2,7 +2,6 @@ const express = require("express");
 const userRoutes = require("./routes/user");
 const gameRoutes = require("./routes/game");
 const passwordResetTokenRoues = require("./routes/passwordResetToken");
-
 const app = express();
 
 const mongoose = require("mongoose");
@@ -11,8 +10,6 @@ let dbConnect = process.env.MONGO_CONNECT;
 if (process.env.NODE_ENV === "development") {
   dbConnect = process.env.MONGO_CONNECT_TEST;
 }
-
-console.log("dbConnect: ", dbConnect);
 
 mongoose
   .connect(dbConnect, {
