@@ -162,6 +162,11 @@ export class GameAddComponent implements OnInit, OnDestroy {
   }
 
   emptyForm() {
+    if (!this.useApi) {
+      this.form.controls['title'].setValue(null);
+      this.form.controls['title'].markAsUntouched();
+    }
+
     this.form.controls['imagePath'].setValue(null);
     this.form.controls['minPlayers'].setValue(null);
     this.form.controls['maxPlayers'].setValue(null);
@@ -171,6 +176,16 @@ export class GameAddComponent implements OnInit, OnDestroy {
     this.form.controls['note'].setValue(null);
     this.form.controls['consider'].setValue(true);
     this.form.controls['gameType'].setValue('boardgame');
+
+    this.form.controls['imagePath'].markAsUntouched();
+    this.form.controls['minPlayers'].markAsUntouched();
+    this.form.controls['maxPlayers'].markAsUntouched();
+    this.form.controls['minPlayTime'].markAsUntouched();
+    this.form.controls['maxPlayTime'].markAsUntouched();
+    this.form.controls['minAge'].markAsUntouched();
+    this.form.controls['note'].markAsUntouched();
+    this.form.controls['consider'].markAsUntouched();
+    this.form.controls['gameType'].markAsUntouched();
   }
 
   onSearch() {
