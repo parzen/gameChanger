@@ -4,6 +4,7 @@ env:
   variables:
     S3_BUCKET: "game-changer-tms"
     BUILD_TYPE: "Build"
+    BRANCH_NAME: "release"
 phases:
   install:
     runtime-versions:
@@ -30,10 +31,9 @@ phases:
           badge_status=passing
           badge_colour=green
         fi
-      - branchName=`git rev-parse --abbrev-ref HEAD`
-      - curl -s "https://img.shields.io/badge/${BUILD_TYPE}-${badge_status}-${badge_colour}.svg" > ${branchName}-${BUILD_TYPE}.svg
-      - aws s3 cp ${branchName}-${BUILD_TYPE}.svg s3://${S3_Bucket}/badges/${branchName}-${BUILD_TYPE}.svg --acl public-read --cache-control no-cache
-      - echo "${BUILD_TYPE} badge -> s3://${S3_Bucket}/badges/${branchName}-${BUILD_TYPE}.svg"
+      - curl -s "https://img.shields.io/badge/${BUILD_TYPE}-${badge_status}-${badge_colour}.svg" > ${BRANCH_NAME}-${BUILD_TYPE}.svg
+      - aws s3 cp ${BRANCH_NAME}-${BUILD_TYPE}.svg s3://${S3_Bucket}/badges/${BRANCH_NAME}-${BUILD_TYPE}.svg --acl public-read --cache-control no-cache
+      - echo "${BUILD_TYPE} badge -> s3://${S3_Bucket}/badges/${BRANCH_NAME}-${BUILD_TYPE}.svg"
 
   post_build:
     commands:
