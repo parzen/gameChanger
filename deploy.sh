@@ -9,26 +9,26 @@ function print_usage() {
   exit 0
 }
 
-if [ "$1" == "-h" ]
-then
+if [ "$1" == "-h" ]; then
   print_usage
 fi
 
 update_type="patch"
-if [ "$1" != "" ]
-then
+if [ "$1" != "" ]; then
   update_type=$1
 fi
 
-if [ "${update_type}" != "major" -a "${update_type}" != "minor" -a "${update_type}" != "patch" ]
-then
+if [ "${update_type}" != "major" -a "${update_type}" != "minor" -a "${update_type}" != "patch" ]; then
   echo "Error: Wrong argument!"
   print_usage
 fi
 
 git checkout main
 git pull
-npm version ${update_type}
+npm version ${update_type} --no-git-tag-version
+cd backend
+npm version ${update_type} --no-git-tag-version
+cd ..
 git push
 git checkout release
 git pull
