@@ -25,9 +25,9 @@ fi
 
 git checkout main
 git pull
-npm version ${update_type} --no-git-tag-version
+npm version ${update_type}
 cd backend
-npm version ${update_type} --no-git-tag-version
+npm version ${update_type}
 cd ..
 git push
 git checkout release
