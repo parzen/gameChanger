@@ -1,9 +1,6 @@
-
-
-
-|Build release|e2e main|e2e release|
-|:-:|:-:|:-:|
-|![Build Status](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiWXdoTE9DbUg1NXM1OEpBMzB6UzJlUEw5cjFwdi92YURVWDc4bVdxck5ZR1V4WTJZUjByY2hTQnNiRVpwQ2Y0cmhGWFRPaXpEbjRvTzJPdTBva1l0ang4PSIsIml2UGFyYW1ldGVyU3BlYyI6Ii9RaVl2ZXJ2YnNER0JLYlIiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)|[![CircleCI](https://circleci.com/gh/parzen/gameChanger/tree/main.svg?style=shield)](https://circleci.com/gh/parzen/gameChanger/tree/main)|[![CircleCI](https://circleci.com/gh/parzen/gameChanger/tree/release.svg?style=shield)](https://circleci.com/gh/parzen/gameChanger/tree/release)|
+|                                          Build release                                           |                                          Unittest release                                           |                                                                   e2e release                                                                    |                                                                  e2e main                                                                  |
+| :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| ![Build Status](https://game-changer-tms.s3.eu-central-1.amazonaws.com/badges/release-Build.svg) | ![Build_Status](https://game-changer-tms.s3.eu-central-1.amazonaws.com/badges/release-Unittest.svg) | [![CircleCI](https://circleci.com/gh/parzen/gameChanger/tree/release.svg?style=shield)](https://circleci.com/gh/parzen/gameChanger/tree/release) | [![CircleCI](https://circleci.com/gh/parzen/gameChanger/tree/main.svg?style=shield)](https://circleci.com/gh/parzen/gameChanger/tree/main) |
 
 ## Development server
 
