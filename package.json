@@ -1,6 +1,6 @@
 {
   "name": "game-changer",
-  "version": "1.0.49",
+  "version": "1.0.50",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
