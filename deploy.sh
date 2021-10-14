@@ -29,6 +29,7 @@ npm version ${update_type}
 cd backend
 npm version ${update_type}
 cd ..
+git add .
 git push
 git checkout release
 git pull
