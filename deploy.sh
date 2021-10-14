@@ -25,10 +25,10 @@ fi
 
 git checkout main
 git pull
-npm version ${update_type}
 cd backend
-npm version ${update_type}
+npm version ${update_type} --no-git-tag-version
 cd ..
+npm version ${update_type}
 git add .
 git push
 git checkout release
