@@ -15,12 +15,26 @@ phases:
 
   pre_build:
     commands:
-      - echo "Nothing to pre_build"
+      - buildExitCode=1
 
   build:
     commands:
       # Build the project
       - npm run test:ci
+      - buildExitCode=$?
+
+  finally:
+    - |
+      if [ "$buildExitCode" -ne 0 ]; then
+        badge_status=failing
+        badge_colour=red
+      else
+        badge_status=passing
+        badge_colour=green
+      fi
+    - curl -s "https://img.shields.io/badge/Unittest-${badge_status}-${badge_colour}.svg" > ${GithubBranch}-unittest.svg
+    - aws s3 cp ${GithubBranch}-unittest.svg s3://${S3_Bucket}/badges/${GithubBranch}-unittest.svg --acl public-read --cache-control no-cache
+    - echo "unittest badge -> s3://${S3_Bucket}/badges/${GithubBranch}-unittest.svg"
 
   post_build:
     commands:
