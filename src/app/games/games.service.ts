@@ -66,7 +66,7 @@ export class GamesService {
       consider: Boolean;
       gameType: string;
       creator: string;
-    }>(BACKEND_URL + '/game/' + id);
+    }>(BACKEND_URL + 'game/' + id);
   }
 
   addGame(
@@ -105,14 +105,12 @@ export class GamesService {
       gameType: game.gameType,
       creator: game.creator,
     };
-    this.http
-      .put(BACKEND_URL + '/' + game.id, gameData)
-      .subscribe((response) => {
-        this.router.navigate(['/games/list']);
-      });
+    this.http.put(BACKEND_URL + game.id, gameData).subscribe((response) => {
+      this.router.navigate(['/games/list']);
+    });
   }
 
   deleteGame(gameId: string) {
-    return this.http.delete(BACKEND_URL + '/' + gameId);
+    return this.http.delete(BACKEND_URL + gameId);
   }
 }
