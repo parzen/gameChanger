@@ -25,7 +25,11 @@ fi
 
 git checkout main
 git pull
+NEW_VERSION=$(npm version ${update_type})
+cd backend
 npm version ${update_type}
+cd..
+git commit -am $NEW_VERSION
 git push
 git checkout release
 git pull
