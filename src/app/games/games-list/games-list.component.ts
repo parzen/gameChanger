@@ -11,6 +11,7 @@ import { Game } from '../../shared/interfaces/game.interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGameResponse } from 'src/app/shared/interfaces/addGameResponse.interface';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-games-list',
@@ -19,9 +20,11 @@ import { AddGameResponse } from 'src/app/shared/interfaces/addGameResponse.inter
 })
 export class GamesListComponent implements OnInit, OnDestroy {
   games: Game[] = [];
+  allGames: Game[] = [];
   isLoading = false;
   userId: string = '';
   userIsauthenticated = false;
+  form: FormGroup;
   private authStatusSub!: Subscription;
   private gamesSub!: Subscription;
 
@@ -29,7 +32,8 @@ export class GamesListComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private gameService: GamesService,
     private authService: AuthService,
-    private snackBarService: SnackbarService
+    private snackBarService: SnackbarService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +45,7 @@ export class GamesListComponent implements OnInit, OnDestroy {
       .subscribe((gameData: { games: Game[] }) => {
         this.isLoading = false;
         this.games = gameData.games;
+        this.allGames = [...this.games];
       });
     this.userIsauthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -49,6 +54,18 @@ export class GamesListComponent implements OnInit, OnDestroy {
         this.userId = this.authService.getUserId();
         this.userIsauthenticated = isAuthenticated;
       });
+    this.form = this.fb.group({ searchTitle: [''] });
+    this.form.controls['searchTitle'].valueChanges.subscribe((searchTitle) => {
+      if (this.allGames.length > 0) {
+        if (searchTitle === '') {
+          this.games = [...this.allGames];
+        } else {
+          this.games = this.allGames.filter((game: Game) => {
+            return game.title.toLowerCase().indexOf(searchTitle) > -1;
+          });
+        }
+      }
+    });
   }
 
   openSnackBar(message: string, error: boolean) {

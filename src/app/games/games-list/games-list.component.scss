@@ -13,3 +13,15 @@
 .no-games-text {
   text-align: center;
 }
+
+.games-searchBar {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.games-searchBar > h2 {
+  padding-right: 30px;
+}

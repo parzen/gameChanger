@@ -5,8 +5,19 @@
 </div>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<div *ngIf="games.length > 0">
-  <h2>Your games</h2>
+<div *ngIf="allGames.length > 0">
+  <div class="games-searchBar">
+    <h2>Your games</h2>
+    <div class="search-bar">
+      <form [formGroup]="form">
+        <mat-form-field class="form-field" appearance="legacy">
+          <mat-label>Search title</mat-label>
+          <input matInput formControlName="searchTitle" id="searchBar" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
   <app-games-view
     [games]="games"
     [showMenu]="true"
@@ -15,6 +26,6 @@
   ></app-games-view>
 </div>
 
-<p class="mat-body-1 no-games-text" *ngIf="games.length <= 0 && !isLoading">
+<p class="mat-body-1 no-games-text" *ngIf="allGames.length <= 0 && !isLoading">
   No Games added yet!
 </p>
