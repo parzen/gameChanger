@@ -28,7 +28,7 @@ git pull
 NEW_VERSION=$(npm version ${update_type})
 cd backend
 npm version ${update_type}
-cd..
+cd ..
 git commit -am $NEW_VERSION
 git push
 git checkout release
