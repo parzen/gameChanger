@@ -21,7 +21,7 @@ describe('GamesListComponent', () => {
         ReactiveFormsModule,
         GamesRoutingModule,
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
     }).compileComponents();
   });
