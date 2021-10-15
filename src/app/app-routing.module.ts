@@ -1,3 +1,4 @@
+import { Error404Component } from './shared/components/errors/404/404.component';
 import { DatenschutzComponent } from './shared/components/footer/datenschutz/datenschutz.component';
 import { ImpressumComponent } from './shared/components/footer/impressum/impressum.component';
 import { AuthGuard } from './auth/auth.gard';
@@ -28,6 +29,7 @@ const routes: Routes = [
   },
   { path: 'impressum', component: ImpressumComponent },
   { path: 'datenschutz', component: DatenschutzComponent },
+  { path: '404', component: Error404Component },
 ];
 
 @NgModule({

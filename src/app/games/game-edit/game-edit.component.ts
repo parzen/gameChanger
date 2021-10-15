@@ -41,23 +41,28 @@ export class GameEditComponent implements OnInit {
       if (paramMap.has('id')) {
         this.gameId = paramMap.get('id');
         this.isLoading = true;
-        this.gamesService.getGame(this.gameId).subscribe((gameData) => {
-          this.isLoading = false;
+        this.gamesService.getGame(this.gameId).subscribe(
+          (gameData) => {
+            this.isLoading = false;
 
-          this.creator = gameData.creator;
-          this.form.setValue({
-            title: gameData.title,
-            imagePath: gameData.imagePath,
-            minPlayers: gameData.minPlayers,
-            maxPlayers: gameData.maxPlayers,
-            minPlayTime: gameData.minPlayTime,
-            maxPlayTime: gameData.maxPlayTime,
-            minAge: gameData.minAge,
-            note: gameData.note,
-            consider: gameData.consider,
-            gameType: gameData.gameType,
-          });
-        });
+            this.creator = gameData.creator;
+            this.form.setValue({
+              title: gameData.title,
+              imagePath: gameData.imagePath,
+              minPlayers: gameData.minPlayers,
+              maxPlayers: gameData.maxPlayers,
+              minPlayTime: gameData.minPlayTime,
+              maxPlayTime: gameData.maxPlayTime,
+              minAge: gameData.minAge,
+              note: gameData.note,
+              consider: gameData.consider,
+              gameType: gameData.gameType,
+            });
+          },
+          (err) => {
+            this.router.navigate(['/404']);
+          }
+        );
       } else {
         this.router.navigate(['/games']);
       }
