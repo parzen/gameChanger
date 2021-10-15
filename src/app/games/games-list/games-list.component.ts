@@ -56,15 +56,9 @@ export class GamesListComponent implements OnInit, OnDestroy {
       });
     this.form = this.fb.group({ searchTitle: [''] });
     this.form.controls['searchTitle'].valueChanges.subscribe((searchTitle) => {
-      if (this.allGames.length > 0) {
-        if (searchTitle === '') {
-          this.games = [...this.allGames];
-        } else {
-          this.games = this.allGames.filter((game: Game) => {
-            return game.title.toLowerCase().indexOf(searchTitle) > -1;
-          });
-        }
-      }
+      this.games = this.allGames.filter(
+        (game: Game) => game.title.toLowerCase().indexOf(searchTitle) > -1
+      );
     });
   }
 
