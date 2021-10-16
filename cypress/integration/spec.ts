@@ -107,19 +107,19 @@ describe('Pw Reset', () => {
   });
 
   it('should show an error if invalid email for request pw reset is filled in', () => {
-    cy.get('#email').type('wrong@email.d');
+    cy.get('#emailRequest').type('wrong@email.d');
     cy.get('#resetPasswordButton').click();
     cy.contains('Please enter a valid email.');
   });
 
   it('should show an error if unknown email for request pw reset is filled in', () => {
-    cy.get('#email').type('unkonwn@email.de');
+    cy.get('#emailRequest').type('unkonwn@email.de');
     cy.get('#resetPasswordButton').click();
     cy.contains('Email does not exist!');
   });
 
   it('should be possible to request new pw to email', () => {
-    cy.get('#email').type(DEMO_USER);
+    cy.get('#emailRequest').type(DEMO_USER);
     cy.get('#resetPasswordButton').click();
     cy.contains('Reset password link send to email successfully.');
   });
