@@ -1,5 +1,5 @@
 const DEMO_USER = 'test123@test123.de';
-const DEMO_PW = '123456';
+let DEMO_PW = '123456';
 
 describe('Dashboard', () => {
   beforeEach(() => {
@@ -92,6 +92,60 @@ describe('Login Module', () => {
     cy.get('#loginButton').click();
     cy.contains('Please enter a valid email');
     cy.contains('The minimal length is 6');
+  });
+});
+
+describe('Pw Reset', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    cy.get('#headerLoginButton').click();
+    cy.get('.forget-pw > a').click();
+  });
+
+  it('should be possible to link to request-reset-password', () => {
+    cy.url().should('contain', 'pw-reset/request-reset-password');
+  });
+
+  it('should show an error if invalid email for request pw reset is filled in', () => {
+    cy.get('#email').type('wrong@email.d');
+    cy.get('#resetPasswordButton').click();
+    cy.contains('Please enter a valid email.');
+  });
+
+  it('should show an error if unknown email for request pw reset is filled in', () => {
+    cy.get('#email').type('unkonwn@email.de');
+    cy.get('#resetPasswordButton').click();
+    cy.contains('Email does not exist!');
+  });
+
+  it('should be possible to request new pw to email', () => {
+    cy.get('#email').type(DEMO_USER);
+    cy.get('#resetPasswordButton').click();
+    cy.contains('Reset password link send to email successfully.');
+  });
+
+  it('should show an error if an invalid token is used', () => {
+    cy.visit('/pw-reset/response-reset-password/invalid-token');
+    cy.contains('The token is not verified!');
+  });
+
+  it('should be possible to create a new password', () => {
+    DEMO_PW = '654321';
+    cy.task('getPwResetToken', { email: DEMO_USER }).then((token) => {
+      cy.visit('/pw-reset/response-reset-password/' + token);
+      cy.get('#password').type(DEMO_PW);
+      cy.get('#resetPasswordButton').click();
+      cy.contains('Password reset successfully');
+    });
+  });
+
+  it('should be possible to login with new password', () => {
+    cy.visit('/');
+    cy.get('#headerLoginButton').click();
+    cy.get('#email').type(DEMO_USER);
+    cy.get('#password').type(DEMO_PW);
+    cy.get('#loginButton').click();
+    cy.url().should('contain', '/games/list');
   });
 });
 
@@ -247,6 +301,15 @@ describe('Game Module', () => {
     cy.contains('UNO');
     cy.contains('Taboo');
     cy.contains('Pictures');
+  });
+
+  it('should be possible to filter games', () => {
+    cy.get('#searchBar').type('no');
+    cy.get('.title-container').should('contain', 'Monopoly');
+    cy.get('.title-container').should('contain', 'UNO');
+    cy.get('.title-container').should('not.contain', 'Risk');
+    cy.get('.title-container').should('not.contain', 'Taboo');
+    cy.get('.title-container').should('not.contain', 'Pictures');
   });
 });
 

@@ -14,8 +14,8 @@ async function connect() {
 
 module.exports = async (on, config) => {
   const db = await connect();
-  const games = db.collection("games");
 
+  const games = db.collection("games");
   on("task", {
     async clearGames() {
       console.log("clear games");
@@ -32,6 +32,16 @@ module.exports = async (on, config) => {
       await users.remove({});
 
       return null;
+    },
+  });
+
+  const pwResetToken = db.collection("passwordresettokens");
+  on("task", {
+    async getPwResetToken({ email }) {
+      const user = await users.findOne({ email: email });
+      const token = await pwResetToken.findOne({ user: user._id });
+
+      return token.resetToken;
     },
   });
 };

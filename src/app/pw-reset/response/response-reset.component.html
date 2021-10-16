@@ -10,6 +10,7 @@
           formControlName="newPassword"
           required
           type="password"
+          id="password"
         />
         <mat-error
           *ngIf="
@@ -31,6 +32,7 @@
           type="submit"
           color="accent"
           [disabled]="!isVerified"
+          id="resetPasswordButton"
         >
           Reset password
         </button>

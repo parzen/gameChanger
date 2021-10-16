@@ -9,7 +9,13 @@
     <form [formGroup]="form" (ngSubmit)="requestReset()">
       <mat-form-field class="form-field" appearance="legacy">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required type="email" />
+        <input
+          matInput
+          formControlName="email"
+          required
+          type="email"
+          id="email"
+        />
         <mat-error
           *ngIf="form.controls.email.touched && form.controls.email.invalid"
         >
@@ -26,6 +32,7 @@
           mat-raised-button
           type="submit"
           color="accent"
+          id="resetPasswordButton"
         >
           Reset password
         </button>
