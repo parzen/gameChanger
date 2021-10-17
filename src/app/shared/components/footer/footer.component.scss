@@ -36,3 +36,11 @@ a {
 img {
   height: 50%;
 }
+
+.dice {
+  transition: all 1s ease-in-out;
+}
+
+.dice:hover {
+  transform: rotateZ(360deg);
+}
