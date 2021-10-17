@@ -8,7 +8,13 @@ import { AuthService } from './../../auth/auth.service';
 import { GamesService } from './../games.service';
 import { GameAddComponent } from '../game-add/game-add.component';
 import { Game } from '../../shared/interfaces/game.interface';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGameResponse } from 'src/app/shared/interfaces/addGameResponse.interface';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -25,6 +31,9 @@ export class GamesListComponent implements OnInit, OnDestroy {
   userId: string = '';
   userIsauthenticated = false;
   form: FormGroup;
+  isSearchBarOpen = false;
+  @ViewChild('searchBar') searchBar: ElementRef;
+  @ViewChild('searchBarInput') searchBarInput: ElementRef;
   private authStatusSub!: Subscription;
   private gamesSub!: Subscription;
 
@@ -118,10 +127,18 @@ export class GamesListComponent implements OnInit, OnDestroy {
   }
 
   openSearch() {
-    console.log('open it');
+    if (this.isSearchBarOpen) {
+      this.closeSearch();
+    } else {
+      this.isSearchBarOpen = true;
+      this.searchBar.nativeElement.classList.add('search-bar-active');
+      this.searchBarInput.nativeElement.focus();
+    }
   }
 
   closeSearch() {
-    console.log('close it');
+    this.isSearchBarOpen = false;
+    this.form.controls['searchTitle'].setValue('');
+    this.searchBar.nativeElement.classList.remove('search-bar-active');
   }
 }

@@ -26,9 +26,14 @@
   padding-right: 30px;
 }
 
-.searchIcon {
+.search-bar {
   display: flex;
   align-items: center;
+}
+
+#cancelIcon,
+#openIcon {
+  cursor: pointer;
 }
 
 #searchBarForm ::ng-deep.mat-form-field-infix {
@@ -37,18 +42,13 @@
   transition: all 0.5s ease-in-out;
 }
 
-#cancelIcon,
-#openIcon {
-  cursor: pointer;
-}
-
-.searchIcon #cancelIcon {
+.search-bar #cancelIcon {
   transition: all 0.5s ease-in-out;
   opacity: 0;
   display: none;
 }
 
-.searchIcon:hover {
+.search-bar-active {
   #searchBarForm::ng-deep.mat-form-field-infix {
     width: 180px;
     opacity: 1;
