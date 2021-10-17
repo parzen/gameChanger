@@ -55,11 +55,14 @@ export class GamesListComponent implements OnInit, OnDestroy {
         this.userIsauthenticated = isAuthenticated;
       });
     this.form = this.fb.group({ searchTitle: [''] });
-    this.form.controls['searchTitle'].valueChanges.subscribe((searchTitle) => {
-      this.games = this.allGames.filter(
-        (game: Game) => game.title.toLowerCase().indexOf(searchTitle) > -1
-      );
-    });
+    this.form.controls['searchTitle'].valueChanges.subscribe(
+      (searchTitle: string) => {
+        this.games = this.allGames.filter(
+          (game: Game) =>
+            game.title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1
+        );
+      }
+    );
   }
 
   openSnackBar(message: string, error: boolean) {
@@ -112,5 +115,13 @@ export class GamesListComponent implements OnInit, OnDestroy {
         );
       }
     });
+  }
+
+  openSearch() {
+    console.log('open it');
+  }
+
+  closeSearch() {
+    console.log('close it');
   }
 }
