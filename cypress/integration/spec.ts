@@ -304,6 +304,7 @@ describe('Game Module', () => {
   });
 
   it('should be possible to filter games', () => {
+    cy.get('#openIcon').click();
     cy.get('#searchBar').type('no');
     cy.get('.title-container').should('contain', 'Monopoly');
     cy.get('.title-container').should('contain', 'UNO');
