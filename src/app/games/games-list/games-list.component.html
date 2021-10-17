@@ -4,18 +4,29 @@
   </button>
 </div>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-
 <div *ngIf="allGames.length > 0">
   <div class="games-searchBar">
     <h2>Your games</h2>
     <div class="search-bar">
-      <form [formGroup]="form">
-        <mat-form-field class="form-field" appearance="legacy">
-          <mat-label>Search title</mat-label>
-          <input matInput formControlName="searchTitle" id="searchBar" />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </form>
+      <div class="searchIcon">
+        <mat-icon matSuffix id="openIcon" (click)="openSearch()"
+          >search</mat-icon
+        >
+        <form [formGroup]="form" id="searchBarForm">
+          <mat-form-field class="form-field" appearance="legacy">
+            <mat-label>Search title</mat-label>
+            <input
+              matInput
+              formControlName="searchTitle"
+              id="searchBar"
+              #searchBarInput
+            />
+            <mat-icon matSuffix id="cancelIcon" (click)="closeSearch()"
+              >close</mat-icon
+            >
+          </mat-form-field>
+        </form>
+      </div>
     </div>
   </div>
   <app-games-view

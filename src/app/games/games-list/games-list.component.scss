@@ -25,3 +25,36 @@
 .games-searchBar > h2 {
   padding-right: 30px;
 }
+
+.searchIcon {
+  display: flex;
+  align-items: center;
+}
+
+#searchBarForm ::ng-deep.mat-form-field-infix {
+  width: 0px;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#cancelIcon,
+#openIcon {
+  cursor: pointer;
+}
+
+.searchIcon #cancelIcon {
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  display: none;
+}
+
+.searchIcon:hover {
+  #searchBarForm::ng-deep.mat-form-field-infix {
+    width: 180px;
+    opacity: 1;
+  }
+  #cancelIcon {
+    opacity: 1;
+    display: block;
+  }
+}
