@@ -17,7 +17,7 @@
       (click)="setActive(game, i)"
       id="{{ 'card' + i }}"
     >
-      <div class="menu" [hidden]="!showMenu">
+      <div class="menu" *ngIf="showMenu">
         <button
           mat-icon-button
           [matMenuTriggerFor]="menu"
