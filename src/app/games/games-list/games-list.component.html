@@ -8,7 +8,13 @@
   <div class="games-searchBar">
     <h2>Your games</h2>
     <div class="search-bar" #searchBar>
-      <mat-icon matSuffix id="openIcon" (click)="openSearch()">search</mat-icon>
+      <mat-icon
+        matSuffix
+        id="openIcon"
+        (click)="openSearch()"
+        (mouseover)="openSearch()"
+        >search</mat-icon
+      >
       <form [formGroup]="form" id="searchBarForm">
         <mat-form-field class="form-field" appearance="legacy">
           <mat-label>Search title</mat-label>

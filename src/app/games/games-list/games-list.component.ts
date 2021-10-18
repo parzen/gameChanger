@@ -127,9 +127,7 @@ export class GamesListComponent implements OnInit, OnDestroy {
   }
 
   openSearch() {
-    if (this.isSearchBarOpen) {
-      this.closeSearch();
-    } else {
+    if (!this.isSearchBarOpen) {
       this.isSearchBarOpen = true;
       this.searchBar.nativeElement.classList.add('search-bar-active');
       this.searchBarInput.nativeElement.focus();
@@ -137,8 +135,10 @@ export class GamesListComponent implements OnInit, OnDestroy {
   }
 
   closeSearch() {
-    this.isSearchBarOpen = false;
-    this.form.controls['searchTitle'].setValue('');
-    this.searchBar.nativeElement.classList.remove('search-bar-active');
+    if (this.isSearchBarOpen) {
+      this.isSearchBarOpen = false;
+      this.form.controls['searchTitle'].setValue('');
+      this.searchBar.nativeElement.classList.remove('search-bar-active');
+    }
   }
 }
