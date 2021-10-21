@@ -5,8 +5,6 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-// Erster Parameter ist ein Filter, z.B. Pfad. Nur
-// dieser durchläuft die middleware
 router.get("", checkAuth, GameController.getGames);
 
 router.get("/game/:id", GameController.getGame);
