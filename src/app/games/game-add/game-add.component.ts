@@ -11,9 +11,6 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  ElementRef,
-  QueryList,
-  ViewChildren,
   OnDestroy,
 } from '@angular/core';
 import { errorMessages } from 'src/app/shared/error-messages/error-messages';
@@ -38,8 +35,6 @@ export class GameAddComponent implements OnInit, OnDestroy {
   searchTitle: string = '';
   triggerRemoveActiveClass: Subject<void> = new Subject<void>();
   private sub = new Subscription();
-
-  @ViewChildren('gamesRef') gamesRef: QueryList<ElementRef>;
 
   @Output() onSaveEmitter: EventEmitter<AddGameResponse> =
     new EventEmitter<AddGameResponse>();

@@ -16,6 +16,8 @@
       class="card"
       (click)="setActive(game, i)"
       id="{{ 'card' + i }}"
+      [ngClass]="animateit ? 'game-appear' : ''"
+      [ngStyle]="{ 'animation-delay': i * 50 + 'ms' }"
     >
       <div class="menu" *ngIf="showMenu">
         <button

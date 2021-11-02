@@ -62,3 +62,19 @@ a:hover {
 a:active {
   color: #3f51ae;
 }
+
+@keyframes appear {
+  0% {
+    transform: translateY(-5%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.game-appear {
+  opacity: 0;
+  animation: appear 0.5s ease-in forwards;
+}

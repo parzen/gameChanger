@@ -34,18 +34,3 @@ button {
     flex-wrap: wrap;
   }
 }
-
-.game-appear {
-  animation: appear 1s ease-in;
-}
-
-@keyframes appear {
-  0% {
-    transform: translateY(-5%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}

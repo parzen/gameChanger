@@ -100,8 +100,10 @@
       <h3>Selected game:</h3>
     </div>
     <ng-template #elseBlock><h3>Games List:</h3></ng-template>
-    <div class="game-appear">
-      <app-games-view [games]="games" [sortit]="true"></app-games-view>
-    </div>
+    <app-games-view
+      [games]="games"
+      [sortit]="true"
+      [animateit]="true"
+    ></app-games-view>
   </div>
 </div>
