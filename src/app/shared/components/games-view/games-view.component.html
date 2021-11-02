@@ -13,10 +13,9 @@
   >
     <div
       [ngClass]="canBeActivated ? 'card-clickable' : ''"
-      class="card"
+      class="card game-appear"
       (click)="setActive(game, i)"
       id="{{ 'card' + i }}"
-      [ngClass]="animateit ? 'game-appear' : ''"
       [ngStyle]="{ 'animation-delay': i * 50 + 'ms' }"
     >
       <div class="menu" *ngIf="showMenu">

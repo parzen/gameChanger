@@ -33,9 +33,6 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   @Input()
   canBeActivated: boolean = false;
 
-  @Input()
-  animateit: boolean = false;
-
   @Input() triggerRemoveActiveClassObservable: Observable<void>;
 
   @Output()
