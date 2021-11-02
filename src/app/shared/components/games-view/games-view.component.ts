@@ -73,8 +73,13 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   }
 
   toggleNote(i) {
+    let index = 0;
+    if (this.showMenu) {
+      index = 1;
+    }
     const noteElement =
-      this.gamesRef.get(i).nativeElement.children[0].children[1].children[3];
+      this.gamesRef.get(i).nativeElement.children[0].children[index]
+        .children[3];
     if (noteElement) {
       const textAndMore = noteElement.children[1];
       const noteText = textAndMore.children[0];
