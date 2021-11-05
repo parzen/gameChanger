@@ -78,7 +78,7 @@ export class GamesViewComponent implements OnInit, OnDestroy {
       index = 1;
     }
     const noteElement =
-      this.gamesRef.get(i).nativeElement.children[0].children[index]
+      this.gamesRef.get(i).nativeElement.children[0].children[0].children[index]
         .children[3];
     if (noteElement) {
       const textAndMore = noteElement.children[1];
@@ -122,7 +122,9 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   setActive(game, i) {
     if (this.canBeActivated) {
       this.removeActiveClass();
-      this.gamesRef.get(i).nativeElement.classList.add('active');
+      this.gamesRef
+        .get(i)
+        .nativeElement.children[0].children[0].classList.add('active');
 
       this.returnActiveGame.emit(game);
     }
@@ -131,7 +133,7 @@ export class GamesViewComponent implements OnInit, OnDestroy {
   removeActiveClass() {
     if (this.canBeActivated) {
       this.gamesRef.forEach((game) => {
-        game.nativeElement.classList.remove('active');
+        game.nativeElement.children[0].children[0].classList.remove('active');
       });
 
       this.activeClassRemoved.emit();
