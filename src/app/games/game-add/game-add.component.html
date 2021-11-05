@@ -46,7 +46,6 @@
         <div *ngIf="games.length > 0">
           <app-games-view
             [games]="games"
-            [useActiveCards]="true"
             [canBeActivated]="true"
             [triggerRemoveActiveClassObservable]="
               triggerRemoveActiveClass.asObservable()
