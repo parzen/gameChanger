@@ -164,7 +164,7 @@ describe('Game Module', () => {
     cy.get('#addGameButton').click();
     cy.get('#title').type('Risk');
     cy.get('#search-button').click();
-    cy.get(':nth-child(5) > .card').click();
+    cy.get('.grid-container :nth-child(5)').click();
     cy.get('#saveAndCloseButton').click();
     cy.contains('Game added successfully');
     cy.contains('Risk');
@@ -174,7 +174,7 @@ describe('Game Module', () => {
     cy.get('#addGameButton').click();
     cy.get('#title').type('Risk');
     cy.get('#search-button').click();
-    cy.get(':nth-child(5) > .card').click();
+    cy.get('.grid-container :nth-child(5)').click();
     cy.get('#saveAndCloseButton').click();
     cy.contains('Adding a game failed!');
   });
