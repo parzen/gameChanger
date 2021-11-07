@@ -1,12 +1,6 @@
 import { errorMessages } from 'src/app/shared/error-messages/error-messages';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  Validators,
-  FormControl,
-  FormBuilder,
-  EmailValidator,
-} from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PwResetService } from '../pw-reset.service';
 import { Router } from '@angular/router';
 import { emailValidator } from 'src/app/shared/validators/email.validator';
@@ -15,7 +9,7 @@ import { validateAllFormFields } from 'src/app/shared/validators/validate-all-fo
 @Component({
   selector: 'app-request-reset',
   templateUrl: './request-reset.component.html',
-  styleUrls: ['./request-reset.component.scss'],
+  styleUrls: ['../pw-reset.scss', './request-reset.component.scss'],
 })
 export class RequestResetComponent implements OnInit {
   form: FormGroup;

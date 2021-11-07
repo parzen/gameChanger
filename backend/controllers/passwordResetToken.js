@@ -30,7 +30,7 @@ module.exports = {
         .exec();
       res.status(200).json({ message: "Reset Password successfully." });
       var transporter = nodemailer.createTransport({
-        service: "Gmail",
+        host: "smtp.strato.de",
         port: 465,
         auth: {
           user: process.env.MAIL_AD,
